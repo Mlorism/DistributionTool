@@ -32,7 +32,10 @@ namespace DistributionTool.ViewModels
 			Tabs = new ObservableCollection<ITab>()
 			{
 				new LoginViewModel(),
-				new ProductsViewModel()
+				new ProductsViewModel(),
+				new DistributionViewModel(),
+				new SummaryViewModel(),
+				new SettingsViewModel()
 			};
 		} // LoadTabs() method load specific tabs to the collection
 		#endregion
