@@ -6,11 +6,35 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:DistributionTool"
     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:inter="clr-namespace:DistributionTool.Interfaces"
+    xmlns:Pages="clr-namespace:DistributionTool.Views"
+    xmlns:VMod="clr-namespace:DistributionTool.ViewModels"
+    
     mc:Ignorable="d"
     Title="MainWindow" 
     Height="450" 
     Width="800">
     <Grid>
-        
+        <TabControl
+                    ItemsSource="{Binding Tabs}"
+                    SelectedItem="0">
+            
+            <TabControl.Resources>
+                <DataTemplate DataType="{x:Type VMod:LoginViewModel}">
+                    <Pages:LoginView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type VMod:ProductsViewModel}">
+                    <Pages:ProductsView/>
+                </DataTemplate>                
+            </TabControl.Resources>
+
+            <TabControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type inter:ITab}">
+                    <TextBlock>
+                        <Run Text="{Binding TabName}"/>
+                    </TextBlock>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+        </TabControl>
     </Grid>
 </Controls:MetroWindow>

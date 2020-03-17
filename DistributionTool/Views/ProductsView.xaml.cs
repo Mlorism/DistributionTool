@@ -14,17 +14,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DistributionTool
+namespace DistributionTool.Views
 {
 	/// <summary>
-	/// Interaction logic for MainWindow.xaml
+	/// Interaction logic for ProductsView.xaml
 	/// </summary>
-	public partial class MainWindow
+	public partial class ProductsView : UserControl
 	{
-		public MainWindow()
+		public ProductsView()
 		{
 			InitializeComponent();
-			DataContext = new MainWindowViewModel();
+			DataContext = new ProductsViewModel();
 		}
 	}
 }
