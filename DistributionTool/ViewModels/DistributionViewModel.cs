@@ -7,13 +7,15 @@ using System.Threading.Tasks;
 
 namespace DistributionTool.ViewModels
 {
-	class ProductsViewModel : BaseViewModel, ITab
+	class DistributionViewModel : BaseViewModel, ITab
 	{
+
 		#region Constructor
-		public ProductsViewModel()
+		public DistributionViewModel()
 		{
-			TabName = "Products";
+			TabName = "Distribution";
 		}
 		#endregion
+
 	}
 }

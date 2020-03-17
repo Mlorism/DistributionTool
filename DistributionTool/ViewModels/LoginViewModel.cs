@@ -45,7 +45,7 @@ namespace DistributionTool.ViewModels
 		#region Constructor
 		public LoginViewModel()
 		{
-			TabName = "LoginPage";
+			TabName = "Login";
 		}
 		#endregion
 
