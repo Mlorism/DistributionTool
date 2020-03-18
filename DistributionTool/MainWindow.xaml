@@ -6,19 +6,31 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:DistributionTool"
     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:inter="clr-namespace:DistributionTool.Interfaces"
     xmlns:Pages="clr-namespace:DistributionTool.Views"
     xmlns:VMod="clr-namespace:DistributionTool.ViewModels"
     
     mc:Ignorable="d"
-    Title="MainWindow" 
+    Title="DistributionTool" 
+    TitleCharacterCasing="Normal"
+    WindowState="Maximized"
     Height="450" 
     Width="800">
-    
+
+    <Controls:MetroWindow.IconTemplate>
+        <DataTemplate>
+            <iconPacks:PackIconRPGAwesome Width="30"
+                                          Height="30"
+                                          Margin="0"
+                                          Kind="Honeycomb" />
+        </DataTemplate>
+    </Controls:MetroWindow.IconTemplate>
+
     <Grid>
-        <StackPanel HorizontalAlignment="Center">
+        <StackPanel Grid.Column="0">
             <TabControl ItemsSource="{Binding Tabs}"
-                        SelectedItem="0">
+                        SelectedIndex="0">
                 <TabControl.Resources>
                     <DataTemplate DataType="{x:Type VMod:LoginViewModel}">
                         <Pages:LoginView />
@@ -45,6 +57,8 @@
                     </DataTemplate>
                 </TabControl.ItemTemplate>
             </TabControl>
-        </StackPanel>        
+        </StackPanel>
+           
+               
     </Grid>
 </Controls:MetroWindow>

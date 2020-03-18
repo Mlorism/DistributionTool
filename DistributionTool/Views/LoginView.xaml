@@ -4,11 +4,73 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DistributionTool.Views"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock Text="User Login"/>
-        </StackPanel>  
+        <StackPanel VerticalAlignment="Center">
+            <Border Background="White"
+                    Height="300"
+                    Width="300"
+                    BorderBrush="LightGray"
+                    BorderThickness="1">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <iconPacks:PackIconRPGAwesome Kind="Honeycomb"
+                                                  HorizontalAlignment="Center"
+                                                  Width="60"
+                                                  Height="60"
+                                                  Margin="10" />
+                    <TextBlock HorizontalAlignment="Center"
+                               Text="DistributionTool"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               Margin="5" />
+
+                    <Grid Width="200">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBox Grid.Column="0"
+                                 Margin="5"                                 
+                                 TextAlignment="Left" 
+                                 FontSize="15"/>
+                        <iconPacks:PackIconMaterial Grid.Column="1" 
+                                                    Kind="AccountTie" 
+                                                    Width="20"
+                                                    Height="20"
+                                                    VerticalAlignment="Center"/>
+                    </Grid>
+
+                    <Grid Width="200">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        
+                        <PasswordBox Grid.Column="0"
+                                     Margin="5"                                     
+                                     HorizontalContentAlignment="Left"
+                                     FontSize="15"
+                                     Style="{StaticResource Win8MetroPasswordBox}" />
+                        <iconPacks:PackIconMaterial Grid.Column="1"
+                                                    Kind="Key"
+                                                    Width="20"
+                                                    Height="20"
+                                                    VerticalAlignment="Center" />
+                    </Grid>                   
+                   
+                    <Button Content="LOGIN"
+                            Width="80"
+                            metro:ControlsHelper.ContentCharacterCasing="Normal"
+                            Margin="5"
+                            Style="{StaticResource AccentedSquareButtonStyle}" />
+                </StackPanel>
+            </Border>
+        </StackPanel>       
     </Grid>
+    
+    
 </UserControl>

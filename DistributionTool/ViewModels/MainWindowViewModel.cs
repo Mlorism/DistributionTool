@@ -22,12 +22,12 @@ namespace DistributionTool.ViewModels
 		#region Constructor
 		public MainWindowViewModel()
 		{
-			LoadTabs();
+			LoadLoginPage();
 		}
 		#endregion
 
 		#region Methods
-		public static void LoadTabs()
+		public static void LoadLoginPage()
 		{
 			Tabs = new ObservableCollection<ITab>()
 			{
@@ -40,4 +40,9 @@ namespace DistributionTool.ViewModels
 		} // LoadTabs() method load specific tabs to the collection
 		#endregion
 	}
+
+				// new ProductsViewModel(),
+				// new DistributionViewModel(),
+				// new SummaryViewModel(),
+				// new SettingsViewModel()
 }
