@@ -40,6 +40,7 @@ namespace DistributionTool.ViewModels
 		{
 			Tabs = new ObservableCollection<ITab>()
 			{
+				new AdminViewModel(),
 				new ProductsViewModel(),
 				new DistributionViewModel(),
 				new SummaryViewModel(),

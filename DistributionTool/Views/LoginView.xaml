@@ -6,10 +6,10 @@
              xmlns:local="clr-namespace:DistributionTool.Views"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
-             mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d">
+    
     <Grid>
-        <StackPanel>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
             <Border Background="White"
                     Height="300"
                     Width="300"

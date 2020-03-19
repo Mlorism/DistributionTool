@@ -38,6 +38,9 @@
                     <DataTemplate DataType="{x:Type VMod:LoginViewModel}">
                         <Pages:LoginView />
                     </DataTemplate>
+                    <DataTemplate DataType="{x:Type VMod:AdminViewModel}">
+                        <Pages:AdminView />
+                    </DataTemplate>
                     <DataTemplate DataType="{x:Type VMod:ProductsViewModel}">
                         <Pages:ProductsView />
                     </DataTemplate>
