@@ -9,14 +9,11 @@
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:inter="clr-namespace:DistributionTool.Interfaces"
     xmlns:Pages="clr-namespace:DistributionTool.Views"
-    xmlns:VMod="clr-namespace:DistributionTool.ViewModels"
-    
+    xmlns:VMod="clr-namespace:DistributionTool.ViewModels"    
     mc:Ignorable="d"
     Title="DistributionTool" 
     TitleCharacterCasing="Normal"
-    WindowState="Maximized"
-    Height="450" 
-    Width="800">
+    WindowState="Maximized">
 
     <Controls:MetroWindow.IconTemplate>
         <DataTemplate>
@@ -28,10 +25,16 @@
     </Controls:MetroWindow.IconTemplate>
 
     <Grid>
-        <StackPanel Grid.Column="0">
+        <StackPanel>
             <TabControl ItemsSource="{Binding Tabs}"
                         SelectedIndex="0">
                 <TabControl.Resources>
+
+                    <Style TargetType="{x:Type TabPanel}">
+                        <Setter Property="HorizontalAlignment"
+                                Value="Center" />
+                    </Style>
+
                     <DataTemplate DataType="{x:Type VMod:LoginViewModel}">
                         <Pages:LoginView />
                     </DataTemplate>
@@ -58,7 +61,5 @@
                 </TabControl.ItemTemplate>
             </TabControl>
         </StackPanel>
-           
-               
     </Grid>
 </Controls:MetroWindow>

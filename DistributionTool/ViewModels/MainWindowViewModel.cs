@@ -31,13 +31,24 @@ namespace DistributionTool.ViewModels
 		{
 			Tabs = new ObservableCollection<ITab>()
 			{
-				new LoginViewModel(),
+				new LoginViewModel()
+
+			};
+		} // LoadTabs() method loads login page to the tab collection
+
+		public static void LoadTabs()
+		{
+			Tabs = new ObservableCollection<ITab>()
+			{
 				new ProductsViewModel(),
 				new DistributionViewModel(),
 				new SummaryViewModel(),
 				new SettingsViewModel()
 			};
-		} // LoadTabs() method load specific tabs to the collection
+
+		} // LoadTabs() method loads specific tabs to the collection
+
+
 		#endregion
 	}
 
