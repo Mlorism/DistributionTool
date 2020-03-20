@@ -45,8 +45,7 @@ namespace DistributionTool.ViewModels
 
 		public static void LoadTabs()
 		{
-			Tabs.Clear();
-			Tabs.Add(new AdminViewModel());
+			Tabs.Clear();			
 			Tabs.Add(new AdminViewModel());
 			Tabs.Add(new ProductsViewModel());
 			Tabs.Add(new DistributionViewModel());
