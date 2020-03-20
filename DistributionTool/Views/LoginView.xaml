@@ -6,21 +6,30 @@
              xmlns:local="clr-namespace:DistributionTool.Views"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
-             mc:Ignorable="d">
-    
-    <Grid>
-        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-            <Border Background="White"
-                    Height="300"
+             mc:Ignorable="d">  
+
+
+    <Grid Background="LightBlue" 
+          VerticalAlignment="Center"
+          HorizontalAlignment="Center">
+         
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions> 
+        
+            <Border Height="300"
                     Width="300"
+                    Grid.Row="2"
                     BorderBrush="LightGray"
                     BorderThickness="1">
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel HorizontalAlignment="Center">
                     <iconPacks:PackIconRPGAwesome Kind="Honeycomb"
                                                   HorizontalAlignment="Center"
                                                   Width="60"
                                                   Height="60"
-                                                  Margin="10" />
+                                                  Margin="0, 0, 0, 0"/>
                     <TextBlock HorizontalAlignment="Center"
                                Text="DistributionTool"
                                FontSize="20"
@@ -32,8 +41,10 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
-                        
-                        <TextBox Grid.Column="0"
+
+                        <TextBox Text="{Binding UserName, 
+                                        UpdateSourceTrigger=PropertyChanged}"
+                                 Grid.Column="0"
                                  Margin="5"                                 
                                  TextAlignment="Left" 
                                  FontSize="15"/>
@@ -50,7 +61,8 @@
                             <ColumnDefinition Width="auto" />
                         </Grid.ColumnDefinitions>
                         
-                        <PasswordBox Grid.Column="0"
+                        <PasswordBox Name="passwordText"                                    
+                                     Grid.Column="0"
                                      Margin="5"                                     
                                      HorizontalContentAlignment="Left"
                                      FontSize="15"
@@ -66,10 +78,12 @@
                             Width="80"
                             metro:ControlsHelper.ContentCharacterCasing="Normal"
                             Margin="5"
-                            Style="{StaticResource AccentedSquareButtonStyle}" />
+                            Style="{StaticResource AccentedSquareButtonStyle}"
+                            Command="{Binding LoginCommand}"
+                            CommandParameter="{Binding ElementName=passwordText}"/>
                 </StackPanel>
             </Border>
-        </StackPanel>       
+           
     </Grid>
     
     

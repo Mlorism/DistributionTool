@@ -5,12 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace DistributionTool.ViewModels
 {
 	class LoginViewModel : BaseViewModel
 	{
 		#region Commands	
+
+		public RelayCommand LoginCommand { get; private set; }
+
 
 		#endregion
 
@@ -46,22 +50,33 @@ namespace DistributionTool.ViewModels
 		public LoginViewModel()
 		{
 			TabName = "Login";
+			UserName = "";
+			Password = "";
+
+			LoginCommand = new RelayCommand(LogInAction, LogInActionValidation);
 		}
 		#endregion
 
 		#region Methods
-		public static bool LogInAction(string name, string password)
+		public static void LogInAction(object x)
 		{
-			if (context.Users.FirstOrDefault(u => u.Name == name) is User user)
-			{
-				return true;
-			} // User name exist in database
 
-			else
-			{
-				return false;
-			} // There is no user with that name
+			MainWindowViewModel.LoadTabs();
 		}
 		#endregion
+
+		#region Methods validation
+
+		public bool LogInActionValidation(object parameter)
+		{
+			PasswordBox boxPassword = parameter as PasswordBox;
+			string password = boxPassword.Password;
+			
+			if (UserName != null & UserName.Length > 4 & password != null & password.Length > 4) return true;
+			else return false;
+		}
+
+		#endregion
+
 	}
 }

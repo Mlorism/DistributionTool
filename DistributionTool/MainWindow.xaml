@@ -29,12 +29,10 @@
             <TabControl ItemsSource="{Binding Tabs}"
                         SelectedIndex="0">
                 <TabControl.Resources>
-
                     <Style TargetType="{x:Type TabPanel}">
                         <Setter Property="HorizontalAlignment"
                                 Value="Center" />
                     </Style>
-
                     <DataTemplate DataType="{x:Type VMod:LoginViewModel}">
                         <Pages:LoginView />
                     </DataTemplate>
@@ -58,7 +56,7 @@
                 <TabControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type inter:ITab}">
                         <TextBlock>
-                        <Run Text="{Binding TabName}" />
+                            <Run Text="{Binding TabName}" />
                         </TextBlock>
                     </DataTemplate>
                 </TabControl.ItemTemplate>

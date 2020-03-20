@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace DistributionTool.ViewModels
 {
@@ -17,6 +19,7 @@ namespace DistributionTool.ViewModels
 		#region Properties	
 		public static ICollection<ITab> Tabs { get; set; }
 		//Tabs containing ViewModels to be loaded according to user's permissions
+		public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
 		#endregion
 
 		#region Constructor
@@ -27,6 +30,10 @@ namespace DistributionTool.ViewModels
 		#endregion
 
 		#region Methods
+		public static void RaiseStaticPropertyChanged (string PropertyName)
+		{
+			StaticPropertyChanged?.Invoke(null, new PropertyChangedEventArgs(PropertyName));
+		}
 		public static void LoadLoginPage()
 		{
 			Tabs = new ObservableCollection<ITab>()
@@ -38,15 +45,18 @@ namespace DistributionTool.ViewModels
 
 		public static void LoadTabs()
 		{
+			Tabs.Clear();
 			Tabs = new ObservableCollection<ITab>()
 			{
 				new AdminViewModel(),
 				new ProductsViewModel(),
 				new DistributionViewModel(),
 				new SummaryViewModel(),
-				new SettingsViewModel()
+				new SettingsViewModel()				
 			};
 
+			RaiseStaticPropertyChanged("Tabs");
+			
 		} // LoadTabs() method loads specific tabs to the collection
 
 
