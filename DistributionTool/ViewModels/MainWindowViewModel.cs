@@ -46,25 +46,18 @@ namespace DistributionTool.ViewModels
 		public static void LoadTabs()
 		{
 			Tabs.Clear();
-			Tabs = new ObservableCollection<ITab>()
-			{
-				new AdminViewModel(),
-				new ProductsViewModel(),
-				new DistributionViewModel(),
-				new SummaryViewModel(),
-				new SettingsViewModel()				
-			};
+			Tabs.Add(new AdminViewModel());
+			Tabs.Add(new AdminViewModel());
+			Tabs.Add(new ProductsViewModel());
+			Tabs.Add(new DistributionViewModel());
+			Tabs.Add(new SummaryViewModel());
+			Tabs.Add(new SettingsViewModel());
 
 			RaiseStaticPropertyChanged("Tabs");
 			
 		} // LoadTabs() method loads specific tabs to the collection
-
-
+		
 		#endregion
 	}
 
-				// new ProductsViewModel(),
-				// new DistributionViewModel(),
-				// new SummaryViewModel(),
-				// new SettingsViewModel()
 }

@@ -9,7 +9,7 @@
              mc:Ignorable="d">  
 
 
-    <Grid Background="LightBlue" 
+    <Grid Background="White" 
           VerticalAlignment="Center"
           HorizontalAlignment="Center">
          
@@ -23,36 +23,41 @@
                     Width="300"
                     Grid.Row="2"
                     BorderBrush="LightGray"
-                    BorderThickness="1">
+                    BorderThickness="1.5">
                 <StackPanel HorizontalAlignment="Center">
                     <iconPacks:PackIconRPGAwesome Kind="Honeycomb"
                                                   HorizontalAlignment="Center"
                                                   Width="60"
                                                   Height="60"
-                                                  Margin="0, 0, 0, 0"/>
+                                                  Margin="0, 20, 0, 0"/>
                     <TextBlock HorizontalAlignment="Center"
                                Text="DistributionTool"
                                FontSize="20"
                                FontWeight="Bold"
-                               Margin="5" />
+                               Margin="0, 0, 0, 50" />
 
-                    <Grid Width="200">
+                    <Grid Width="200"
+                      FocusManager.FocusedElement="{Binding ElementName=usernameBox}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBox Text="{Binding UserName, 
+                        <TextBox Name="usernameBox"
+                                 Text="{Binding UserName, 
                                         UpdateSourceTrigger=PropertyChanged}"
                                  Grid.Column="0"
                                  Margin="5"                                 
                                  TextAlignment="Left" 
-                                 FontSize="15"/>
+                                 FontSize="15"
+                                 Background="WhiteSmoke"
+                                 ToolTip="Username"/>
                         <iconPacks:PackIconMaterial Grid.Column="1" 
                                                     Kind="AccountTie" 
                                                     Width="20"
                                                     Height="20"
-                                                    VerticalAlignment="Center"/>
+                                                    VerticalAlignment="Center"
+                                                    ToolTip="Username"/>
                     </Grid>
 
                     <Grid Width="200">
@@ -66,12 +71,15 @@
                                      Margin="5"                                     
                                      HorizontalContentAlignment="Left"
                                      FontSize="15"
-                                     Style="{StaticResource Win8MetroPasswordBox}" />
+                                     Style="{StaticResource Win8MetroPasswordBox}"
+                                 Background="WhiteSmoke"
+                                 ToolTip="Password"/>
                         <iconPacks:PackIconMaterial Grid.Column="1"
                                                     Kind="Key"
                                                     Width="20"
                                                     Height="20"
-                                                    VerticalAlignment="Center" />
+                                                    VerticalAlignment="Center" 
+                                                    ToolTip="Password"/>
                     </Grid>                   
                    
                     <Button Content="LOGIN"
