@@ -38,8 +38,8 @@ namespace DistributionTool.ViewModels
 		{
 			Tabs = new ObservableCollection<ITab>()
 			{
-				new LoginViewModel()
-
+				//new LoginViewModel(),
+				new AdminViewModel()
 			};
 		} // LoadTabs() method loads login page to the tab collection
 
