@@ -15,12 +15,30 @@ namespace DistributionTool.ViewModels
 {
 	class AdminViewModel : BaseViewModel, ITab
 	{
+		#region Commands
+		public RelayCommand ChoseCurrentUserCommand { get; private set; }
+		#endregion
+
 		#region Properties
 		/// <summary>
 		/// Filter on UserList
 		/// </summary>		
 
-		public User defaultUser = new User();
+		//public User currentUser = new User();
+		public User CurrentUser 
+		{ 
+			get
+			{
+				return currentUser;
+			}
+
+			set
+			{
+				currentUser = value;
+			}
+		}
+		private User currentUser;
+		
 		private string findUserText;
 
 		public string FindUserText
@@ -32,8 +50,7 @@ namespace DistributionTool.ViewModels
 				FilterList();				
 			}
 		}
-
-
+		
 		public ICollectionView userFilteredList { get; set; }
 		#endregion
 
@@ -44,17 +61,25 @@ namespace DistributionTool.ViewModels
 
 			var usersSourceList = new CollectionViewSource() { Source = UsersListViewModel.Instance.UsersList };
 			userFilteredList = usersSourceList.View;
+			CurrentUser = UsersListViewModel.Instance.UsersList.FirstOrDefault(x => x.Id == 2);
 
+
+			ChoseCurrentUserCommand = new RelayCommand(ChoseCurrentUser, null);
 		}
 		#endregion
 
 		#region Methods
 		private void FilterList()
 		{
-			Predicate<object> Filter = new Predicate<object>(item => ((User)item).Name.ToLower().Contains(FindUserText.ToLower()));
-			// Predicate<object> Filter = new Predicate<object>(item => ((User)item).Name.ToLower().Contains(FindUserText.ToLower()));
+			Predicate<object> Filter = new Predicate<object>(item => ((User)item).Name.ToLower().Contains(FindUserText.ToLower()));			
 			userFilteredList.Filter = Filter;
 			OnPropertyChange("userFilteredList");
+		}
+
+		public void ChoseCurrentUser(Object user)
+		{
+			CurrentUser = UsersListViewModel.Instance.UsersList.FirstOrDefault(x => x.Id == ((User)user).Id);
+			OnPropertyChange("CurrentUser");
 		}
 		#endregion
 

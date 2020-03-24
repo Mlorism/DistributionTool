@@ -21,10 +21,13 @@ namespace DistributionTool.Views
 	/// </summary>
 	public partial class AdminView : UserControl
 	{
+		
 		public AdminView()
 		{
 			InitializeComponent();
 			DataContext = new AdminViewModel();
+			
 		}
+				
 	}
 }
