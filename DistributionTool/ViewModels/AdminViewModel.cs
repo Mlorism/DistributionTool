@@ -61,9 +61,10 @@ namespace DistributionTool.ViewModels
 
 			var usersSourceList = new CollectionViewSource() { Source = UsersListViewModel.Instance.UsersList };
 			userFilteredList = usersSourceList.View;
-			CurrentUser = UsersListViewModel.Instance.UsersList.FirstOrDefault(x => x.Id == 2);
 
-
+			CurrentUser = new User();
+			ChoseCurrentUser(UsersListViewModel.Instance.UsersList.FirstOrDefault(x => x.Id == 1));			
+						
 			ChoseCurrentUserCommand = new RelayCommand(ChoseCurrentUser, null);
 		}
 		#endregion
@@ -78,7 +79,13 @@ namespace DistributionTool.ViewModels
 
 		public void ChoseCurrentUser(Object user)
 		{
-			CurrentUser = UsersListViewModel.Instance.UsersList.FirstOrDefault(x => x.Id == ((User)user).Id);
+			User tempUser = UsersListViewModel.Instance.UsersList.FirstOrDefault(x => x.Id == ((User)user).Id);
+
+			CurrentUser.Id = tempUser.Id;
+			CurrentUser.Name = tempUser.Name;
+			CurrentUser.Type = tempUser.Type;
+			CurrentUser.AccountActive = tempUser.AccountActive;
+
 			OnPropertyChange("CurrentUser");
 		}
 		#endregion

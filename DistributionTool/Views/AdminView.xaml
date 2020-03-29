@@ -4,25 +4,36 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:local="clr-namespace:DistributionTool.Views"
              xmlns:lists="clr-namespace:DistributionTool.ViewModels.Lists"
+             xmlns:enums="clr-namespace:DistributionTool.Enumerators"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-
+    <!--#region Resources-->
     <UserControl.Resources>
+        <ObjectDataProvider x:Key="UserType"
+                            MethodName="GetValues"
+                            ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enums:UserType" />
+            </ObjectDataProvider.MethodParameters>
+            
+        </ObjectDataProvider>
         <SolidColorBrush x:Key="columnColor"
                          Color="#3300ABA9" />      
     </UserControl.Resources>
-    
+    <!--endregion-->
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>        
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Border x:Name="userListSection"
-                Grid.Column="0"
+        <!--#region user list section-->
+        <Border Grid.Column="0"
                 BorderBrush="LightGray"
                 BorderThickness="1">
             
@@ -89,54 +100,92 @@
                                 
             </Grid>
         </Border>
+        <!--#endregion-->
         
-        <Grid x:Name="userProfilSection"
-              Grid.Column="1">
+        <!--#region User profile section-->
+        <Grid Grid.Column="1"
+              Background="White">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" 
-                       Text="User profile:"
+            <TextBlock Grid.Row="0"
+                       Margin="10"
+                       HorizontalAlignment="Center"
+                       Text="User profile"
                        FontSize="20"
                        FontWeight="Bold" />
-
-            <StackPanel Orientation="Horizontal" 
+            
+            <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center"
                         Grid.Row="1">
-                <StackPanel Margin="10">
-                    <TextBlock Text="Id" 
-                               FontSize="20"
-                               FontWeight="Bold"/>
-                    <TextBlock Text="{Binding CurrentUser.Id}"
-                               FontSize="20"/>
-                </StackPanel>
-                <StackPanel Margin="10">
-                    <TextBlock Text="Name"
-                               FontSize="20"
-                               FontWeight="Bold" />
-                    <TextBox Text="{Binding CurrentUser.Name}"
-                             FontSize="20"/>
-                </StackPanel>
-                <StackPanel Margin="10">
-                    <TextBlock Text="User type"
-                               FontSize="20"
-                               FontWeight="Bold" />
-                    <TextBlock Text="{Binding CurrentUser.Type}"
-                               FontSize="20"/>
-                </StackPanel>
-                <StackPanel Margin="10">
-                    <TextBlock Text="Active account"
-                               FontSize="20"
-                               FontWeight="Bold" />
-                    <TextBlock Text="{Binding CurrentUser.AccountActive}"
-                               FontSize="20"/>
-                </StackPanel>
+                <Border BorderThickness="1"
+                        BorderBrush="Black">
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center">
+                        <!--#region User data StackPanel-->
+                        <StackPanel Width="180"
+                                    Margin="15">
+                            <StackPanel Margin="10">
+                                <TextBlock Text="User Id"
+                                           FontSize="15"
+                                           FontWeight="Bold" />
+                                <TextBlock Text="{Binding CurrentUser.Id}"
+                                           FontSize="15"
+                                           Margin="0 5 0 0" />
+                            </StackPanel>
+                            <StackPanel Margin="10">
+                                <TextBlock Text="Name"
+                                           FontSize="15"
+                                           FontWeight="Bold" />
+                                <TextBox Text="{Binding CurrentUser.Name}"
+                                         FontSize="15"
+                                         Margin="0 5 0 0" />
+                            </StackPanel>
+                            <StackPanel Margin="10">
+                                <TextBlock Text="User type"
+                                           FontSize="15"
+                                           FontWeight="Bold" />
+                                <ComboBox ItemsSource="{Binding Source={StaticResource UserType}}"
+                                          SelectedValue="{Binding CurrentUser.Type}"
+                                          Margin="0 5 0 0" />
+                            </StackPanel>
+                            <StackPanel Margin="10">
+                                <TextBlock Text="Account active"
+                                           FontSize="15"
+                                           FontWeight="Bold" />
+                                <CheckBox  IsChecked="{Binding CurrentUser.AccountActive}"
+                                           Margin="0 5 0 0" />
+                            </StackPanel>
+                        </StackPanel>
+                        <!--#endregion-->
+                        <!--#region buttons-->
+                        <StackPanel Margin="15"
+                                    Width="auto">
+                            <Button Content="New User"
+                                    Margin="10 10 10 0"
+                                    Style="{StaticResource AccentedSquareButtonStyle}"
+                                    Command="{Binding  ClearDataCommand}" />
+                            <Button Content="Save User"
+                                    Margin="10 10 10 0"
+                                    Style="{StaticResource SquareButtonStyle}"
+                                    Command="{Binding SaveUserCommand}" />
+                            <Button Content="delete user"
+                                    Margin="10 10 10 0"
+                                    Style="{StaticResource SquareButtonStyle}"
+                                    Command="{Binding DeleteUserCommand}" />
+                        </StackPanel>
+                        <!--#endregion-->
+                    </StackPanel>
+                </Border>
 
-            </StackPanel>            
+                    
+                </StackPanel>
+            
+            
         </Grid>
-        
+        <!--#endregion-->
         
     </Grid>
     
