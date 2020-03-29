@@ -1,4 +1,5 @@
 ﻿using DistributionTool.Interfaces;
+using DistributionTool.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,7 +19,23 @@ namespace DistributionTool.ViewModels
 
 		#region Properties	
 		public static ICollection<ITab> Tabs { get; set; }
-		//Tabs containing ViewModels to be loaded according to user's permissions
+		/// <summary>
+		/// Tabs containing ViewModels to be loaded according to user's permissions
+		/// </summary>
+
+		private static ApplicationDbContext context = new ApplicationDbContext();
+
+		public static ApplicationDbContext Context 
+		{
+			get
+			{
+				return context;
+				///implement try catch 
+			}
+
+			set => context = value;
+		}
+
 		public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
 		#endregion
 

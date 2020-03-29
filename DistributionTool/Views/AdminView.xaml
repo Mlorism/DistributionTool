@@ -9,6 +9,7 @@
              xmlns:local="clr-namespace:DistributionTool.Views"
              xmlns:lists="clr-namespace:DistributionTool.ViewModels.Lists"
              xmlns:enums="clr-namespace:DistributionTool.Enumerators"
+             xmlns:conv="clr-namespace:DistributionTool.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <!--#region Resources-->
@@ -18,9 +19,11 @@
                             ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
                 <x:Type TypeName="enums:UserType" />
-            </ObjectDataProvider.MethodParameters>
-            
+            </ObjectDataProvider.MethodParameters>            
         </ObjectDataProvider>
+
+        <conv:UserTypeToStringConverter x:Key="UserTypeToStringConverter"/>
+
         <SolidColorBrush x:Key="columnColor"
                          Color="#3300ABA9" />      
     </UserControl.Resources>
@@ -35,7 +38,8 @@
         <!--#region user list section-->
         <Border Grid.Column="0"
                 BorderBrush="LightGray"
-                BorderThickness="1">
+                BorderThickness="1"
+                Margin="5">
             
             <Grid>
                 <Grid.RowDefinitions>
@@ -43,61 +47,57 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <Grid x:Name="FindUser"
-                      Grid.Row="0">
-                    <TextBox HorizontalAlignment="Stretch"
-                             Tag="Find user"
-                             Margin="5"
-                             Width="auto"
-                             Padding="2"
-                             Style="{StaticResource PromptTextBox}"
-                             Text="{Binding FindUserText, 
-                       UpdateSourceTrigger=PropertyChanged}" />
-                </Grid>
+                
+                <TextBox HorizontalAlignment="Stretch"
+                         Tag="Find user"
+                         Margin="5"
+                         Width="auto"
+                         Padding="2"
+                         Style="{StaticResource PromptTextBox}"
+                         Text="{Binding FindUserText, 
+                               UpdateSourceTrigger=PropertyChanged}"
+                               Grid.Row="0" />
+                
+                <Border BorderThickness="0 0 1 1"
+                        Grid.Row="1">
+                    <ScrollViewer x:Name="UsersScrollViewer"
+                                  VerticalScrollBarVisibility="Visible">
+                        <DataGrid x:Name="Users"
+                                  ItemsSource="{Binding userFilteredList}"
+                                  AutoGenerateColumns="False"
+                                  CanUserAddRows="False"
+                                  CanUserDeleteRows="False"
+                                  SelectionMode="Single"
+                                  SelectionUnit="FullRow"
+                                  IsReadOnly="True"
+                                  GridLinesVisibility="All"
+                                  Style="{DynamicResource MetroDataGrid}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonUp">
+                                    <i:InvokeCommandAction Command="{Binding ChoseCurrentUserCommand}"
+                                                           CommandParameter="{Binding ElementName=Users, Path=SelectedItem}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
 
-                <Grid x:Name="UserList"
-                      Grid.Row="1">
-                    <Border BorderThickness="0 0 1 1">
-                        <ScrollViewer x:Name="UsersScrollViewer"
-                                      VerticalScrollBarVisibility="Visible">
-                            <DataGrid x:Name="Users"
-                                      ItemsSource="{Binding userFilteredList}"
-                                      AutoGenerateColumns="False"
-                                      CanUserAddRows="False"
-                                      CanUserDeleteRows="False"
-                                      SelectionMode="Single"
-                                      SelectionUnit="FullRow"
-                                      IsReadOnly="True"
-                                      GridLinesVisibility="All"
-                                      Style="{DynamicResource MetroDataGrid}">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="MouseLeftButtonUp">
-                                        <i:InvokeCommandAction Command="{Binding ChoseCurrentUserCommand}"
-                                                               CommandParameter="{Binding ElementName=Users, Path=SelectedItem}" />
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Id"
+                                                    Binding="{Binding Id}" />
+                                <DataGridTextColumn Header="Name"
+                                                    Binding="{Binding Name}">
+                                    <DataGridTextColumn.CellStyle>
+                                        <Style TargetType="DataGridCell">
+                                            <Setter Property="Background"
+                                                    Value="{StaticResource columnColor}" />
+                                        </Style>
+                                    </DataGridTextColumn.CellStyle>
+                                </DataGridTextColumn>
 
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Id"
-                                                        Binding="{Binding Id}" />
-                                    <DataGridTextColumn Header="Name"
-                                                        Binding="{Binding Name}">
-                                        <DataGridTextColumn.CellStyle>
-                                            <Style TargetType="DataGridCell">
-                                                <Setter Property="Background"
-                                                        Value="{StaticResource columnColor}" />
-                                            </Style>
-                                        </DataGridTextColumn.CellStyle>
-                                    </DataGridTextColumn>
-
-                                    <DataGridTextColumn Header="Type"
-                                                        Binding="{Binding Type}" />
-                                </DataGrid.Columns>
-                            </DataGrid>
-                        </ScrollViewer>
-                    </Border>
-                </Grid>
-                                
+                                <DataGridTextColumn Header="Type"
+                                                    Binding="{Binding Type, Converter={StaticResource UserTypeToStringConverter}}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </ScrollViewer>
+                </Border>                                            
             </Grid>
         </Border>
         <!--#endregion-->
@@ -125,7 +125,7 @@
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center">
                         <!--#region User data StackPanel-->
-                        <StackPanel Width="180"
+                        <StackPanel Width="190"
                                     Margin="15">
                             <StackPanel Margin="10">
                                 <TextBlock Text="User Id"
@@ -149,7 +149,14 @@
                                            FontWeight="Bold" />
                                 <ComboBox ItemsSource="{Binding Source={StaticResource UserType}}"
                                           SelectedValue="{Binding CurrentUser.Type}"
-                                          Margin="0 5 0 0" />
+                                          Margin="0 5 0 0">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Converter={StaticResource UserTypeToStringConverter}}" 
+                                                       FontSize="15"/>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
                             </StackPanel>
                             <StackPanel Margin="10">
                                 <TextBlock Text="Account active"
@@ -170,7 +177,11 @@
                             <Button Content="Save User"
                                     Margin="10 10 10 0"
                                     Style="{StaticResource SquareButtonStyle}"
-                                    Command="{Binding SaveUserCommand}" />
+                                    Command="{Binding SaveUserCommand}" />                                                       
+                            <Button Content="new password"
+                                    Margin="10 10 10 0"
+                                    Style="{StaticResource SquareButtonStyle}"
+                                    Command="{Binding NewUserPasswordCommand}" />
                             <Button Content="delete user"
                                     Margin="10 10 10 0"
                                     Style="{StaticResource SquareButtonStyle}"
