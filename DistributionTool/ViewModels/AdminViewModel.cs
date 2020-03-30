@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using System.Data.Entity.Migrations;
 
 namespace DistributionTool.ViewModels
 {
@@ -17,8 +18,9 @@ namespace DistributionTool.ViewModels
 	{
 		#region Commands
 		public RelayCommand ChoseCurrentUserCommand { get; private set; }
-		public RelayCommand ClearDataCommand { get; set; }
-		public RelayCommand SaveUserCommand { get; set; }		
+		public RelayCommand ClearDataCommand { get; private set; }
+		public RelayCommand SaveUserCommand { get; private set; }	
+		public RelayCommand DeleteUserCommand { get; private set; }
 		#endregion
 
 		#region Properties
@@ -70,6 +72,7 @@ namespace DistributionTool.ViewModels
 			ChoseCurrentUserCommand = new RelayCommand(ChoseCurrentUser, null);
 			ClearDataCommand = new RelayCommand(ClearData, null);
 			SaveUserCommand = new RelayCommand(SaveUser, null);
+			DeleteUserCommand = new RelayCommand(DeleteUser, DeleteUserValitation);
 		} // AdminViewModel()
 		/// <summary>
 		/// Constructor
@@ -118,7 +121,7 @@ namespace DistributionTool.ViewModels
 		{
 			if (CurrentUser.Id == (UsersListViewModel.Instance.UsersList.Last().Id + 1))
 			{				
-				User tempUser = new User();
+				var tempUser = new User();
 
 				tempUser.Id = currentUser.Id;
 				tempUser.Name = currentUser.Name;
@@ -126,26 +129,56 @@ namespace DistributionTool.ViewModels
 				tempUser.AccountActive = currentUser.AccountActive;
 
 				MainWindowViewModel.Context.Users.Add(tempUser);
-				MainWindowViewModel.Context.SaveChanges();
+				MainWindowViewModel.SaveContext();
 
 				UsersListViewModel.Instance.Refresh();
 			} // If CurrentUser is new user, create new account.
 
 			else
-			{
-				 User tempUser = UsersListViewModel.Instance.UsersList.FirstOrDefault(u => u.Id == currentUser.Id);
+			{				
+				var tempUser = MainWindowViewModel.Context.Users.FirstOrDefault(u => u.Id == currentUser.Id);						
 
-
-
+				tempUser.Id = currentUser.Id;
+				tempUser.Name = currentUser.Name;
+				tempUser.Type = currentUser.Type;
+				tempUser.AccountActive = currentUser.AccountActive;
+											
+				MainWindowViewModel.SaveContext();
+				UsersListViewModel.Instance.Refresh();				
 			} // Else edit existing user data.
 		} // SaveUser
 		/// <summary>
-		/// Creates new user and save it in the database or edit existing user data.
+		/// Creates new user and save it in the database or edit existing user account.
 		/// </summary>
+		
+		public void DeleteUser(object x)
+		{
+			var tempUser = MainWindowViewModel.Context.Users.FirstOrDefault(u => u.Id == CurrentUser.Id);
+
+			MainWindowViewModel.Context.Users.Remove(tempUser);
+			MainWindowViewModel.SaveContext();
+
+			UsersListViewModel.Instance.Refresh();
+		}
+		/// <summary>
+		/// Delete selected user account from database.
+		/// </summary>
+
 
 		//NewUserPassword
 
 		#endregion
 
+		#region Validators
+
+		public bool DeleteUserValitation(object x)
+		{
+			if (MainWindowViewModel.Context.Users.FirstOrDefault(u => u.Id == CurrentUser.Id) == null)
+				return false;
+			else 
+			return true; //implement that logged in user cannot be deleted
+		}
+
+		#endregion
 	}
 }

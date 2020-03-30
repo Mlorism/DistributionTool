@@ -31,7 +31,7 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>        
+            <ColumnDefinition Width="250"/>        
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
@@ -59,9 +59,7 @@
                                Grid.Row="0" />
                 
                 <Border BorderThickness="0 0 1 1"
-                        Grid.Row="1">
-                    <ScrollViewer x:Name="UsersScrollViewer"
-                                  VerticalScrollBarVisibility="Visible">
+                        Grid.Row="1">                    
                         <DataGrid x:Name="Users"
                                   ItemsSource="{Binding userFilteredList}"
                                   AutoGenerateColumns="False"
@@ -83,7 +81,8 @@
                                 <DataGridTextColumn Header="Id"
                                                     Binding="{Binding Id}" />
                                 <DataGridTextColumn Header="Name"
-                                                    Binding="{Binding Name}">
+                                                    Binding="{Binding Name}"
+                                                    Width="*">
                                     <DataGridTextColumn.CellStyle>
                                         <Style TargetType="DataGridCell">
                                             <Setter Property="Background"
@@ -96,7 +95,7 @@
                                                     Binding="{Binding Type, Converter={StaticResource UserTypeToStringConverter}}" />
                             </DataGrid.Columns>
                         </DataGrid>
-                    </ScrollViewer>
+                    
                 </Border>                                            
             </Grid>
         </Border>

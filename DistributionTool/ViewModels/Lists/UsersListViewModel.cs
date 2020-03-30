@@ -13,9 +13,7 @@ namespace DistributionTool.ViewModels.Lists
 	{
 		#region Properties
 		private readonly ObservableCollection<User> usersList = new ObservableCollection<User>();
-		public ObservableCollection<User> UsersList => usersList;
-
-		ApplicationDbContext context = new ApplicationDbContext();
+		public ObservableCollection<User> UsersList => usersList;		
 		#endregion
 
 		#region Constructor
@@ -30,7 +28,7 @@ namespace DistributionTool.ViewModels.Lists
 			if (UsersList.Count > 0) 
 				UsersList.Clear();
 
-			var users = context.Users.ToList();
+			var users = MainWindowViewModel.Context.Users.ToList();
 
 			if (users != null)
 				foreach (var user in users)
