@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Data.Entity.Migrations;
+using DistributionTool.Windows;
+using MahApps.Metro.Controls;
 
 namespace DistributionTool.ViewModels
 {
@@ -73,6 +75,11 @@ namespace DistributionTool.ViewModels
 			ClearDataCommand = new RelayCommand(ClearData, null);
 			SaveUserCommand = new RelayCommand(SaveUser, SaveUserValidation);
 			DeleteUserCommand = new RelayCommand(DeleteUser, DeleteUserValitation);
+
+			MetroWindow test = new ConfirmWindow();
+			test.Show();
+			test.Focus();
+		
 		} // AdminViewModel()
 		/// <summary>
 		/// Constructor
