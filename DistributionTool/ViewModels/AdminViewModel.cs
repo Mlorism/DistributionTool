@@ -67,11 +67,11 @@ namespace DistributionTool.ViewModels
 			userFilteredList = usersSourceList.View;
 
 			CurrentUser = new User();
-			ChoseCurrentUser(UsersListViewModel.Instance.UsersList.FirstOrDefault(x => x.Id == 1));			
+			ChoseCurrentUser(UsersListViewModel.Instance.UsersList.FirstOrDefault());			
 						
 			ChoseCurrentUserCommand = new RelayCommand(ChoseCurrentUser, null);
 			ClearDataCommand = new RelayCommand(ClearData, null);
-			SaveUserCommand = new RelayCommand(SaveUser, null);
+			SaveUserCommand = new RelayCommand(SaveUser, SaveUserValidation);
 			DeleteUserCommand = new RelayCommand(DeleteUser, DeleteUserValitation);
 		} // AdminViewModel()
 		/// <summary>
@@ -109,7 +109,7 @@ namespace DistributionTool.ViewModels
 		{
 			CurrentUser = new User()
 			{
-				Id = (UsersListViewModel.Instance.UsersList.Last().Id + 1)
+				Id = 0
 			};
 			OnPropertyChange("CurrentUser");
 		} // ClearData()
@@ -119,11 +119,10 @@ namespace DistributionTool.ViewModels
 		
 		public void SaveUser(object x)
 		{
-			if (CurrentUser.Id == (UsersListViewModel.Instance.UsersList.Last().Id + 1))
+			if (CurrentUser.Id == 0)
 			{				
 				var tempUser = new User();
-
-				tempUser.Id = currentUser.Id;
+				
 				tempUser.Name = currentUser.Name;
 				tempUser.Type = currentUser.Type;
 				tempUser.AccountActive = currentUser.AccountActive;
@@ -136,9 +135,8 @@ namespace DistributionTool.ViewModels
 
 			else
 			{				
-				var tempUser = MainWindowViewModel.Context.Users.FirstOrDefault(u => u.Id == currentUser.Id);						
-
-				tempUser.Id = currentUser.Id;
+				var tempUser = MainWindowViewModel.Context.Users.FirstOrDefault(u => u.Id == currentUser.Id);	
+				
 				tempUser.Name = currentUser.Name;
 				tempUser.Type = currentUser.Type;
 				tempUser.AccountActive = currentUser.AccountActive;
@@ -153,6 +151,8 @@ namespace DistributionTool.ViewModels
 		
 		public void DeleteUser(object x)
 		{
+			MessageBoxResult result = MessageBox.Show("Are you sure to delete this user?", "Warning");
+
 			var tempUser = MainWindowViewModel.Context.Users.FirstOrDefault(u => u.Id == CurrentUser.Id);
 
 			MainWindowViewModel.Context.Users.Remove(tempUser);
@@ -170,14 +170,19 @@ namespace DistributionTool.ViewModels
 		#endregion
 
 		#region Validators
+		public bool SaveUserValidation(object x)
+		{
+			if (CurrentUser.Name == null ||CurrentUser.Name == ""||CurrentUser.Name.Length<6) return false;
+			else return true;
+		} // SaveUserValidation()
 
 		public bool DeleteUserValitation(object x)
 		{
 			if (MainWindowViewModel.Context.Users.FirstOrDefault(u => u.Id == CurrentUser.Id) == null)
 				return false;
 			else 
-			return true; //implement that logged in user cannot be deleted
-		}
+			return true; //implement that logged in user cannot be deleted !!!
+		} // DeleteUserValitation()
 
 		#endregion
 	}

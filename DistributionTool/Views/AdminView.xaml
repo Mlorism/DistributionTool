@@ -138,7 +138,8 @@
                                 <TextBlock Text="Name"
                                            FontSize="15"
                                            FontWeight="Bold" />
-                                <TextBox Text="{Binding CurrentUser.Name}"
+                                <TextBox Text="{Binding CurrentUser.Name,
+                                                UpdateSourceTrigger=PropertyChanged}"
                                          FontSize="15"
                                          Margin="0 5 0 0" />
                             </StackPanel>
