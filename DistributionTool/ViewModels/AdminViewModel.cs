@@ -61,6 +61,9 @@ namespace DistributionTool.ViewModels
 		#endregion
 
 		#region Constructor
+		/// <summary>
+		/// Constructor
+		/// </summary>
 		public AdminViewModel()
 		{
 			TabName = "Admin panel";
@@ -74,16 +77,9 @@ namespace DistributionTool.ViewModels
 			ChoseCurrentUserCommand = new RelayCommand(ChoseCurrentUser, null);
 			ClearDataCommand = new RelayCommand(ClearData, null);
 			SaveUserCommand = new RelayCommand(SaveUser, SaveUserValidation);
-			DeleteUserCommand = new RelayCommand(DeleteUser, DeleteUserValitation);
-
-			
-			
-			
-		
+			DeleteUserCommand = new RelayCommand(DeleteUser, DeleteUserValitation);				
 		} // AdminViewModel()
-		/// <summary>
-		/// Constructor
-		/// </summary>
+		
 		#endregion
 
 		#region Methods
@@ -105,6 +101,8 @@ namespace DistributionTool.ViewModels
 			CurrentUser.Name = tempUser.Name;
 			CurrentUser.Type = tempUser.Type;
 			CurrentUser.AccountActive = tempUser.AccountActive;
+			CurrentUser.Password = null;
+			CurrentUser.PasswordSalt = null;
 
 			OnPropertyChange("CurrentUser");
 		} //ChoseCurrentUser()
@@ -126,30 +124,47 @@ namespace DistributionTool.ViewModels
 		
 		public void SaveUser(object x)
 		{
+			ConfirmWindow confirmWindow; 
+
 			if (CurrentUser.Id == 0)
-			{				
-				var tempUser = new User();
+			{
+				confirmWindow = new ConfirmWindow("Create User", "Are you sure you want to create new user?");
+
+				if (confirmWindow.AskQuestion())
+				{
+					var tempUser = new User();
+
+					tempUser.Name = currentUser.Name;
+					tempUser.Type = currentUser.Type;
+					tempUser.AccountActive = currentUser.AccountActive;
+
+					MainWindowViewModel.Context.Users.Add(tempUser);
+					MainWindowViewModel.SaveContext();
+
+					UsersListViewModel.Instance.Refresh();
+				}
+
+				else return;
 				
-				tempUser.Name = currentUser.Name;
-				tempUser.Type = currentUser.Type;
-				tempUser.AccountActive = currentUser.AccountActive;
-
-				MainWindowViewModel.Context.Users.Add(tempUser);
-				MainWindowViewModel.SaveContext();
-
-				UsersListViewModel.Instance.Refresh();
 			} // If CurrentUser is new user, create new account.
 
 			else
-			{				
-				var tempUser = MainWindowViewModel.Context.Users.FirstOrDefault(u => u.Id == currentUser.Id);	
-				
-				tempUser.Name = currentUser.Name;
-				tempUser.Type = currentUser.Type;
-				tempUser.AccountActive = currentUser.AccountActive;
-											
-				MainWindowViewModel.SaveContext();
-				UsersListViewModel.Instance.Refresh();				
+			{
+				confirmWindow = new ConfirmWindow("Save User", "Are you sure you want to edit " + CurrentUser.Name + " data?");
+
+				if (confirmWindow.AskQuestion())
+				{
+					var tempUser = MainWindowViewModel.Context.Users.FirstOrDefault(u => u.Id == currentUser.Id);
+
+					tempUser.Name = currentUser.Name;
+					tempUser.Type = currentUser.Type;
+					tempUser.AccountActive = currentUser.AccountActive;
+
+					MainWindowViewModel.SaveContext();
+					UsersListViewModel.Instance.Refresh();
+				}
+
+				else return;						
 			} // Else edit existing user data.
 		} // SaveUser
 		/// <summary>
@@ -162,20 +177,15 @@ namespace DistributionTool.ViewModels
 
 			if (confirmWindow.AskQuestion())
 			{
-				MessageBox.Show("True");
+				var tempUser = MainWindowViewModel.Context.Users.FirstOrDefault(u => u.Id == CurrentUser.Id);
+
+				MainWindowViewModel.Context.Users.Remove(tempUser);
+				MainWindowViewModel.SaveContext();
+
+				UsersListViewModel.Instance.Refresh();
 			}
 
-			else
-			{
-				MessageBox.Show("False");
-			}
-
-			//var tempUser = MainWindowViewModel.Context.Users.FirstOrDefault(u => u.Id == CurrentUser.Id);
-
-			//MainWindowViewModel.Context.Users.Remove(tempUser);
-			//MainWindowViewModel.SaveContext();
-
-			//UsersListViewModel.Instance.Refresh();
+			else return;			
 		}
 		/// <summary>
 		/// Delete selected user account from database.

@@ -21,13 +21,7 @@ namespace DistributionTool.Windows
 	public partial class ConfirmWindow
 	{
 		#region Properties
-		private bool answer;
-
-		public bool Answer
-		{
-			get { return answer; }
-			set { answer = value; }
-		}
+		private bool answer;		
 
 		/// <summary>
 		/// User answer yes = true, no = false
@@ -48,18 +42,18 @@ namespace DistributionTool.Windows
 			this.ShowDialog();
 			this.Focus();
 			
-			return Answer;
+			return answer;
 		}
 
 		private void Yes_button_Click(object sender, RoutedEventArgs e)
-		{	
-			Answer = true;
+		{
+			answer = true;
 			this.Close();
 		} // Yes_button_Click() sends true to Answer property
 
 		private void No_button_Click(object sender, RoutedEventArgs e)
 		{
-			Answer = false;
+			answer = false;
 			this.Close();
 		} // No_button_Click() sends false to Answer property
 
