@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +20,50 @@ namespace DistributionTool.Windows
 	/// </summary>
 	public partial class ConfirmWindow
 	{
-		public ConfirmWindow()
+		#region Properties
+		private bool answer;
+
+		public bool Answer
+		{
+			get { return answer; }
+			set { answer = value; }
+		}
+
+		/// <summary>
+		/// User answer yes = true, no = false
+		/// </summary>
+		#endregion
+
+		public ConfirmWindow(string title, string question)
 		{
 			InitializeComponent();
+			this.QuestionText.Text = question;
+			this.Title = title;
 		}
+
+		#region Methods
+		
+		public bool AskQuestion()
+		{			
+			this.ShowDialog();
+			this.Focus();
+			
+			return Answer;
+		}
+
+		private void Yes_button_Click(object sender, RoutedEventArgs e)
+		{	
+			Answer = true;
+			this.Close();
+		} // Yes_button_Click() sends true to Answer property
+
+		private void No_button_Click(object sender, RoutedEventArgs e)
+		{
+			Answer = false;
+			this.Close();
+		} // No_button_Click() sends false to Answer property
+
+		#endregion
+
 	}
 }

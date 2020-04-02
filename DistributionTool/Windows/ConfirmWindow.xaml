@@ -5,18 +5,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DistributionTool.Windows"
-        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"        
-        xmlns:iconPacks="clr-namespace:MahApps.Metro.IconPacks;assembly=MahApps.Metro.IconPacks.Zondicons"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize"
-        Title="ConfirmWindow" 
+        ResizeMode="NoResize"        
+        Title="Confirm" 
+        TitleCharacterCasing="Normal"
         Height="250" 
         Width="400">
-
+    
     <Controls:MetroWindow.IconTemplate>
         <DataTemplate>
-            <iconPacks:PackIconZondicons Kind="Question" 
+            <iconPacks:PackIconMaterial  Kind="AccountQuestionOutline"
                                          VerticalAlignment="Center"
                                          HorizontalAlignment="Center"/>
         </DataTemplate>
@@ -41,7 +42,7 @@
                                          Width="50"
                                          Height="50"
                                          VerticalAlignment="Center"
-                                         Margin="10"/>
+                                         Margin="15"/>            
             <!--#endregion-->
 
             <!--#region Question-->
@@ -54,22 +55,24 @@
 
         </Grid>
         <!--#endregion-->
+        
+        <!--#region Buttons section-->
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Right"
                     Grid.Row="1">
-            <Button Content="Yes"
+            <Button x:Name="Yes_button"
+                    Content="Yes"
                     Margin="10"
                     Width="50"
-                    Style="{StaticResource AccentedDialogSquareButton}"/>
-            <Button Content="No"
+                    Style="{StaticResource AccentedDialogSquareButton}"
+                    Click="Yes_button_Click"/>
+            <Button x:Name="No_button"
+                    Content="No"
                     Margin="10"
                     Width="50"
-                    Style="{StaticResource AccentedDialogSquareButton}"/>
-        </StackPanel>
-        <!--#region Buttons section-->
-        <Grid Grid.Row="1">
-            
-        </Grid>
+                    Style="{StaticResource AccentedDialogSquareButton}"
+                    Click="No_button_Click"/>
+        </StackPanel>        
         <!--#endregion-->
 
     </Grid>

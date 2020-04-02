@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DistributionTool.ViewModels
 {
-	class BaseViewModel : INotifyPropertyChanged, ITab
+	abstract class BaseViewModel : INotifyPropertyChanged, ITab
 	{
 		public string TabName { get; set; }
 

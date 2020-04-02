@@ -1,5 +1,6 @@
 ﻿using DistributionTool.Interfaces;
 using DistributionTool.Models;
+using DistributionTool.Windows;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,7 +25,7 @@ namespace DistributionTool.ViewModels
 		/// </summary>
 
 		private static ApplicationDbContext context = new ApplicationDbContext();
-
+				
 		public static ApplicationDbContext Context 
 		{
 			get
@@ -37,6 +38,8 @@ namespace DistributionTool.ViewModels
 		}
 
 		public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
+
+		
 		#endregion
 
 		#region Constructor
@@ -76,8 +79,8 @@ namespace DistributionTool.ViewModels
 		public static void SaveContext()
 		{
 			Context.SaveChanges();
-		}
-		
+		}				
+
 		#endregion
 	}
 

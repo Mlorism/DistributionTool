@@ -76,9 +76,9 @@ namespace DistributionTool.ViewModels
 			SaveUserCommand = new RelayCommand(SaveUser, SaveUserValidation);
 			DeleteUserCommand = new RelayCommand(DeleteUser, DeleteUserValitation);
 
-			MetroWindow test = new ConfirmWindow();
-			test.Show();
-			test.Focus();
+			
+			
+			
 		
 		} // AdminViewModel()
 		/// <summary>
@@ -158,14 +158,24 @@ namespace DistributionTool.ViewModels
 		
 		public void DeleteUser(object x)
 		{
-			MessageBoxResult result = MessageBox.Show("Are you sure to delete this user?", "Warning");
+			ConfirmWindow confirmWindow = new ConfirmWindow("Delete User", "Are you sure you want to delete user " + CurrentUser.Name + "?");
 
-			var tempUser = MainWindowViewModel.Context.Users.FirstOrDefault(u => u.Id == CurrentUser.Id);
+			if (confirmWindow.AskQuestion())
+			{
+				MessageBox.Show("True");
+			}
 
-			MainWindowViewModel.Context.Users.Remove(tempUser);
-			MainWindowViewModel.SaveContext();
+			else
+			{
+				MessageBox.Show("False");
+			}
 
-			UsersListViewModel.Instance.Refresh();
+			//var tempUser = MainWindowViewModel.Context.Users.FirstOrDefault(u => u.Id == CurrentUser.Id);
+
+			//MainWindowViewModel.Context.Users.Remove(tempUser);
+			//MainWindowViewModel.SaveContext();
+
+			//UsersListViewModel.Instance.Refresh();
 		}
 		/// <summary>
 		/// Delete selected user account from database.
