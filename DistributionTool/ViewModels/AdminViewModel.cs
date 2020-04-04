@@ -22,6 +22,7 @@ namespace DistributionTool.ViewModels
 		public RelayCommand ChoseCurrentUserCommand { get; private set; }
 		public RelayCommand ClearDataCommand { get; private set; }
 		public RelayCommand SaveUserCommand { get; private set; }	
+		public RelayCommand ChangePasswordCommand { get; private set; }
 		public RelayCommand DeleteUserCommand { get; private set; }
 		#endregion
 
@@ -76,8 +77,9 @@ namespace DistributionTool.ViewModels
 						
 			ChoseCurrentUserCommand = new RelayCommand(ChoseCurrentUser, null);
 			ClearDataCommand = new RelayCommand(ClearData, null);
-			SaveUserCommand = new RelayCommand(SaveUser, SaveUserValidation);
-			DeleteUserCommand = new RelayCommand(DeleteUser, DeleteUserValitation);				
+			SaveUserCommand = new RelayCommand(SaveUser, SaveUserValidation);			
+			ChangePasswordCommand = new RelayCommand(ChangePassword, null);
+			DeleteUserCommand = new RelayCommand(DeleteUser, DeleteUserValitation);
 		} // AdminViewModel()
 		
 		#endregion
@@ -166,7 +168,7 @@ namespace DistributionTool.ViewModels
 
 				else return;						
 			} // Else edit existing user data.
-		} // SaveUser
+		} // SaveUser()
 		/// <summary>
 		/// Creates new user and save it in the database or edit existing user account.
 		/// </summary>
@@ -185,15 +187,31 @@ namespace DistributionTool.ViewModels
 				UsersListViewModel.Instance.Refresh();
 			}
 
-			else return;			
-		}
+			else return;
+		} // DeleteUser()
 		/// <summary>
 		/// Delete selected user account from database.
 		/// </summary>
 
+		public void ChangePassword(object x)
+		{
+			PasswordWindow passwordWindow;
+			
+			if (CurrentUser.Id == 0)
+			{
+				passwordWindow = new PasswordWindow("Set Password");
+			}
 
-		//NewUserPassword
+			else
+				passwordWindow = new PasswordWindow("Change Password");
 
+			passwordWindow.Show();
+		
+		}
+		/// <summary>
+		/// Change selected user password.
+		/// </summary>
+		
 		#endregion
 
 		#region Validators

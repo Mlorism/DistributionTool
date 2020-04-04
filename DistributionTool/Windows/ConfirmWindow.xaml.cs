@@ -21,43 +21,41 @@ namespace DistributionTool.Windows
 	public partial class ConfirmWindow
 	{
 		#region Properties
-		private bool answer;		
-
 		/// <summary>
 		/// User answer yes = true, no = false
 		/// </summary>
+		private bool answer;
 		#endregion
 
+		#region Constructor
 		public ConfirmWindow(string title, string question)
 		{
 			InitializeComponent();
 			this.QuestionText.Text = question;
 			this.Title = title;
-		}
+		} // ConfirmWindow() Constructor
+		#endregion
 
 		#region Methods
-		
 		public bool AskQuestion()
 		{			
 			this.ShowDialog();
 			this.Focus();
 			
 			return answer;
-		}
+		} // Asking user to confirm or cancel action, returns result based on clicked button.
 
 		private void Yes_button_Click(object sender, RoutedEventArgs e)
 		{
 			answer = true;
 			this.Close();
-		} // Yes_button_Click() sends true to Answer property
+		} // Yes_button_Click() sends true to answer property
 
 		private void No_button_Click(object sender, RoutedEventArgs e)
 		{
 			answer = false;
 			this.Close();
-		} // No_button_Click() sends false to Answer property
-
+		} // No_button_Click() sends false to answer property
 		#endregion
-
 	}
 }

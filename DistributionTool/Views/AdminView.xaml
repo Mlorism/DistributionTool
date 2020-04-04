@@ -181,7 +181,7 @@
                             <Button Content="new password"
                                     Margin="10 10 10 0"
                                     Style="{StaticResource SquareButtonStyle}"
-                                    Command="{Binding NewUserPasswordCommand}" />
+                                    Command="{Binding ChangePasswordCommand}" />
                             <Button Content="delete user"
                                     Margin="10 10 10 0"
                                     Style="{StaticResource SquareButtonStyle}"

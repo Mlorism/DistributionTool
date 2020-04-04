@@ -72,8 +72,8 @@
                                      HorizontalContentAlignment="Left"
                                      FontSize="15"
                                      Style="{StaticResource Win8MetroPasswordBox}"
-                                 Background="WhiteSmoke"
-                                 ToolTip="Password"/>
+                                     Background="WhiteSmoke"
+                                     ToolTip="Password"/>
                         <iconPacks:PackIconMaterial Grid.Column="1"
                                                     Kind="Key"
                                                     Width="20"
@@ -83,10 +83,9 @@
                     </Grid>                   
                    
                     <Button Content="LOGIN"
-                            Width="80"
-                            metro:ControlsHelper.ContentCharacterCasing="Normal"
+                            Width="80"                            
                             Margin="5"
-                            Style="{StaticResource AccentedSquareButtonStyle}"
+                            Style="{StaticResource AccentedDialogSquareButton}"
                             Command="{Binding LoginCommand}"
                             CommandParameter="{Binding ElementName=passwordText}"/>
                 </StackPanel>
