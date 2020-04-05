@@ -78,7 +78,7 @@ namespace DistributionTool.ViewModels
 			ChoseCurrentUserCommand = new RelayCommand(ChoseCurrentUser, null);
 			ClearDataCommand = new RelayCommand(ClearData, null);
 			SaveUserCommand = new RelayCommand(SaveUser, SaveUserValidation);			
-			ChangePasswordCommand = new RelayCommand(ChangePassword, null);
+			ChangePasswordCommand = new RelayCommand(ChangePassword, ChangePasswordValidation);
 			DeleteUserCommand = new RelayCommand(DeleteUser, DeleteUserValitation);
 		} // AdminViewModel()
 		
@@ -227,6 +227,14 @@ namespace DistributionTool.ViewModels
 			else 
 			return true; //implement that logged in user cannot be deleted !!!
 		} // DeleteUserValitation()
+
+		public bool ChangePasswordValidation(object x)
+		{
+			if (CurrentUser.Id == 0)
+				return false;
+
+			else return true;
+		}
 
 		#endregion
 	}

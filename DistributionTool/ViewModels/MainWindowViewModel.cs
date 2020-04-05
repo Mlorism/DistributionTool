@@ -45,7 +45,7 @@ namespace DistributionTool.ViewModels
 		#region Constructor
 		public MainWindowViewModel()
 		{
-			LoadTabs();
+			LoadLoginPage();
 		}
 		#endregion
 
