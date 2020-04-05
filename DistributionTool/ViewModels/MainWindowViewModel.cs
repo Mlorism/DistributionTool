@@ -45,7 +45,7 @@ namespace DistributionTool.ViewModels
 		#region Constructor
 		public MainWindowViewModel()
 		{
-			LoadLoginPage();
+			LoadTabs();
 		}
 		#endregion
 
@@ -53,21 +53,24 @@ namespace DistributionTool.ViewModels
 		public static void RaiseStaticPropertyChanged (string PropertyName)
 		{
 			StaticPropertyChanged?.Invoke(null, new PropertyChangedEventArgs(PropertyName));
-		}
+		} // RaiseStaticPropertyChanged()
 		public static void LoadLoginPage()
 		{
 			Tabs = new ObservableCollection<ITab>()
 			{
-				//new LoginViewModel(),
-				new AdminViewModel()
+				new LoginViewModel()				
 			};
 		} // LoadTabs() method loads login page to the tab collection
 
 		public static void LoadTabs()
 		{
-			Tabs.Clear();			
+			if (Tabs != null)
+				Tabs.Clear();
+
+			else Tabs = new ObservableCollection<ITab>();
+
 			Tabs.Add(new AdminViewModel());
-			Tabs.Add(new ProductsViewModel());
+			Tabs.Add(new ProductsViewModel());			
 			Tabs.Add(new DistributionViewModel());
 			Tabs.Add(new SummaryViewModel());
 			Tabs.Add(new SettingsViewModel());

@@ -20,8 +20,7 @@ namespace DistributionTool.ViewModels
 
 		#region Properties	
 		public string UserName { get; set; }
-		public string Password { get; set; }
-		private int logingAttempts = 0;
+		public string Password { get; set; }		
 		#endregion
 
 		#region Connection to the database		
@@ -72,7 +71,7 @@ namespace DistributionTool.ViewModels
 			PasswordBox boxPassword = parameter as PasswordBox;
 			string password = boxPassword.Password;
 			
-			if (UserName != null & UserName.Length > 4 & password != null & password.Length > 4) return true;
+			if (UserName != null & UserName.Length > 6 & password != null & password.Length > 7) return true;
 			else return false;
 		}
 

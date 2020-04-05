@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace DistributionTool.ViewModels
 {
-	class RelayCommand : ICommand
+	public class RelayCommand : ICommand
 	{
 		private readonly Action<object> _execute;
 		private readonly Predicate<object> _canExecute;

@@ -199,14 +199,13 @@ namespace DistributionTool.ViewModels
 			
 			if (CurrentUser.Id == 0)
 			{
-				passwordWindow = new PasswordWindow("Set Password");
+				passwordWindow = new PasswordWindow("Set Password", CurrentUser.Id);
 			}
 
 			else
-				passwordWindow = new PasswordWindow("Change Password");
+				passwordWindow = new PasswordWindow("Change Password", CurrentUser.Id);
 
-			passwordWindow.Show();
-		
+			passwordWindow.Show();		
 		}
 		/// <summary>
 		/// Change selected user password.
