@@ -18,14 +18,14 @@ namespace DistributionTool.ViewModels
 
 		#endregion
 
-		#region Properties	
+		#region Properties
 		public static ICollection<ITab> Tabs { get; set; }
 		/// <summary>
 		/// Tabs containing ViewModels to be loaded according to user's permissions
 		/// </summary>
 
 		private static ApplicationDbContext context = new ApplicationDbContext();
-				
+		
 		public static ApplicationDbContext Context 
 		{
 			get
@@ -39,7 +39,20 @@ namespace DistributionTool.ViewModels
 
 		public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
 
-		
+		private static User loggedInUser;
+
+		public static User LoggedInUser
+		{
+			get { return loggedInUser; }
+			set 
+			{ 				
+				loggedInUser = value;
+				RaiseStaticPropertyChanged("LoggedInUser");
+				LoadTabs();
+			}
+		}
+
+
 		#endregion
 
 		#region Constructor
@@ -60,7 +73,7 @@ namespace DistributionTool.ViewModels
 			{
 				new LoginViewModel()				
 			};
-		} // LoadTabs() method loads login page to the tab collection
+		} // LoadTabs() create and load login page to the tab collection
 
 		public static void LoadTabs()
 		{
@@ -82,7 +95,7 @@ namespace DistributionTool.ViewModels
 		public static void SaveContext()
 		{
 			Context.SaveChanges();
-		}				
+		} // SaveContext()
 
 		#endregion
 	}

@@ -48,7 +48,13 @@ namespace DistributionTool.ViewModels
 
 				if (user.Password.SequenceEqual(encryptedPassword))
 				{					
-					MainWindowViewModel.LoadTabs();
+					if (user.AccountActive == true)
+					{
+						MainWindowViewModel.LoggedInUser = user;
+					}
+
+					else MessageBox.Show("Konto zablokowane przez administratora.");
+
 				}
 
 				else MessageBox.Show("Zły login lub hasło!");
