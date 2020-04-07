@@ -99,14 +99,22 @@ namespace DistributionTool.ViewModels
 		{
 			User tempUser = UsersListViewModel.Instance.UsersList.FirstOrDefault(x => x.Id == ((User)user).Id);
 
-			CurrentUser.Id = tempUser.Id;
-			CurrentUser.Name = tempUser.Name;
-			CurrentUser.Type = tempUser.Type;
-			CurrentUser.AccountActive = tempUser.AccountActive;
-			CurrentUser.Password = null;
-			CurrentUser.PasswordSalt = null;
+			if (tempUser != null)
+			{
+				CurrentUser.Id = tempUser.Id;
+				CurrentUser.Name = tempUser.Name;
+				CurrentUser.Type = tempUser.Type;
+				CurrentUser.AccountActive = tempUser.AccountActive;
+				CurrentUser.Password = null;
+				CurrentUser.PasswordSalt = null;
 
-			OnPropertyChange("CurrentUser");
+				OnPropertyChange("CurrentUser");
+			}
+
+			else
+			{
+				return;
+			}						
 		} //ChoseCurrentUser()
 		/// <summary>
 		/// Change CurrrentUser according to selection.
@@ -144,6 +152,9 @@ namespace DistributionTool.ViewModels
 					MainWindowViewModel.SaveContext();
 
 					UsersListViewModel.Instance.Refresh();
+
+					tempUser = MainWindowViewModel.Context.Users.FirstOrDefault(u => u.Name == CurrentUser.Name);
+					ChoseCurrentUser(tempUser);
 				}
 
 				else return;
@@ -185,6 +196,8 @@ namespace DistributionTool.ViewModels
 				MainWindowViewModel.SaveContext();
 
 				UsersListViewModel.Instance.Refresh();
+
+				ClearData(new object());
 			}
 
 			else return;

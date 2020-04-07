@@ -71,9 +71,9 @@
                                   GridLinesVisibility="All"
                                   Style="{DynamicResource MetroDataGrid}">
                             <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="MouseLeftButtonUp">
+                                <i:EventTrigger EventName="SelectionChanged">
                                     <i:InvokeCommandAction Command="{Binding ChoseCurrentUserCommand}"
-                                                           CommandParameter="{Binding ElementName=Users, Path=SelectedItem}" />
+                                                           CommandParameter="{Binding ElementName=Users, Path=SelectedItem}"/>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
 
