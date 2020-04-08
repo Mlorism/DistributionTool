@@ -74,7 +74,6 @@ namespace DistributionTool.ViewModels
 				new LoginViewModel()				
 			};
 		} // LoadTabs() create and load login page to the tab collection
-
 		public static void LoadTabs()
 		{
 			if (Tabs != null)
@@ -91,7 +90,6 @@ namespace DistributionTool.ViewModels
 			RaiseStaticPropertyChanged("Tabs");
 			
 		} // LoadTabs() method loads specific tabs to the collection
-
 		public static void SaveContext()
 		{
 			Context.SaveChanges();

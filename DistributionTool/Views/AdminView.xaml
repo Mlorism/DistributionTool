@@ -31,7 +31,7 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250"/>        
+            <ColumnDefinition Width="260"/>        
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
@@ -79,7 +79,8 @@
 
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Id"
-                                                    Binding="{Binding Id}" />
+                                                    Binding="{Binding Id}" 
+                                                    Width="auto"/>
                                 <DataGridTextColumn Header="Name"
                                                     Binding="{Binding Name}"
                                                     Width="*">
@@ -92,7 +93,8 @@
                                 </DataGridTextColumn>
 
                                 <DataGridTextColumn Header="Type"
-                                                    Binding="{Binding Type, Converter={StaticResource UserTypeToStringConverter}}" />
+                                                    Binding="{Binding Type, Converter={StaticResource UserTypeToStringConverter}}" 
+                                                    Width="auto"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     
@@ -110,23 +112,24 @@
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0"
-                       Margin="10"
+                       Margin="20"
                        HorizontalAlignment="Center"
                        Text="User profile"
-                       FontSize="20"
+                       FontSize="25"
                        FontWeight="Bold" />
             
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center"
                         Grid.Row="1">
                 <Border BorderThickness="1"
-                        BorderBrush="Black">
+                        BorderBrush="Black"
+                        Padding="5">
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center">
                         <!--#region User data StackPanel-->
-                        <StackPanel Width="190"
+                        <StackPanel MinWidth="200"
                                     Margin="15">
-                            <StackPanel Margin="10">
+                            <StackPanel Margin="15">
                                 <TextBlock Text="User Id"
                                            FontSize="15"
                                            FontWeight="Bold" />
@@ -134,7 +137,7 @@
                                            FontSize="15"
                                            Margin="0 5 0 0" />
                             </StackPanel>
-                            <StackPanel Margin="10">
+                            <StackPanel Margin="15">
                                 <TextBlock Text="Name"
                                            FontSize="15"
                                            FontWeight="Bold" />
@@ -143,7 +146,7 @@
                                          FontSize="15"
                                          Margin="0 5 0 0" />
                             </StackPanel>
-                            <StackPanel Margin="10">
+                            <StackPanel Margin="15">
                                 <TextBlock Text="User type"
                                            FontSize="15"
                                            FontWeight="Bold" />
@@ -158,7 +161,7 @@
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
                             </StackPanel>
-                            <StackPanel Margin="10">
+                            <StackPanel Margin="15">
                                 <TextBlock Text="Account active"
                                            FontSize="15"
                                            FontWeight="Bold" />
@@ -171,19 +174,19 @@
                         <StackPanel Margin="15"
                                     Width="auto">
                             <Button Content="New User"
-                                    Margin="10 10 10 0"
+                                    Margin="15 15 15 0"
                                     Style="{StaticResource AccentedSquareButtonStyle}"
                                     Command="{Binding  ClearDataCommand}" />
                             <Button Content="Save User"
-                                    Margin="10 10 10 0"
+                                    Margin="15 15 15 0"
                                     Style="{StaticResource SquareButtonStyle}"
                                     Command="{Binding SaveUserCommand}" />                                                       
                             <Button Content="new password"
-                                    Margin="10 10 10 0"
+                                    Margin="15 15 15 0"
                                     Style="{StaticResource SquareButtonStyle}"
                                     Command="{Binding ChangePasswordCommand}" />
                             <Button Content="delete user"
-                                    Margin="10 10 10 0"
+                                    Margin="15 15 15 0"
                                     Style="{StaticResource SquareButtonStyle}"
                                     Command="{Binding DeleteUserCommand}" />
                         </StackPanel>

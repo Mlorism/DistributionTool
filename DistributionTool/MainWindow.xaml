@@ -24,9 +24,15 @@
         </DataTemplate>
     </Controls:MetroWindow.IconTemplate>
 
-    <Grid>   
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        
         <TabControl ItemsSource="{Binding Tabs}"
-                        SelectedIndex="0">
+                    Grid.Row="0"
+                    SelectedIndex="0">
                 <TabControl.Resources>
                     <Style TargetType="{x:Type TabPanel}">
                         <Setter Property="HorizontalAlignment"
@@ -59,6 +65,9 @@
                         </TextBlock>
                     </DataTemplate>
                 </TabControl.ItemTemplate>
-            </TabControl>        
+            </TabControl>
+
+        <TextBlock Grid.Row="1"
+                   Background="LightGray"/>
     </Grid>
 </Controls:MetroWindow>
