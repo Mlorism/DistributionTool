@@ -6,8 +6,13 @@
              xmlns:local="clr-namespace:DistributionTool.Views"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
-             mc:Ignorable="d">  
+             mc:Ignorable="d">
 
+    <UserControl.InputBindings>
+        <KeyBinding Key="Enter"
+                    Command="{Binding LoginCommand}"
+                    CommandParameter="{Binding ElementName=passwordText}" />
+    </UserControl.InputBindings>
 
     <Grid Background="White" 
           VerticalAlignment="Center"
