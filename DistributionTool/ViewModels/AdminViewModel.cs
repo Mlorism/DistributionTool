@@ -27,11 +27,6 @@ namespace DistributionTool.ViewModels
 		#endregion
 
 		#region Properties
-		/// <summary>
-		/// Filter on UserList
-		/// </summary>		
-
-		//public User currentUser = new User();
 		public User CurrentUser 
 		{ 
 			get
@@ -57,7 +52,10 @@ namespace DistributionTool.ViewModels
 				FilterList();				
 			}
 		}
-		
+
+		/// <summary>
+		/// Filter on UserList
+		/// </summary>
 		public ICollectionView userFilteredList { get; set; }
 		#endregion
 
@@ -81,20 +79,23 @@ namespace DistributionTool.ViewModels
 			ChangePasswordCommand = new RelayCommand(ChangePassword, ChangePasswordValidation);
 			DeleteUserCommand = new RelayCommand(DeleteUser, DeleteUserValitation);
 		} // AdminViewModel()
-		
+
 		#endregion
 
 		#region Methods
+		/// <summary>
+		/// Filter user list according to the name in FindUserText.
+		/// </summary>
 		private void FilterList()
 		{
 			Predicate<object> Filter = new Predicate<object>(item => ((User)item).Name.ToLower().Contains(FindUserText.ToLower()));			
 			userFilteredList.Filter = Filter;
 			OnPropertyChange("userFilteredList");
 		} // FilterList()
+		
 		/// <summary>
-		/// Filter user list according to the name in FindUserText.
+		/// Change CurrrentUser according to selection.
 		/// </summary>
-
 		public void ChoseCurrentUser(object user)
 		{
 			User tempUser = UsersListViewModel.Instance.UsersList.FirstOrDefault(x => x.Id == ((User)user).Id);
@@ -115,11 +116,11 @@ namespace DistributionTool.ViewModels
 			{
 				return;
 			}						
-		} //ChoseCurrentUser()
-		/// <summary>
-		/// Change CurrrentUser according to selection.
-		/// </summary>
+		} //ChoseCurrentUser()		
 
+		/// <summary>
+		/// Clear data from CurrentUser for new user creation.
+		/// </summary>
 		public void ClearData(object x)
 		{
 			CurrentUser = new User()
@@ -128,10 +129,10 @@ namespace DistributionTool.ViewModels
 			};
 			OnPropertyChange("CurrentUser");
 		} // ClearData()
-		/// <summary>
-		/// Clear data from CurrentUser for new user creation.
-		/// </summary>
 		
+		/// <summary>
+		/// Creates new user and save it in the database or edit existing user account.
+		/// </summary>
 		public void SaveUser(object x)
 		{
 			ConfirmWindow confirmWindow; 
@@ -163,7 +164,9 @@ namespace DistributionTool.ViewModels
 
 			else
 			{
-				confirmWindow = new ConfirmWindow("Save User", "Are you sure you want to edit " + CurrentUser.Name + " data?");
+				var editedUserName = MainWindowViewModel.Context.Users.FirstOrDefault(u => u.Id == CurrentUser.Id).Name;
+
+				confirmWindow = new ConfirmWindow("Save User", "Are you sure you want to edit " + editedUserName + " data?");
 
 				if (confirmWindow.AskQuestion())
 				{
@@ -177,13 +180,17 @@ namespace DistributionTool.ViewModels
 					UsersListViewModel.Instance.Refresh();
 				}
 
-				else return;						
+				else 
+				{
+					ChoseCurrentUser(MainWindowViewModel.Context.Users.FirstOrDefault(u => u.Id == currentUser.Id));
+				}
+				
 			} // Else edit existing user data.
 		} // SaveUser()
-		/// <summary>
-		/// Creates new user and save it in the database or edit existing user account.
-		/// </summary>
 		
+		/// <summary>
+		/// Delete selected user account from database.
+		/// </summary>
 		public void DeleteUser(object x)
 		{
 			ConfirmWindow confirmWindow = new ConfirmWindow("Delete User", "Are you sure you want to delete user " + CurrentUser.Name + "?");
@@ -202,10 +209,10 @@ namespace DistributionTool.ViewModels
 
 			else return;
 		} // DeleteUser()
+		
 		/// <summary>
-		/// Delete selected user account from database.
+		/// Change selected user password.
 		/// </summary>
-
 		public void ChangePassword(object x)
 		{
 			PasswordWindow passwordWindow;
@@ -219,10 +226,7 @@ namespace DistributionTool.ViewModels
 				passwordWindow = new PasswordWindow("Change Password", CurrentUser.Id);
 
 			passwordWindow.Show();		
-		}
-		/// <summary>
-		/// Change selected user password.
-		/// </summary>
+		}	
 		
 		#endregion
 
@@ -240,7 +244,7 @@ namespace DistributionTool.ViewModels
 			else 
 			return true; //implement that logged in user cannot be deleted !!!
 		} // DeleteUserValitation()
-
+		
 		public bool ChangePasswordValidation(object x)
 		{
 			if (CurrentUser.Id == 0)
@@ -248,6 +252,7 @@ namespace DistributionTool.ViewModels
 
 			else return true;
 		}
+		
 
 		#endregion
 	}
