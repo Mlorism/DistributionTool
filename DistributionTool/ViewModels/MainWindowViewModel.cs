@@ -17,7 +17,8 @@ namespace DistributionTool.ViewModels
 	class MainWindowViewModel : BaseViewModel
 	{
 		#region Commands	
-		public RelayCommand LogOutCommand { get; private set; }		
+		public RelayCommand LogOutCommand { get; private set; }
+		public RelayCommand ChangePasswordCommand { get; private set; }
 		#endregion
 
 		#region Properties
@@ -40,9 +41,7 @@ namespace DistributionTool.ViewModels
 		}
 
 		public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
-
 		private static User loggedInUser;
-
 		public static User LoggedInUser
 		{
 			get { return loggedInUser; }
@@ -52,9 +51,7 @@ namespace DistributionTool.ViewModels
 				RaiseStaticPropertyChanged("LoggedInUser");				
 			}
 		}
-
 		private static string notificationText;
-
 		public static string NotificationText
 		{
 			get { return notificationText; }
@@ -64,9 +61,7 @@ namespace DistributionTool.ViewModels
 
 				RaiseStaticPropertyChanged("NotificationText");
 			}
-		}
-
-
+		}		
 		#endregion
 
 		#region Constructor
@@ -74,7 +69,8 @@ namespace DistributionTool.ViewModels
 		{			
 			LoadLoginPage();
 
-			LogOutCommand = new RelayCommand(LogOut, null);			
+			LogOutCommand = new RelayCommand(LogOut, null);
+			ChangePasswordCommand = new RelayCommand(ChangePassword, null);
 		}
 		#endregion
 
@@ -133,6 +129,11 @@ namespace DistributionTool.ViewModels
 			LoggedInUser = null;
 			LoadLoginPage();			
 		}
+		public static void ChangePassword(object x)
+		{
+			PasswordWindow passwordWindow = new PasswordWindow("Change Password", LoggedInUser.Id);
+			passwordWindow.Show();
+		} //ChangePassword()
 		public static async void NotifyUser(string notification)
 		{
 			await ShowNotification(notification);

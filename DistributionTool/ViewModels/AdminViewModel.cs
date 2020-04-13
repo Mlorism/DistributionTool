@@ -229,30 +229,27 @@ namespace DistributionTool.ViewModels
 		}	
 		
 		#endregion
-
 		#region Validators
 		public bool SaveUserValidation(object x)
 		{
 			if (CurrentUser.Name == null ||CurrentUser.Name == ""||CurrentUser.Name.Length<6) return false;
 			else return true;
 		} // SaveUserValidation()
-
 		public bool DeleteUserValitation(object x)
 		{
 			if (MainWindowViewModel.Context.Users.FirstOrDefault(u => u.Id == CurrentUser.Id) == null)
 				return false;
 			else 
 			return true; //implement that logged in user cannot be deleted !!!
-		} // DeleteUserValitation()
-		
+		} // DeleteUserValitation()		
 		public bool ChangePasswordValidation(object x)
 		{
 			if (CurrentUser.Id == 0)
 				return false;
 
 			else return true;
-		}
-		
+		} // ChangePasswordValidation()
+
 
 		#endregion
 	}

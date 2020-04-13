@@ -40,7 +40,8 @@
                 <MenuItem Header="Profile">
                     <MenuItem Header="Log Out"
                               Command="{Binding LogOutCommand}"/>
-                    <MenuItem Header="Change Password" />
+                    <MenuItem Header="Change Password"
+                              Command="{Binding ChangePasswordCommand}"/>
                 </MenuItem>
             </Menu>
         </DockPanel>

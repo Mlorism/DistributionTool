@@ -34,8 +34,7 @@ namespace DistributionTool.ViewModels
 
 		#region Methods
 		/// <summary>
-		/// First checks if the user with that name exist in database, next checks if password is correct, 
-		/// when loggin is succesfull loads new tabs in MainWindowViewModel.
+		/// After checking user and password existence, check if it's correct, then login user.
 		/// </summary>		
 		public static void LogInAction(object userPassword)
 		{
@@ -57,15 +56,11 @@ namespace DistributionTool.ViewModels
 
 						else MainWindowViewModel.NotifyUser("Unable to sign in. The account has been locked. Please contact your administrator.");
 					}
-
 					else MainWindowViewModel.NotifyUser("Wrong login or password");
 				}
-
 				else MainWindowViewModel.NotifyUser("Unable to sign in. The account has no password assigned. Please contact your administrator.");
 			}			
-			
 			else MainWindowViewModel.NotifyUser("Wrong login or password");
-
 		} // LogInAction()
 		#endregion
 
