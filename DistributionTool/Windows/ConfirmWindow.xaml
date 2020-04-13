@@ -15,6 +15,7 @@
         Height="250" 
         Width="400">
     
+    <!--#region Icon-->
     <Controls:MetroWindow.IconTemplate>
         <DataTemplate>
             <iconPacks:PackIconMaterial  Kind="AccountQuestionOutline"
@@ -22,19 +23,25 @@
                                          HorizontalAlignment="Center"/>
         </DataTemplate>
     </Controls:MetroWindow.IconTemplate>
+    <!--#endregion-->
     
+    <!--#region Main grid-->
     <Grid Margin="10">
+        <!--#region Grid definitions-->
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-
+        <!--#endregion-->
+        
         <!--#region Question mark and question section-->
         <Grid Grid.Row="0">
+            <!--#region Grid definitions-->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+            <!--#endregion-->
             
             <!--#region Question mark-->
             <iconPacks:PackIconZondicons Kind="Question" 
@@ -52,7 +59,6 @@
                        Text="Are you sure to ... ?"
                        Grid.Column="1"/>
             <!--#endregion-->
-
         </Grid>
         <!--#endregion-->
         
@@ -74,6 +80,7 @@
                     Click="No_button_Click"/>
         </StackPanel>        
         <!--#endregion-->
-
     </Grid>
+    <!--#endregion-->
+    
 </Controls:MetroWindow>

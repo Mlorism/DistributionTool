@@ -16,6 +16,7 @@
     TitleCharacterCasing="Normal"
     WindowState="Maximized">
 
+    <!--#region Icon-->
     <Controls:MetroWindow.IconTemplate>
         <DataTemplate>
             <iconPacks:PackIconRPGAwesome Width="30"
@@ -24,14 +25,19 @@
                                           Kind="Honeycomb" />
         </DataTemplate>
     </Controls:MetroWindow.IconTemplate>
-          
+    <!--#endregion-->
+    
+    <!--#region Main grid-->
     <Grid>
+        <!--#region Grid definitions-->
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-
+        <!--#endregion-->
+        
+        <!--#region Menu bar-->
         <DockPanel Grid.Row="0">
             <Menu>
                 <MenuItem Header="Program">
@@ -45,7 +51,9 @@
                 </MenuItem>
             </Menu>
         </DockPanel>
+        <!--#endregion-->        
         
+        <!--#region Main content tabs-->
         <TabControl x:Name="ApplicationTabs"
                     ItemsSource="{Binding Tabs,                                                                                                        
                                   NotifyOnTargetUpdated=True}"
@@ -85,12 +93,17 @@
                     </DataTemplate>
                 </TabControl.ItemTemplate>
             </TabControl>
-
+<!--#endregion-->
+        
+        <!--#region Notification bar-->
         <TextBlock Grid.Row="2"
                    Background="LightGray"
                    Text="{Binding NotificationText}"                   
                    TextAlignment="Center"
                    FontWeight="Bold"
                    Foreground="Red"/>
-    </Grid>
+        <!--#endregion-->        
+    </Grid>    
+    <!--#endregion-->
+    
 </Controls:MetroWindow>

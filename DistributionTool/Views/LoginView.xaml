@@ -8,28 +8,34 @@
              xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d">
 
+    <!--#region Key bindings-->
     <UserControl.InputBindings>
         <KeyBinding Key="Enter"
                     Command="{Binding LoginCommand}"
                     CommandParameter="{Binding ElementName=passwordText}" />
     </UserControl.InputBindings>
-
+    <!--#endregion-->
+    
+    <!--#region Main grid-->
     <Grid Background="White" 
           VerticalAlignment="Center"
           HorizontalAlignment="Center">
-         
+         <!--#region Grid definitions-->
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
-        </Grid.RowDefinitions> 
+        </Grid.RowDefinitions>
+        <!--#endregion-->
         
+         <!--#region Main content-->
             <Border Height="300"
                     Width="300"
                     Grid.Row="2"
                     BorderBrush="LightGray"
                     BorderThickness="1.5">
                 <StackPanel HorizontalAlignment="Center">
+                    <!--#region Logo-->
                     <iconPacks:PackIconRPGAwesome Kind="Honeycomb"
                                                   HorizontalAlignment="Center"
                                                   Width="60"
@@ -40,7 +46,8 @@
                                FontSize="20"
                                FontWeight="Bold"
                                Margin="0, 0, 0, 50" />
-
+                    <!--#endregion-->
+                    <!--#region User name-->
                     <Grid Width="200"
                       FocusManager.FocusedElement="{Binding ElementName=usernameBox}">
                         <Grid.ColumnDefinitions>
@@ -64,7 +71,8 @@
                                                     VerticalAlignment="Center"
                                                     ToolTip="Username"/>
                     </Grid>
-
+                    <!--#endregion-->
+                    <!--#region Password-->
                     <Grid Width="200">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -86,17 +94,19 @@
                                                     VerticalAlignment="Center" 
                                                     ToolTip="Password"/>
                     </Grid>                   
-                   
+                    <!--#endregion-->                    
+                    <!--#region Button-->
                     <Button Content="LOGIN"
                             Width="80"                            
                             Margin="5"
                             Style="{StaticResource AccentedDialogSquareButton}"
                             Command="{Binding LoginCommand}"
                             CommandParameter="{Binding ElementName=passwordText}"/>
+                    <!--#endregion-->
                 </StackPanel>
             </Border>
-           
+           <!--#endregion-->
     </Grid>
-    
+    <!--#endregion-->
     
 </UserControl>

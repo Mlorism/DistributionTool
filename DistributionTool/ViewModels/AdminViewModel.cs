@@ -39,10 +39,8 @@ namespace DistributionTool.ViewModels
 				currentUser = value;
 			}
 		}
-		private User currentUser;
-		
+		private User currentUser;		
 		private string findUserText;
-
 		public string FindUserText
 		{
 			get { return findUserText; }
@@ -225,9 +223,9 @@ namespace DistributionTool.ViewModels
 			else
 				passwordWindow = new PasswordWindow("Change Password", CurrentUser.Id);
 
-			passwordWindow.Show();		
-		}	
-		
+			passwordWindow.Show();
+		} //ChangePassword()	
+
 		#endregion
 		#region Validators
 		public bool SaveUserValidation(object x)
@@ -248,9 +246,7 @@ namespace DistributionTool.ViewModels
 				return false;
 
 			else return true;
-		} // ChangePasswordValidation()
-
-
+		} // ChangePasswordValidation()		
 		#endregion
 	}
 }
