@@ -44,27 +44,29 @@ namespace DistributionTool.ViewModels
 
 			if (user != null)
 			{
-				var encryptedPassword = PasswordEncryptor.GeneratePassword(password, user.PasswordSalt);
+				if (user.PasswordSalt != null)
+				{
+					var encryptedPassword = PasswordEncryptor.GeneratePassword(password, user.PasswordSalt);
 
-				if (user.Password.SequenceEqual(encryptedPassword))
-				{					
-					if (user.AccountActive == true)
+					if (user.Password.SequenceEqual(encryptedPassword))
 					{
-						MainWindowViewModel.LogIn(user);
+						if (user.AccountActive == true)
+						{
+							MainWindowViewModel.LogIn(user);
+						}
+
+						else MainWindowViewModel.NotifyUser("Unable to sign in. The account has been locked. Please contact your administrator.");
 					}
 
-					else MessageBox.Show("Konto zablokowane przez administratora.");
-
+					else MainWindowViewModel.NotifyUser("Wrong login or password");
 				}
 
-				else MessageBox.Show("Zły login lub hasło!");
+				else MainWindowViewModel.NotifyUser("Unable to sign in. The account has no password assigned. Please contact your administrator.");
+			}			
+			
+			else MainWindowViewModel.NotifyUser("Wrong login or password");
 
-			}
-
-			else
-			MessageBox.Show("Nie ma takiego użytkownika!");
-
-		} // LogInAction() 
+		} // LogInAction()
 		#endregion
 
 		#region Methods validation

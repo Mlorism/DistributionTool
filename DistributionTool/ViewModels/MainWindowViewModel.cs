@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
@@ -51,6 +52,20 @@ namespace DistributionTool.ViewModels
 				RaiseStaticPropertyChanged("LoggedInUser");				
 			}
 		}
+
+		private static string notificationText;
+
+		public static string NotificationText
+		{
+			get { return notificationText; }
+			set 
+			{ 
+				notificationText = value;
+
+				RaiseStaticPropertyChanged("NotificationText");
+			}
+		}
+
 
 		#endregion
 
@@ -118,7 +133,22 @@ namespace DistributionTool.ViewModels
 			LoggedInUser = null;
 			LoadLoginPage();			
 		}
-				
+		public static async void NotifyUser(string notification)
+		{
+			await ShowNotification(notification);
+		} // NotifyUser()
+		#endregion
+
+		#region Tasks
+		private static Task ShowNotification(string text)
+		{
+			return Task.Factory.StartNew(() =>
+			{
+				NotificationText = text;
+				Thread.Sleep(6000);
+				NotificationText = "";
+			});
+		} // ShowNotification()
 		#endregion
 	}
 

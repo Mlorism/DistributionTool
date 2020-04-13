@@ -86,6 +86,10 @@
             </TabControl>
 
         <TextBlock Grid.Row="2"
-                   Background="LightGray"/>
+                   Background="LightGray"
+                   Text="{Binding NotificationText}"                   
+                   TextAlignment="Center"
+                   FontWeight="Bold"
+                   Foreground="Red"/>
     </Grid>
 </Controls:MetroWindow>
