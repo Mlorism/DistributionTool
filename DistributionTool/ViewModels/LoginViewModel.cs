@@ -71,8 +71,6 @@ namespace DistributionTool.ViewModels
 
 		#region Methods validation
 
-
-
 		#endregion
 
 	}

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -38,7 +39,7 @@ namespace DistributionTool.Windows
 			this.Title = title;
 			this.userId = Id;
 
-			SavePasswordCommand = new RelayCommand(SavePassword, SavePasswordValidation);
+			SavePasswordCommand = new RelayCommand(SavePassword, null);
 		} // PasswordWindow()
 		#endregion
 
@@ -49,33 +50,36 @@ namespace DistributionTool.Windows
 		} // Cancel_button_Click()		
 
 
-		public void SavePassword(object x)
-		{
-			User selectedUser = MainWindowViewModel.Context.Users.FirstOrDefault(u => u.Id == userId);
-			selectedUser.PasswordSalt = PasswordEncryptor.GenerateSalt();
-			selectedUser.Password = PasswordEncryptor.GeneratePassword(passwordProposition.Password, selectedUser.PasswordSalt);
-			MainWindowViewModel.SaveContext();
-			selectedUser = new User();
-			this.Close();
-		} // Save_password()		
-		#endregion
-
-		#region Validators
-		private bool SavePasswordValidation(object parameters)
+		public void SavePassword(object parameters)
 		{
 			var values = (object[])parameters;
 			var passwordText = ((PasswordBox)values[0]).Password;
 			var passwordConfirmation = ((PasswordBox)values[1]).Password;
+			var regexExpression = new Regex(@"!|@|#|\$|%|\^|&|\*|\(|\)|-|_|=|\+"); 
 
-			if (passwordText.Length > 7 & passwordConfirmation.Length > 7)
+			if (passwordText.Any(char.IsDigit)|| regexExpression.IsMatch(passwordText))
 			{
-				if (passwordText == passwordConfirmation)
-					return true;
-				else return false;
+				if (passwordText.Length >= 8)
+				{
+					if (passwordText == passwordConfirmation)
+					{
+						User selectedUser = MainWindowViewModel.Context.Users.FirstOrDefault(u => u.Id == userId);
+						selectedUser.PasswordSalt = PasswordEncryptor.GenerateSalt();
+						selectedUser.Password = PasswordEncryptor.GeneratePassword(passwordProposition.Password, selectedUser.PasswordSalt);
+						MainWindowViewModel.SaveContext();
+						selectedUser = new User();
+						this.Close();
+					}
+					else MainWindowViewModel.NotifyUser("Those passwords didn't match. Try again.");
+				}
+				else MainWindowViewModel.NotifyUser("Password is to short, shoud contain at least 8 characters.");
 			}
+			else MainWindowViewModel.NotifyUser("Invalid password. Password shoud contain at least one number or special character.");
+		} // Save_password()		
+		#endregion
 
-			else return false;
-		} // SaveValidation()
+		#region Validators
+		
 		#endregion
 	}
 }
