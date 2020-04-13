@@ -21,10 +21,24 @@ namespace DistributionTool
 	/// </summary>
 	public partial class MainWindow
 	{
+		
 		public MainWindow()
 		{
 			InitializeComponent();
-			DataContext = new MainWindowViewModel();
+			DataContext = new MainWindowViewModel();				
 		}
+
+		/// <summary>
+		/// After change in Tabs collection if only one tab exist select it.
+		/// </summary>	
+		private void TabsUpdated(object sender, DataTransferEventArgs e)
+		{
+			if(ApplicationTabs.Items.Count == 1)
+			{
+				ApplicationTabs.SelectedIndex = 0;
+			}
+		} // ApplicationTabs()
+
+
 	}
 }

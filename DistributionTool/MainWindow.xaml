@@ -9,7 +9,8 @@
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:inter="clr-namespace:DistributionTool.Interfaces"
     xmlns:Pages="clr-namespace:DistributionTool.Views"
-    xmlns:VMod="clr-namespace:DistributionTool.ViewModels"    
+    xmlns:VMod="clr-namespace:DistributionTool.ViewModels"  
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
     mc:Ignorable="d"
     Title="DistributionTool" 
     TitleCharacterCasing="Normal"
@@ -23,17 +24,34 @@
                                           Kind="Honeycomb" />
         </DataTemplate>
     </Controls:MetroWindow.IconTemplate>
-
+          
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0">
+            <Menu>
+                <MenuItem Header="Program">
+                    <MenuItem Header="About" />
+                </MenuItem>
+                <MenuItem Header="Profile">
+                    <MenuItem Header="Log Out"
+                              Command="{Binding LogOutCommand}"/>
+                    <MenuItem Header="Change Password" />
+                </MenuItem>
+            </Menu>
+        </DockPanel>
         
-        <TabControl ItemsSource="{Binding Tabs}"
-                    Grid.Row="0"
-                    SelectedIndex="0">
-                <TabControl.Resources>
+        <TabControl x:Name="ApplicationTabs"
+                    ItemsSource="{Binding Tabs,                                                                                                        
+                                  NotifyOnTargetUpdated=True}"
+                    Grid.Row="1"                   
+                    TargetUpdated="TabsUpdated">
+            
+            <TabControl.Resources>
                     <Style TargetType="{x:Type TabPanel}">
                         <Setter Property="HorizontalAlignment"
                                 Value="Center" />
@@ -67,7 +85,7 @@
                 </TabControl.ItemTemplate>
             </TabControl>
 
-        <TextBlock Grid.Row="1"
+        <TextBlock Grid.Row="2"
                    Background="LightGray"/>
     </Grid>
 </Controls:MetroWindow>

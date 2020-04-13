@@ -9,20 +9,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 
 namespace DistributionTool.ViewModels
 {
 	class MainWindowViewModel : BaseViewModel
 	{
 		#region Commands	
-
+		public RelayCommand LogOutCommand { get; private set; }		
 		#endregion
 
 		#region Properties
-		public static ICollection<ITab> Tabs { get; set; }
 		/// <summary>
 		/// Tabs containing ViewModels to be loaded according to user's permissions
 		/// </summary>
+		public static IList<ITab> Tabs { get; set; }		
 
 		private static ApplicationDbContext context = new ApplicationDbContext();
 		
@@ -47,18 +48,18 @@ namespace DistributionTool.ViewModels
 			set 
 			{ 				
 				loggedInUser = value;
-				RaiseStaticPropertyChanged("LoggedInUser");
-				LoadTabs();
+				RaiseStaticPropertyChanged("LoggedInUser");				
 			}
 		}
-
 
 		#endregion
 
 		#region Constructor
 		public MainWindowViewModel()
-		{
+		{			
 			LoadLoginPage();
+
+			LogOutCommand = new RelayCommand(LogOut, null);			
 		}
 		#endregion
 
@@ -69,17 +70,31 @@ namespace DistributionTool.ViewModels
 		} // RaiseStaticPropertyChanged()
 		public static void LoadLoginPage()
 		{
-			Tabs = new ObservableCollection<ITab>()
+			if (Tabs == null)
 			{
-				new LoginViewModel()				
-			};
+				Tabs = new ObservableCollection<ITab>();
+			}
+
+			if (Tabs.Count > 0)
+			{
+				Tabs.Clear();
+			}		
+
+			Tabs.Add(new LoginViewModel());			
+
+			RaiseStaticPropertyChanged("Tabs");
 		} // LoadTabs() create and load login page to the tab collection
 		public static void LoadTabs()
 		{
-			if (Tabs != null)
-				Tabs.Clear();
+			if (Tabs == null)
+			{
+				Tabs = new ObservableCollection<ITab>();
+			}
 
-			else Tabs = new ObservableCollection<ITab>();
+			if (Tabs.Count > 0)
+			{
+				Tabs.Clear();
+			}
 
 			Tabs.Add(new AdminViewModel());
 			Tabs.Add(new ProductsViewModel());			
@@ -87,14 +102,23 @@ namespace DistributionTool.ViewModels
 			Tabs.Add(new SummaryViewModel());
 			Tabs.Add(new SettingsViewModel());
 
-			RaiseStaticPropertyChanged("Tabs");
-			
+			RaiseStaticPropertyChanged("Tabs");			
 		} // LoadTabs() method loads specific tabs to the collection
 		public static void SaveContext()
 		{
 			Context.SaveChanges();
 		} // SaveContext()
-
+		public static void LogIn(object x)
+		{
+			LoggedInUser = (User)x;
+			LoadTabs();
+		}
+		public static void LogOut(object x)
+		{
+			LoggedInUser = null;
+			LoadLoginPage();			
+		}
+				
 		#endregion
 	}
 

@@ -50,7 +50,7 @@ namespace DistributionTool.ViewModels
 				{					
 					if (user.AccountActive == true)
 					{
-						MainWindowViewModel.LoggedInUser = user;
+						MainWindowViewModel.LogIn(user);
 					}
 
 					else MessageBox.Show("Konto zablokowane przez administratora.");

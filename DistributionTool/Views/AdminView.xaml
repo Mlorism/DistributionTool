@@ -46,7 +46,6 @@
                     <RowDefinition Height="auto" />                    
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-
                 
                 <TextBox HorizontalAlignment="Stretch"
                          Tag="Find user"
