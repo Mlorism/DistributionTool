@@ -5,11 +5,79 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DistributionTool.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <StackPanel VerticalAlignment="Center"
-                    HorizontalAlignment="Center">
-            <TextBlock Text="PRODUCTS VIEW!!!"/>
-        </StackPanel>
+             d:DesignHeight="450" d:DesignWidth="1200">
+    
+    <!--#region Resources-->
+    <UserControl.Resources>
+        <Style x:Key="DataGridHeader" TargetType="DataGridColumnHeader">
+            <Setter Property="HorizontalContentAlignment"
+                    Value="Center" />
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <TextBlock TextWrapping="Wrap" />
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <!--#endregion-->
+    
+    <!--#region Main grid-->
+    <Grid Background="White">
+        <!--#region Grid definitions-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <!--#endregion-->
+
+        <!--#region Controls/filters/apply button panel-->
+        <Grid>
+
+        </Grid>
+        <!--#endregion-->
+
+        <!--#region Products table-->
+        <DataGrid Style="{DynamicResource AzureDataGrid}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="PLU" />
+                <DataGridTextColumn Header="Product name" />
+                <DataGridTextColumn Header="Pc size" />
+                <DataGridTextColumn Header="Promotion" />
+                <DataGridTextColumn Header="Group name" />
+                <DataGridTextColumn Header="Subgroup name" />
+                <DataGridTextColumn Header="WH/Free Qty" />
+                <DataGridTextColumn Header="WH/Free Pc" />
+                <DataGridTextColumn Header="STR below min" />
+                <DataGridTextColumn Header="STR cv" />
+                <DataGridCheckBoxColumn Header="Mon" />
+                <DataGridCheckBoxColumn Header="Tue" />
+                <DataGridCheckBoxColumn Header="Wed" />
+                <DataGridCheckBoxColumn Header="Thu" />
+                <DataGridCheckBoxColumn Header="Fri" />
+                
+                <DataGridTextColumn Header="Distribution method">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping"
+                                    Value="Wrap" />
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
+               
+
+            </DataGrid.Columns>
+        </DataGrid>
+        <!--#endregion-->
+
+        <!--#region Additional info and charts-->
+        <Grid>
+
+        </Grid>
+        <!--#endregion-->
+
     </Grid>
+    <!--#endregion-->
 </UserControl>
