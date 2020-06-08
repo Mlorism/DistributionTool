@@ -42,7 +42,7 @@
         <!--#region Products table-->
         <DataGrid Style="{DynamicResource AzureDataGrid}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="PLU" />
+                <DataGridTextColumn Header="PLU"/>
                 <DataGridTextColumn Header="Product name" />
                 <DataGridTextColumn Header="Pc size" />
                 <DataGridTextColumn Header="Promotion" />
@@ -52,21 +52,13 @@
                 <DataGridTextColumn Header="WH/Free Pc" />
                 <DataGridTextColumn Header="STR below min" />
                 <DataGridTextColumn Header="STR cv" />
+                <DataGridTextColumn Header="STR eff cv" />
                 <DataGridCheckBoxColumn Header="Mon" />
                 <DataGridCheckBoxColumn Header="Tue" />
                 <DataGridCheckBoxColumn Header="Wed" />
                 <DataGridCheckBoxColumn Header="Thu" />
                 <DataGridCheckBoxColumn Header="Fri" />
-                
-                <DataGridTextColumn Header="Distribution method">
-                    <DataGridTextColumn.HeaderStyle>
-                        <Style>
-                            <Setter Property="TextBlock.TextWrapping"
-                                    Value="Wrap" />
-                        </Style>
-                    </DataGridTextColumn.HeaderStyle>
-                </DataGridTextColumn>
-               
+                <DataGridTextColumn Header="Distribution method"/>
 
             </DataGrid.Columns>
         </DataGrid>
