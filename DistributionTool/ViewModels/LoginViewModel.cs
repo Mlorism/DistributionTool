@@ -1,5 +1,6 @@
 ﻿using DistributionTool.Cryptography;
 using DistributionTool.Models;
+using DistributionTool.ViewModels.Lists;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,8 @@ namespace DistributionTool.ViewModels
 			TabName = "Login";
 			UserName = "";
 			Password = "";
+
+			AdminExist();
 
 			LoginCommand = new RelayCommand(LogInAction, null);
 		}
@@ -62,7 +65,37 @@ namespace DistributionTool.ViewModels
 			}			
 			else MainWindowViewModel.NotifyUser("Wrong login or password");
 		} // LogInAction()
+
+		/// <summary>
+		/// Safeguard if developer forget user password. In case of not existing admin1 account new one is created. 
+		/// </summary>
+		public static void AdminExist()
+		{
+			User user = MainWindowViewModel.Context.Users.FirstOrDefault(u => u.Name == "Admin1");
+
+			if (user == null)
+			{
+				MainWindowViewModel.NotifyUser("Admin nie istnieje!");
+
+				var tempUser = new User();
+
+				tempUser.Name = "Admin1";
+				tempUser.PasswordSalt = PasswordEncryptor.GenerateSalt();
+				tempUser.Password = PasswordEncryptor.GeneratePassword("Sauron666", tempUser.PasswordSalt);				
+				tempUser.Type = Enumerators.UserType.Admin;
+				tempUser.AccountActive = true;
+
+				MainWindowViewModel.Context.Users.Add(tempUser);
+				MainWindowViewModel.SaveContext();
+				UsersListViewModel.Instance.Refresh();
+			}
+
+			else return;
+	
+		}
 		#endregion
+
+	
 
 		#region Methods validation
 
