@@ -9,6 +9,9 @@ using System.Windows;
 
 namespace DistributionTool.ViewModels.Lists
 {
+	/// <summary>
+	/// ObservableCollection of all users accounts.
+	/// </summary>
 	class UsersListViewModel
 	{
 		#region Properties

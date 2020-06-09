@@ -143,11 +143,13 @@
     <Compile Include="Converters\MultipleValuesConverter.cs" />
     <Compile Include="Converters\UserTypeToStringConverter.cs" />
     <Compile Include="Cryptography\PasswordEncryptor.cs" />
+    <Compile Include="Enumerators\DistributionMethods.cs" />
     <Compile Include="Interfaces\ITab.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="ViewModels\AdminViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\DistributionViewModel.cs" />
+    <Compile Include="ViewModels\Lists\ProductsListViewModel.cs" />
     <Compile Include="ViewModels\Lists\UsersListViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />

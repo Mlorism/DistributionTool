@@ -75,7 +75,7 @@ namespace DistributionTool.ViewModels
 
 			if (user == null)
 			{
-				MainWindowViewModel.NotifyUser("Admin nie istnieje!");
+				MainWindowViewModel.NotifyUser("Admin1 accoutn doesn't exist.");
 
 				var tempUser = new User();
 
