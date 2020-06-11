@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace DistributionTool.Models
 {
@@ -14,7 +16,8 @@ namespace DistributionTool.Models
     {
         /// <summary>
         /// Price look-up code.
-        /// </summary>        
+        /// </summary>  
+        [Key]
         public int PLU {get; set;}
         /// <summary>
         /// Product name.
