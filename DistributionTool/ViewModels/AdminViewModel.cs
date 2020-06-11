@@ -52,7 +52,7 @@ namespace DistributionTool.ViewModels
 		}
 
 		/// <summary>
-		/// Filter on UserList
+		/// Filtered UserList
 		/// </summary>
 		public ICollectionView userFilteredList { get; set; }
 		#endregion
@@ -96,24 +96,33 @@ namespace DistributionTool.ViewModels
 		/// </summary>
 		public void ChoseCurrentUser(object user)
 		{
-			User tempUser = UsersListViewModel.Instance.UsersList.FirstOrDefault(x => x.Id == ((User)user).Id);
-
-			if (tempUser != null)
+			if (user != null)
 			{
-				CurrentUser.Id = tempUser.Id;
-				CurrentUser.Name = tempUser.Name;
-				CurrentUser.Type = tempUser.Type;
-				CurrentUser.AccountActive = tempUser.AccountActive;
-				CurrentUser.Password = null;
-				CurrentUser.PasswordSalt = null;
+				User tempUser = UsersListViewModel.Instance.UsersList.FirstOrDefault(x => x.Id == ((User)user).Id);
 
-				OnPropertyChange("CurrentUser");
+				if (tempUser != null)
+				{
+					CurrentUser.Id = tempUser.Id;
+					CurrentUser.Name = tempUser.Name;
+					CurrentUser.Type = tempUser.Type;
+					CurrentUser.AccountActive = tempUser.AccountActive;
+					CurrentUser.Password = null;
+					CurrentUser.PasswordSalt = null;
+
+					OnPropertyChange("CurrentUser");
+				}
+
+				else
+				{
+					return;
+				}
 			}
 
 			else
 			{
 				return;
-			}						
+			}
+
 		} //ChoseCurrentUser()		
 
 		/// <summary>

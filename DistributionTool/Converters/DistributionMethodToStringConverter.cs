@@ -19,20 +19,20 @@ namespace DistributionTool.Converters
 		{
 			if (value is DistributionMethod method)
 			{
-				switch (method.ToString())
+				switch (method)
 				{
-					case "KeepMinimum":
+					case DistributionMethod.KeepMinimum:
 						return "Keep Minimum";
-					case "WeeksOfSales":
+					case DistributionMethod.WeeksOfSales:
 						return "Weeks Of Sales";
-					case "SubgroupTrend":
+					case DistributionMethod.SubgroupTrend:
 						return "Subgroup Trend";
-					case "GroupTrend":
+					case DistributionMethod.GroupTrend:
 						return "Group Trend";
-					case "FinalDistribution":
+					case DistributionMethod.FinalDistribution:
 						return "Final Distribution";
 					default:
-						return value.ToString(); 
+						return value.ToString();
 				}
 			}
 

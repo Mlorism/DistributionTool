@@ -187,7 +187,7 @@
                             <Button Content="New User"
                                     Margin="15 15 15 0"
                                     Style="{StaticResource AccentedSquareButtonStyle}"
-                                    Command="{Binding  ClearDataCommand}" />
+                                    Command="{Binding ClearDataCommand}" />
                             <Button Content="Save User"
                                     Margin="15 15 15 0"
                                     Style="{StaticResource SquareButtonStyle}"
