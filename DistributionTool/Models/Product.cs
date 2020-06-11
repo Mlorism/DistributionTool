@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DistributionTool.Enumerators;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -78,7 +79,7 @@ namespace DistributionTool.Models
         /// <summary>
         /// Selected method used to calculate distribution.
         /// </summary>
-        public int DistributionMethod { get; set; }
+        public DistributionMethod MethodOfDistribution { get; set; }
 
     }
 }

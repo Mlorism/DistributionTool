@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DistributionTool.Enumerators
 {
-	public enum DistributionMethods
+	public enum DistributionMethod
 	{
 		/// <summary>
 		/// Keep only the minimum. If the number falls below the minimum, distribute the package.
@@ -27,7 +27,7 @@ namespace DistributionTool.Enumerators
 		/// <summary>
 		/// Distribute all remaining stock based on current store stock and grade.
 		/// </summary>
-		FinalDistribution,
+		FinalDistribution
 
 	}
 }
