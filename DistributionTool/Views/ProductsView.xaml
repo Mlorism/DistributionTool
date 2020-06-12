@@ -20,6 +20,7 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
 
+        <conv:QuantityToPacksConverter x:Key="QuantityToPacksConverter" />
         <conv:DistributionMethodToStringConverter x:Key="DistributionMethodToStringConverter"/>
 
     </UserControl.Resources>
@@ -41,8 +42,7 @@
         </Grid>
         <!--#endregion-->
 
-        <!--#region Products table-->
-       
+        <!--#region Products table-->       
         <DataGrid Style="{DynamicResource AzureDataGrid}"
                   ItemsSource="{Binding productsFilteredList}"
                   AutoGenerateColumns="False"
@@ -69,11 +69,13 @@
                 <DataGridTextColumn Header="Subgroup"
                                     Binding="{Binding SubGroup}"
                                     IsReadOnly="True"/>
-                <DataGridTextColumn Header="Free/Res Qty"
+                <DataGridTextColumn Header="Avail Qty"
                                     Binding="{Binding WarehouseFreeQty, StringFormat='### ### ##0'}"
                                     IsReadOnly="True"/>
-                <DataGridTextColumn Header="Free/Res Pc"
-                                    IsReadOnly="True" />
+                <DataGridTextColumn Header="Avail/Res Pc"
+                                    IsReadOnly="True"
+                                    Binding="{Binding Path=.,
+                                              Converter={StaticResource QuantityToPacksConverter}}" />
                 <DataGridTextColumn Header="STR below min"
                                     Binding="{Binding StoresBelowMinimum}"
                                     IsReadOnly="True"/>
