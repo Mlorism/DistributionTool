@@ -52,26 +52,37 @@
                   GridLinesVisibility="All">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="PLU" 
-                                    Binding="{Binding PLU}"/>
+                                    Binding="{Binding PLU}"
+                                    IsReadOnly="True"/>
                 <DataGridTextColumn Header="Product name" 
-                                    Binding="{Binding Name}"/>
+                                    Binding="{Binding Name}"
+                                    IsReadOnly="True"/>
                 <DataGridTextColumn Header="Pc size"
-                                    Binding="{Binding PackSize}"/>
+                                    Binding="{Binding PackSize}"
+                                    IsReadOnly="True"/>
                 <DataGridTextColumn Header="Promotion"
-                                    Binding="{Binding Promotion}"/>
+                                    Binding="{Binding Promotion}"
+                                    IsReadOnly="True"/>
                 <DataGridTextColumn Header="Group"
-                                    Binding="{Binding GroupName}"/>
+                                    Binding="{Binding GroupName}"
+                                    IsReadOnly="True"/>
                 <DataGridTextColumn Header="Subgroup"
-                                    Binding="{Binding SubGroup}"/>
+                                    Binding="{Binding SubGroup}"
+                                    IsReadOnly="True"/>
                 <DataGridTextColumn Header="Free/Res Qty"
-                                    Binding="{Binding WarehouseFreeQty}"/>
-                <DataGridTextColumn Header="Free/Res Pc" />
+                                    Binding="{Binding WarehouseFreeQty, StringFormat='### ### ##0'}"
+                                    IsReadOnly="True"/>
+                <DataGridTextColumn Header="Free/Res Pc"
+                                    IsReadOnly="True" />
                 <DataGridTextColumn Header="STR below min"
-                                    Binding="{Binding StoresBelowMinimum}"/>
+                                    Binding="{Binding StoresBelowMinimum}"
+                                    IsReadOnly="True"/>
                 <DataGridTextColumn Header="STR cv"
-                                    Binding="{Binding StoresCover}"/>
+                                    Binding="{Binding StoresCover}"
+                                    IsReadOnly="True"/>
                 <DataGridTextColumn Header="STR eff cv"
-                                    Binding="{Binding StoresEffectiveCover}"/>
+                                    Binding="{Binding StoresEffectiveCover}"
+                                    IsReadOnly="True"/>
                 <DataGridCheckBoxColumn Header="Mon"
                                         Binding="{Binding MondayDistribution}"/>
                 <DataGridCheckBoxColumn Header="Tue"
@@ -83,7 +94,8 @@
                 <DataGridCheckBoxColumn Header="Fri"
                                         Binding="{Binding FridayDistribution}"/>
                 
-                <DataGridTemplateColumn Header="Distribution method">
+                <DataGridTemplateColumn Header="Distribution method"
+                                        IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <ComboBox ItemsSource="{Binding Source={StaticResource DistributionMethodType}}"
