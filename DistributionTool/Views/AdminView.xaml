@@ -69,11 +69,11 @@
                         <DataGrid x:Name="Users"
                                   ItemsSource="{Binding userFilteredList}"
                                   AutoGenerateColumns="False"
-                                  CanUserAddRows="False"
-                                  CanUserDeleteRows="False"
+                                  CanUserAddRows="False"                                 
                                   SelectionMode="Single"
                                   SelectionUnit="FullRow"
                                   IsReadOnly="True"
+                                  HorizontalAlignment="Center"
                                   GridLinesVisibility="All"
                                   Style="{DynamicResource MetroDataGrid}">
                             <i:Interaction.Triggers>

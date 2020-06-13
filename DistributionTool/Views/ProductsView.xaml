@@ -33,21 +33,31 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
-        </Grid.RowDefinitions>
+        </Grid.RowDefinitions>        
         <!--#endregion-->
 
         <!--#region Controls/filters/apply button panel-->
-        <Grid>
-
+        <Grid Grid.Row="0">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <Button Content="Apply" 
+                        Margin="5"
+                        Style="{StaticResource AccentedSquareButtonStyle}"/>
+                <Button Content="Refresh"
+                        Margin="5"
+                        Style="{StaticResource SquareButtonStyle}"/>
+            </StackPanel>
         </Grid>
         <!--#endregion-->
 
         <!--#region Products table-->       
         <DataGrid Style="{DynamicResource AzureDataGrid}"
                   ItemsSource="{Binding productsFilteredList}"
+                  Grid.Row="1"
                   AutoGenerateColumns="False"
                   CanUserAddRows="False"
-                  CanUserDeleteRows="False"
+                  FrozenColumnCount="2"
+                  HorizontalAlignment="Center"  
                   SelectionMode="Single"
                   GridLinesVisibility="All">
             <DataGrid.Columns>
@@ -75,7 +85,7 @@
                 <DataGridTextColumn Header="Avail/Res Pc"
                                     IsReadOnly="True"
                                     Binding="{Binding Path=.,
-                                              Converter={StaticResource QuantityToPacksConverter}}" />
+                                              Converter={StaticResource QuantityToPacksConverter}}"/>
                 <DataGridTextColumn Header="STR below min"
                                     Binding="{Binding StoresBelowMinimum}"
                                     IsReadOnly="True"/>
@@ -94,8 +104,7 @@
                 <DataGridCheckBoxColumn Header="Thu"
                                         Binding="{Binding ThursdayDistribution}"/>
                 <DataGridCheckBoxColumn Header="Fri"
-                                        Binding="{Binding FridayDistribution}"/>
-                
+                                        Binding="{Binding FridayDistribution}"/>                
                 <DataGridTemplateColumn Header="Distribution method"
                                         IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
