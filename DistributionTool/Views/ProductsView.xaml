@@ -31,99 +31,116 @@
         <!--#region Grid definitions-->
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>        
         <!--#endregion-->
 
-        <!--#region Controls/filters/apply button panel-->
+        <!--#region Controls/filters/buttons panel-->
         <Grid Grid.Row="0">
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right">
-                <Button Content="Apply" 
-                        Margin="5"
-                        Style="{StaticResource AccentedSquareButtonStyle}"/>
-                <Button Content="Refresh"
-                        Margin="5"
-                        Style="{StaticResource SquareButtonStyle}"/>
+                <!--#region Buttons-->
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Apply"
+                            Margin="5"
+                            Width="70"
+                            Style="{StaticResource AccentedSquareButtonStyle}"
+                            ToolTip="Save changes for distribution days and distribution method."/>
+                    <Button Content="Refresh"
+                            Margin="5"
+                            Width="70"
+                            Style="{StaticResource SquareButtonStyle}"
+                            ToolTip="Reload the product list."/>
+                    <Button Content="Distribute"
+                            Margin="5"
+                            Width="70"
+                            Style="{StaticResource SquareButtonStyle}" 
+                            ToolTip="Create distribution."/>
+                </StackPanel> 
+                <!--#endregion-->
             </StackPanel>
         </Grid>
         <!--#endregion-->
 
-        <!--#region Products table-->       
-        <DataGrid Style="{DynamicResource AzureDataGrid}"
-                  ItemsSource="{Binding productsFilteredList}"
-                  Grid.Row="1"
-                  AutoGenerateColumns="False"
-                  CanUserAddRows="False"
-                  FrozenColumnCount="2"
-                  HorizontalAlignment="Center"  
-                  SelectionMode="Single"
-                  GridLinesVisibility="All">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="PLU" 
-                                    Binding="{Binding PLU}"
-                                    IsReadOnly="True"/>
-                <DataGridTextColumn Header="Product name" 
-                                    Binding="{Binding Name}"
-                                    IsReadOnly="True"/>
-                <DataGridTextColumn Header="Pc size"
-                                    Binding="{Binding PackSize}"
-                                    IsReadOnly="True"/>
-                <DataGridTextColumn Header="Promotion"
-                                    Binding="{Binding Promotion}"
-                                    IsReadOnly="True"/>
-                <DataGridTextColumn Header="Group"
-                                    Binding="{Binding GroupName}"
-                                    IsReadOnly="True"/>
-                <DataGridTextColumn Header="Subgroup"
-                                    Binding="{Binding SubGroup}"
-                                    IsReadOnly="True"/>
-                <DataGridTextColumn Header="Avail Qty"
-                                    Binding="{Binding WarehouseFreeQty, StringFormat='### ### ##0'}"
-                                    IsReadOnly="True"/>
-                <DataGridTextColumn Header="Avail/Res Pc"
-                                    IsReadOnly="True"
-                                    Binding="{Binding Path=.,
-                                              Converter={StaticResource QuantityToPacksConverter}}"/>
-                <DataGridTextColumn Header="STR below min"
-                                    Binding="{Binding StoresBelowMinimum}"
-                                    IsReadOnly="True"/>
-                <DataGridTextColumn Header="STR cv"
-                                    Binding="{Binding StoresCover}"
-                                    IsReadOnly="True"/>
-                <DataGridTextColumn Header="STR eff cv"
-                                    Binding="{Binding StoresEffectiveCover}"
-                                    IsReadOnly="True"/>
-                <DataGridCheckBoxColumn Header="Mon"
-                                        Binding="{Binding MondayDistribution}"/>
-                <DataGridCheckBoxColumn Header="Tue"
-                                        Binding="{Binding TuesdayDistribution}"/>
-                <DataGridCheckBoxColumn Header="Wed"
-                                        Binding="{Binding WednesdayDistribution}"/>
-                <DataGridCheckBoxColumn Header="Thu"
-                                        Binding="{Binding ThursdayDistribution}"/>
-                <DataGridCheckBoxColumn Header="Fri"
-                                        Binding="{Binding FridayDistribution}"/>                
-                <DataGridTemplateColumn Header="Distribution method"
-                                        IsReadOnly="True">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <ComboBox ItemsSource="{Binding Source={StaticResource DistributionMethodType}}"
-                                      SelectedItem="{Binding MethodOfDistribution}"
-                                      Style="{StaticResource MetroComboBox}">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Converter={StaticResource DistributionMethodToStringConverter}}" />
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>                             
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                
-            </DataGrid.Columns>
-        </DataGrid>
+        <!--#region Products table-->
+        <Border BorderThickness="1"
+                BorderBrush="Black"
+                Padding="5"
+                HorizontalAlignment="Center"
+                Grid.Row="1">
+            <DataGrid Style="{DynamicResource AzureDataGrid}"
+                      ItemsSource="{Binding productsFilteredList}"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      FrozenColumnCount="2"
+                      HorizontalAlignment="Center"
+                      SelectionMode="Single"
+                      GridLinesVisibility="All">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="PLU"
+                                        Binding="{Binding PLU}"
+                                        IsReadOnly="True" />
+                    <DataGridTextColumn Header="Product name"
+                                        Binding="{Binding Name}"
+                                        IsReadOnly="True" />
+                    <DataGridTextColumn Header="Pc size"
+                                        Binding="{Binding PackSize}"
+                                        IsReadOnly="True" />
+                    <DataGridTextColumn Header="Promotion"
+                                        Binding="{Binding Promotion}"
+                                        IsReadOnly="True" />
+                    <DataGridTextColumn Header="Group"
+                                        Binding="{Binding GroupName}"
+                                        IsReadOnly="True" />
+                    <DataGridTextColumn Header="Subgroup"
+                                        Binding="{Binding SubGroup}"
+                                        IsReadOnly="True" />
+                    <DataGridTextColumn Header="Avail Qty"
+                                        Binding="{Binding WarehouseFreeQty, StringFormat='### ### ##0'}"
+                                        IsReadOnly="True" />
+                    <DataGridTextColumn Header="Avail/Res Pc"
+                                        IsReadOnly="True"
+                                        Binding="{Binding Path=.,
+                                              Converter={StaticResource QuantityToPacksConverter}}" />
+                    <DataGridTextColumn Header="STR below min"
+                                        Binding="{Binding StoresBelowMinimum}"
+                                        IsReadOnly="True" />
+                    <DataGridTextColumn Header="STR cv"
+                                        Binding="{Binding StoresCover}"
+                                        IsReadOnly="True" />
+                    <DataGridTextColumn Header="STR eff cv"
+                                        Binding="{Binding StoresEffectiveCover}"
+                                        IsReadOnly="True" />
+                    <DataGridCheckBoxColumn Header="Mon"
+                                            Binding="{Binding MondayDistribution}" />
+                    <DataGridCheckBoxColumn Header="Tue"
+                                            Binding="{Binding TuesdayDistribution}" />
+                    <DataGridCheckBoxColumn Header="Wed"
+                                            Binding="{Binding WednesdayDistribution}" />
+                    <DataGridCheckBoxColumn Header="Thu"
+                                            Binding="{Binding ThursdayDistribution}" />
+                    <DataGridCheckBoxColumn Header="Fri"
+                                            Binding="{Binding FridayDistribution}" />
+                    <DataGridTemplateColumn Header="Distribution method"
+                                            IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox ItemsSource="{Binding Source={StaticResource DistributionMethodType}}"
+                                          SelectedItem="{Binding MethodOfDistribution}"
+                                          Style="{StaticResource MetroComboBox}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Converter={StaticResource DistributionMethodToStringConverter}}" />
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>        
         <!--#endregion-->
 
         <!--#region Additional info and charts-->
