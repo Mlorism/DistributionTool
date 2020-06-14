@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:local="clr-namespace:DistributionTool.Views"
              xmlns:enums="clr-namespace:DistributionTool.Enumerators"
              xmlns:conv="clr-namespace:DistributionTool.Converters"
@@ -69,7 +70,8 @@
                 Padding="5"
                 HorizontalAlignment="Center"
                 Grid.Row="1">
-            <DataGrid Style="{DynamicResource AzureDataGrid}"
+            <DataGrid x:Name="ProductsDataGrid"
+                      Style="{DynamicResource AzureDataGrid}"
                       ItemsSource="{Binding productsFilteredList}"
                       AutoGenerateColumns="False"
                       CanUserAddRows="False"
@@ -77,6 +79,12 @@
                       HorizontalAlignment="Center"
                       SelectionMode="Single"
                       GridLinesVisibility="All">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding ChoseSelectedProductCommand}"
+                                               CommandParameter="{Binding ElementName=ProductsDataGrid, Path=SelectedItem}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="PLU"
                                         Binding="{Binding PLU}"

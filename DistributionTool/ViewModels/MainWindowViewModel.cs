@@ -51,6 +51,19 @@ namespace DistributionTool.ViewModels
 				RaiseStaticPropertyChanged("LoggedInUser");				
 			}
 		}
+
+		private static int selectedProductPLU;
+
+		public static int SelectedProductPLU
+		{
+			get { return selectedProductPLU; }
+			set 
+			{ 
+				selectedProductPLU = value;
+				RaiseStaticPropertyChanged("SelectedProduct");
+			}
+		}
+
 		private static string notificationText;
 		public static string NotificationText
 		{
@@ -128,7 +141,12 @@ namespace DistributionTool.ViewModels
 		{
 			LoggedInUser = null;
 			LoadLoginPage();			
-		}
+		} // LogOut() current user
+
+		public static void ChangeSelectedProduct(object x)
+		{
+			SelectedProductPLU = (int)x;			
+		} // ChangeSelectedProduct() Saves selected Products's PLU from products tab.
 		public static void ChangePassword(object x)
 		{
 			PasswordWindow passwordWindow = new PasswordWindow("Change Password", LoggedInUser.Id);

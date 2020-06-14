@@ -67,7 +67,7 @@
                 <!--#region User list-->
                 <Border BorderThickness="0 0 1 1"
                         Grid.Row="1">                    
-                        <DataGrid x:Name="Users"
+                        <DataGrid x:Name="UsersDataGrid"
                                   ItemsSource="{Binding userFilteredList}"
                                   AutoGenerateColumns="False"
                                   CanUserAddRows="False"                                 
@@ -80,7 +80,7 @@
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="SelectionChanged">
                                     <i:InvokeCommandAction Command="{Binding ChoseCurrentUserCommand}"
-                                                           CommandParameter="{Binding ElementName=Users, Path=SelectedItem}"/>
+                                                           CommandParameter="{Binding ElementName=UsersDataGrid, Path=SelectedItem}"/>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
 

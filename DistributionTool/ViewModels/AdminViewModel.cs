@@ -27,19 +27,14 @@ namespace DistributionTool.ViewModels
 		#endregion
 
 		#region Properties
+		private User currentUser;
 		public User CurrentUser 
 		{ 
-			get
-			{
-				return currentUser;
-			}
+			get { return currentUser; }
 
-			set
-			{
-				currentUser = value;
-			}
+			set { currentUser = value; }
 		}
-		private User currentUser;		
+			
 		private string findUserText;
 		public string FindUserText
 		{
@@ -112,17 +107,10 @@ namespace DistributionTool.ViewModels
 					OnPropertyChange("CurrentUser");
 				}
 
-				else
-				{
-					return;
-				}
+				else { return; }
 			}
 
-			else
-			{
-				return;
-			}
-
+			else { return; }
 		} //ChoseCurrentUser()		
 
 		/// <summary>
