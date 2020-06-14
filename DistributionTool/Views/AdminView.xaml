@@ -12,6 +12,7 @@
              xmlns:conv="clr-namespace:DistributionTool.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    
     <!--#region Resources-->
     <UserControl.Resources>
         <ObjectDataProvider x:Key="UserType"
