@@ -120,18 +120,22 @@
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
 
-            <!--#region product parameters & distribution method-->
-
+            <!--#region product parameters & distribution method-->              
+            <StackPanel>
                 <!--#region product parameters-->
-                <DataGrid>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Grade" />
-                    <DataGridTextColumn Header="Min" />
-                    <DataGridTextColumn Header="Cov" />
-                </DataGrid.Columns>                
-                </DataGrid>
+                <Border BorderThickness="1"
+                        BorderBrush="Black">
+                    <DataGrid>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Grade" />
+                            <DataGridTextColumn Header="Min" />
+                            <DataGridTextColumn Header="Max" />
+                            <DataGridTextColumn Header="Cov" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Border>
                 <!--#endregion-->
-
+                
                 <!--#region distribution method-->
                 <StackPanel VerticalAlignment="Center">
                     <ComboBox Grid.Row="0"
@@ -145,9 +149,11 @@
                     </ComboBox>
                     <Button Content="save"
                             Margin="5"
-                            Style="{StaticResource AccentedDialogSquareButton}"/>
-                </StackPanel>            
+                            Style="{StaticResource AccentedDialogSquareButton}" />
+                </StackPanel>
                 <!--#endregion-->
+
+            </StackPanel>
             
             <!--#endregion-->
             
