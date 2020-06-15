@@ -148,6 +148,7 @@
     <Compile Include="Enumerators\DistributionMethod.cs" />
     <Compile Include="Interfaces\ITab.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ProductParameters.cs" />
     <Compile Include="ViewModels\AdminViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\DistributionViewModel.cs" />

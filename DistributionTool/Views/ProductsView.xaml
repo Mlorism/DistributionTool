@@ -53,11 +53,16 @@
                             Width="70"
                             Style="{StaticResource SquareButtonStyle}"
                             ToolTip="Reload the product list."/>
-                    <Button Content="Distribute"
+                    <Button Content="prod. distr."
                             Margin="5"
-                            Width="70"
+                            Width="80"
                             Style="{StaticResource SquareButtonStyle}" 
-                            ToolTip="Create distribution."/>
+                            ToolTip="Create a distribution for the selected product."/>
+                    <Button Content="Day distr."
+                            Margin="5"
+                            Width="80"
+                            Style="{StaticResource SquareButtonStyle}"
+                            ToolTip="Create a distribution for the day of the week." />
                 </StackPanel> 
                 <!--#endregion-->
             </StackPanel>
