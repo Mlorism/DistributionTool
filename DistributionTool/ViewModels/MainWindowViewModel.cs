@@ -41,6 +41,7 @@ namespace DistributionTool.ViewModels
 		}
 
 		public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
+		
 		private static User loggedInUser;
 		public static User LoggedInUser
 		{
@@ -50,19 +51,7 @@ namespace DistributionTool.ViewModels
 				loggedInUser = value;
 				RaiseStaticPropertyChanged("LoggedInUser");				
 			}
-		}
-
-		private static int selectedProductPLU;
-
-		public static int SelectedProductPLU
-		{
-			get { return selectedProductPLU; }
-			set 
-			{ 
-				selectedProductPLU = value;
-				RaiseStaticPropertyChanged("SelectedProduct");
-			}
-		}
+		}				
 
 		private static string notificationText;
 		public static string NotificationText
@@ -87,11 +76,7 @@ namespace DistributionTool.ViewModels
 		}
 		#endregion
 
-		#region Methods
-		public static void RaiseStaticPropertyChanged (string PropertyName)
-		{
-			StaticPropertyChanged?.Invoke(null, new PropertyChangedEventArgs(PropertyName));
-		} // RaiseStaticPropertyChanged()
+		#region Methods		
 		public static void LoadLoginPage()
 		{
 			if (Tabs == null)
@@ -142,11 +127,7 @@ namespace DistributionTool.ViewModels
 			LoggedInUser = null;
 			LoadLoginPage();			
 		} // LogOut() current user
-
-		public static void ChangeSelectedProduct(object x)
-		{
-			SelectedProductPLU = (int)x;			
-		} // ChangeSelectedProduct() Saves selected Products's PLU from products tab.
+		
 		public static void ChangePassword(object x)
 		{
 			PasswordWindow passwordWindow = new PasswordWindow("Change Password", LoggedInUser.Id);
@@ -156,6 +137,11 @@ namespace DistributionTool.ViewModels
 		{
 			await ShowNotification(notification);
 		} // NotifyUser()
+
+		public static void RaiseStaticPropertyChanged(string PropertyName)
+		{
+			StaticPropertyChanged?.Invoke(null, new PropertyChangedEventArgs(PropertyName));
+		} // RaiseStaticPropertyChanged()
 		#endregion
 
 		#region Tasks

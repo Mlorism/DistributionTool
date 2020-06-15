@@ -19,7 +19,21 @@ namespace DistributionTool.ViewModels
 		#endregion
 
 		#region Properties
+		public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
 
+		/// <summary>
+		/// Selected product from productsFilteredList.
+		/// </summary>
+		private static Product selectedProduct;
+		public static Product SelectedProduct
+		{
+			get { return selectedProduct; }
+			set
+			{ 
+				selectedProduct = value;
+				RaiseStaticPropertyChanged("SelectedProduct");
+			}
+		}
 
 		/// <summary>
 		/// Filtered ProductList
@@ -32,18 +46,32 @@ namespace DistributionTool.ViewModels
 		{
 			TabName = "Products";
 
+			if (SelectedProduct == null)
+			{
+				SelectedProduct = ProductsListViewModel.Instance.ProductList.FirstOrDefault();
+			}
+			
 			var productSourceList = new CollectionViewSource() { Source = ProductsListViewModel.Instance.ProductList };
 			productsFilteredList = productSourceList.View;
 
+			
 			ChoseSelectedProductCommand = new RelayCommand(ChoseSelectedProduct, null);
 		}
 		#endregion
 
 		#region Methods
+		public static void RaiseStaticPropertyChanged(string PropertyName)
+		{
+			StaticPropertyChanged?.Invoke(null, new PropertyChangedEventArgs(PropertyName));
+		} // RaiseStaticPropertyChanged()
+
 		public void ChoseSelectedProduct(object product)
 		{
-			MainWindowViewModel.ChangeSelectedProduct(((Product)product).PLU);
-		}
+			if (product != null)
+			{
+				SelectedProduct = ProductsListViewModel.Instance.ProductList.FirstOrDefault(x => x.PLU == ((Product)product).PLU);
+			}
+		} // ChoseSelectedProduct()
 		#endregion
 
 		#region Validators

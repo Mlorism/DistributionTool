@@ -1,4 +1,5 @@
 ﻿using DistributionTool.ViewModels;
+using DistributionTool.ViewModels.Lists;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,18 @@ namespace DistributionTool.Views
 		{
 			InitializeComponent();
 			DataContext = new ProductsViewModel();
+			ProductSelection();
 		}
+
+		private void ProductSelection()
+		{
+			if (ProductsListViewModel.Instance.ProductList.Count > 0)
+			{
+				int selectionIndex = ProductsListViewModel.Instance.ProductList.IndexOf(ProductsViewModel.SelectedProduct);
+				ProductsDataGrid.SelectedIndex = selectionIndex;
+			}
+
+			else return;
+		} // ProductSelection()
 	}
 }

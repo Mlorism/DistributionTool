@@ -30,6 +30,6 @@ namespace DistributionTool.ViewModels
 				throw new Exception("Invalid property name: " + propertyName);
 			}
 		} //OnPropertyChange()
-		#endregion
+		#endregion				
 	}
 }
