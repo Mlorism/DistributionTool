@@ -39,7 +39,7 @@ namespace DistributionTool.ViewModels.Lists
 					ProductList.Add(product);
 				}
 			}
-		}
+		} // Refresh()
 		#endregion
 	}
 }
