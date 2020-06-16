@@ -147,11 +147,16 @@
     <Compile Include="Cryptography\PasswordEncryptor.cs" />
     <Compile Include="Enumerators\DistributionMethod.cs" />
     <Compile Include="Interfaces\ITab.cs" />
+    <Compile Include="Migrations\202006152138458_CreateProductParametersTable.cs" />
+    <Compile Include="Migrations\202006152138458_CreateProductParametersTable.designer.cs">
+      <DependentUpon>202006152138458_CreateProductParametersTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductParameters.cs" />
     <Compile Include="ViewModels\AdminViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\DistributionViewModel.cs" />
+    <Compile Include="ViewModels\Lists\ProductParameterListViewModel.cs" />
     <Compile Include="ViewModels\Lists\ProductsListViewModel.cs" />
     <Compile Include="ViewModels\Lists\UsersListViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
@@ -251,6 +256,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Migrations\202006152138458_CreateProductParametersTable.resx">
+      <DependentUpon>202006152138458_CreateProductParametersTable.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

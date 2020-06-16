@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace DistributionTool.Models
 {
@@ -14,11 +15,12 @@ namespace DistributionTool.Models
 		/// <summary>
 		/// Price look-up code.
 		/// </summary>
+		[Key]
 		public int PLU { get; set; }
 		/// <summary>
 		/// Store grade.
 		/// </summary>
-		public char Grade { get; set; }
+		public string Grade { get; set; }
 		/// <summary>
 		/// Minimum quantity for the grade.
 		/// </summary>

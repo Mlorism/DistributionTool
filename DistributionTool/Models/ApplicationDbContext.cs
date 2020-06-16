@@ -11,6 +11,7 @@ namespace DistributionTool.Models
 	{
 		public DbSet<User> Users { get; set; }
 		public DbSet<Product> Products { get; set; }
+		public DbSet<ProductParameters> ProductParameters { get; set; }
 
 		public ApplicationDbContext()
 			: base("name=DefaultConnection")
