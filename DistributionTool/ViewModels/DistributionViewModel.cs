@@ -1,10 +1,15 @@
 ﻿using DistributionTool.Interfaces;
 using DistributionTool.Models;
+using DistributionTool.ViewModels.Lists;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Data;
 
 namespace DistributionTool.ViewModels
 {
@@ -15,9 +20,15 @@ namespace DistributionTool.ViewModels
 		#endregion
 
 		#region Properties
-		public Product SelectedProduct
+		public Product SelectedProduct => ProductsViewModel.SelectedProduct;
+		
+		public ObservableCollection<ProductParameters> SelectedProductParameters
 		{
-			get { return ProductsViewModel.SelectedProduct; }			
+			get
+			{
+				var subList = ProductParameterListViewModel.Instance.ParametersList.Where(x => x.PLU == SelectedProduct.PLU);				
+				return new ObservableCollection<ProductParameters>(subList);  
+			}			
 		}
 
 		#endregion
@@ -26,9 +37,7 @@ namespace DistributionTool.ViewModels
 		#region Constructor
 		public DistributionViewModel()
 		{
-			TabName = "Distribution";
-
-			
+			TabName = "Distribution";			
 		}
 		#endregion
 

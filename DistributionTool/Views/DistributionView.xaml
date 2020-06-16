@@ -124,12 +124,21 @@
                 <!--#region product parameters-->
                 <Border BorderThickness="1"
                         BorderBrush="Black">
-                    <DataGrid>
+                    <DataGrid ItemsSource="{Binding SelectedProductParameters}"
+                              AutoGenerateColumns="False"                              
+                              CanUserDeleteRows="False"                              
+                              CanUserAddRows="False"
+                              GridLinesVisibility="All">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Grade" />
-                            <DataGridTextColumn Header="Min" />
-                            <DataGridTextColumn Header="Max" />
-                            <DataGridTextColumn Header="Cov" />
+                            <DataGridTextColumn Header="Grade" 
+                                                IsReadOnly="True"
+                                                Binding="{Binding Grade}"/>
+                            <DataGridTextColumn Header="Min"
+                                                Binding="{Binding Min}"/>
+                            <DataGridTextColumn Header="Max"
+                                                Binding="{Binding Max}"/>
+                            <DataGridTextColumn Header="Cov" 
+                                                Binding="{Binding Cover}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Border>
