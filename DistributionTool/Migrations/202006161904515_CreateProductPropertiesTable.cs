@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class CreateProductParametersTable : DbMigration
+    public partial class CreateProductPropertiesTable : DbMigration
     {
         public override void Up()
         {
@@ -11,17 +11,17 @@
                 "dbo.ProductParameters",
                 c => new
                     {
-                        PLU = c.Int(nullable: false, identity: true),
-                        Grade = c.String(nullable: false, maxLength: 1),
+                        PLU = c.Int(nullable: false),
+                        Grade = c.Int(nullable: false),
                         Min = c.Int(nullable: false),
                         Max = c.Int(nullable: false),
                         Cover = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.PLU);
+                .PrimaryKey(t => new { t.PLU, t.Grade }); 
         }
         
         public override void Down()
-        {           
+        {         
             DropTable("dbo.ProductParameters");
         }
     }

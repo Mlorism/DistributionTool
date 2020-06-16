@@ -148,9 +148,9 @@
     <Compile Include="Enumerators\DistributionMethod.cs" />
     <Compile Include="Enumerators\StoreGrade.cs" />
     <Compile Include="Interfaces\ITab.cs" />
-    <Compile Include="Migrations\202006152138458_CreateProductParametersTable.cs" />
-    <Compile Include="Migrations\202006152138458_CreateProductParametersTable.designer.cs">
-      <DependentUpon>202006152138458_CreateProductParametersTable.cs</DependentUpon>
+    <Compile Include="Migrations\202006161904515_CreateProductPropertiesTable.cs" />
+    <Compile Include="Migrations\202006161904515_CreateProductPropertiesTable.designer.cs">
+      <DependentUpon>202006161904515_CreateProductPropertiesTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductParameters.cs" />
@@ -257,8 +257,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\202006152138458_CreateProductParametersTable.resx">
-      <DependentUpon>202006152138458_CreateProductParametersTable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202006161904515_CreateProductPropertiesTable.resx">
+      <DependentUpon>202006161904515_CreateProductPropertiesTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

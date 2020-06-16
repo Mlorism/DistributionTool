@@ -7,13 +7,13 @@ namespace DistributionTool.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.0")]
-    public sealed partial class CreateProductParametersTable : IMigrationMetadata
+    public sealed partial class CreateProductPropertiesTable : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateProductParametersTable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateProductPropertiesTable));
         
         string IMigrationMetadata.Id
         {
-            get { return "202006152138458_CreateProductParametersTable"; }
+            get { return "202006161904515_CreateProductPropertiesTable"; }
         }
         
         string IMigrationMetadata.Source

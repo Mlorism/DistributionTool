@@ -16,7 +16,12 @@ namespace DistributionTool.Models
 		public ApplicationDbContext()
 			: base("name=DefaultConnection")
 		{
+			
+		}
 
+		protected override void OnModelCreating(DbModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<ProductParameters>().HasKey( p => new { p.PLU, p.Grade });
 		}
 	}
 }
