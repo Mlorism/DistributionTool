@@ -20,14 +20,14 @@ namespace DistributionTool.ViewModels
 		#endregion
 
 		#region Properties
-		public ProductModel SelectedProduct => ProductsViewModel.SelectedProduct;
+		public Product SelectedProduct => ProductsViewModel.SelectedProduct;
 		
-		public ObservableCollection<ProductParametersModel> SelectedProductParameters
+		public ObservableCollection<ProductParameters> SelectedProductParameters
 		{
 			get
 			{
 				var subList = ProductParameterListViewModel.Instance.ParametersList.Where(x => x.PLU == SelectedProduct.PLU);				
-				return new ObservableCollection<ProductParametersModel>(subList);  
+				return new ObservableCollection<ProductParameters>(subList);  
 			}			
 		}
 

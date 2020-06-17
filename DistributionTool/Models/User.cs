@@ -11,7 +11,7 @@ namespace DistributionTool.Models
 	/// <summary>
 	/// Class model representing application user.
 	/// </summary>
-	public class UserModel
+	public class User
 	{	
 		/// <summary>
 		/// Identification numer of a user.

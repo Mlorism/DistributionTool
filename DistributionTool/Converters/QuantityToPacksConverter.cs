@@ -15,9 +15,9 @@ namespace DistributionTool.Converters
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 
-			if (value is ProductModel)
+			if (value is Product)
 			{
-				ProductModel prod = (ProductModel)value;
+				Product prod = (Product)value;
 				int packs = prod.WarehouseFreeQty / prod.PackSize;
 				return packs;
 			}

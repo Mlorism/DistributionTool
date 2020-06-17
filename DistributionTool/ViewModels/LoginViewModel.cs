@@ -41,7 +41,7 @@ namespace DistributionTool.ViewModels
 		/// </summary>		
 		public static void LogInAction(object userPassword)
 		{
-			UserModel user = MainWindowViewModel.Context.Users.FirstOrDefault(u => u.Name == UserName);
+			User user = MainWindowViewModel.Context.Users.FirstOrDefault(u => u.Name == UserName);
 			var password = ((PasswordBox)userPassword).Password;
 
 			if (user != null)
@@ -71,13 +71,13 @@ namespace DistributionTool.ViewModels
 		/// </summary>
 		public static void AdminExist()
 		{
-			UserModel user = MainWindowViewModel.Context.Users.FirstOrDefault(u => u.Name == "Admin1");
+			User user = MainWindowViewModel.Context.Users.FirstOrDefault(u => u.Name == "Admin1");
 
 			if (user == null)
 			{
 				MainWindowViewModel.NotifyUser("Admin1 accoutn doesn't exist.");
 
-				var tempUser = new UserModel();
+				var tempUser = new User();
 
 				tempUser.Name = "Admin1";
 				tempUser.PasswordSalt = PasswordEncryptor.GenerateSalt();

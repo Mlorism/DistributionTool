@@ -14,8 +14,8 @@ namespace DistributionTool.ViewModels.Lists
 	class ProductParameterListViewModel
 	{
 		#region Properties
-		private readonly ObservableCollection<ProductParametersModel> parametersList = new ObservableCollection<ProductParametersModel>();
-		public ObservableCollection<ProductParametersModel> ParametersList => parametersList;
+		private readonly ObservableCollection<ProductParameters> parametersList = new ObservableCollection<ProductParameters>();
+		public ObservableCollection<ProductParameters> ParametersList => parametersList;
 		#endregion
 
 		#region Constructor

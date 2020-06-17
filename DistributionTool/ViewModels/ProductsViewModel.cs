@@ -24,8 +24,8 @@ namespace DistributionTool.ViewModels
 		/// <summary>
 		/// Selected product from productsFilteredList.
 		/// </summary>
-		private static ProductModel selectedProduct;
-		public static ProductModel SelectedProduct
+		private static Product selectedProduct;
+		public static Product SelectedProduct
 		{
 			get { return selectedProduct; }
 			set
@@ -69,7 +69,7 @@ namespace DistributionTool.ViewModels
 		{
 			if (product != null)
 			{
-				SelectedProduct = ProductsListViewModel.Instance.ProductList.FirstOrDefault(x => x.PLU == ((ProductModel)product).PLU);
+				SelectedProduct = ProductsListViewModel.Instance.ProductList.FirstOrDefault(x => x.PLU == ((Product)product).PLU);
 			}
 		} // ChoseSelectedProduct()
 		#endregion

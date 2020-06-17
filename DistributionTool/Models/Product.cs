@@ -12,7 +12,7 @@ namespace DistributionTool.Models
     /// <summary>
     /// Class model representing product.
     /// </summary>
-    public class ProductModel
+    public class Product
     {
         /// <summary>
         /// Price look-up code.

@@ -15,8 +15,8 @@ namespace DistributionTool.ViewModels.Lists
 	class UsersListViewModel
 	{
 		#region Properties
-		private readonly ObservableCollection<UserModel> usersList = new ObservableCollection<UserModel>();
-		public ObservableCollection<UserModel> UsersList => usersList;		
+		private readonly ObservableCollection<User> usersList = new ObservableCollection<User>();
+		public ObservableCollection<User> UsersList => usersList;		
 		#endregion
 
 		#region Constructor

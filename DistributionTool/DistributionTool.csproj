@@ -166,9 +166,39 @@
     <Compile Include="Migrations\202006171808392_UpdateColumnNames.designer.cs">
       <DependentUpon>202006171808392_UpdateColumnNames.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProductModel.cs" />
-    <Compile Include="Models\ProductParametersModel.cs" />
-    <Compile Include="Models\StoreGradeModel.cs" />
+    <Compile Include="Migrations\202006171905593_CreateStoresGradesTable.cs" />
+    <Compile Include="Migrations\202006171905593_CreateStoresGradesTable.designer.cs">
+      <DependentUpon>202006171905593_CreateStoresGradesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006171909376_CreateStoresGradesTableCorrection.cs" />
+    <Compile Include="Migrations\202006171909376_CreateStoresGradesTableCorrection.designer.cs">
+      <DependentUpon>202006171909376_CreateStoresGradesTableCorrection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006171910431_CreateStoresGradesTableCorrection2.cs" />
+    <Compile Include="Migrations\202006171910431_CreateStoresGradesTableCorrection2.designer.cs">
+      <DependentUpon>202006171910431_CreateStoresGradesTableCorrection2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006171928569_UpdateTableColumnNames.cs" />
+    <Compile Include="Migrations\202006171928569_UpdateTableColumnNames.designer.cs">
+      <DependentUpon>202006171928569_UpdateTableColumnNames.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006171930107_UpdateTableColumnNames1.cs" />
+    <Compile Include="Migrations\202006171930107_UpdateTableColumnNames1.designer.cs">
+      <DependentUpon>202006171930107_UpdateTableColumnNames1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006171954205_ProducSalesTableCreation.cs" />
+    <Compile Include="Migrations\202006171954205_ProducSalesTableCreation.designer.cs">
+      <DependentUpon>202006171954205_ProducSalesTableCreation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006172043594_ProducStockTableCreation.cs" />
+    <Compile Include="Migrations\202006172043594_ProducStockTableCreation.designer.cs">
+      <DependentUpon>202006172043594_ProducStockTableCreation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ProductParameters.cs" />
+    <Compile Include="Models\ProductStock.cs" />
+    <Compile Include="Models\StoreGrade.cs" />
+    <Compile Include="Models\ProductSales.cs" />
     <Compile Include="ViewModels\AdminViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\DistributionViewModel.cs" />
@@ -258,7 +288,7 @@
   <ItemGroup>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
-    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -283,6 +313,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006171808392_UpdateColumnNames.resx">
       <DependentUpon>202006171808392_UpdateColumnNames.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006171905593_CreateStoresGradesTable.resx">
+      <DependentUpon>202006171905593_CreateStoresGradesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006171909376_CreateStoresGradesTableCorrection.resx">
+      <DependentUpon>202006171909376_CreateStoresGradesTableCorrection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006171910431_CreateStoresGradesTableCorrection2.resx">
+      <DependentUpon>202006171910431_CreateStoresGradesTableCorrection2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006171928569_UpdateTableColumnNames.resx">
+      <DependentUpon>202006171928569_UpdateTableColumnNames.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006171930107_UpdateTableColumnNames1.resx">
+      <DependentUpon>202006171930107_UpdateTableColumnNames1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006171954205_ProducSalesTableCreation.resx">
+      <DependentUpon>202006171954205_ProducSalesTableCreation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006172043594_ProducStockTableCreation.resx">
+      <DependentUpon>202006172043594_ProducStockTableCreation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

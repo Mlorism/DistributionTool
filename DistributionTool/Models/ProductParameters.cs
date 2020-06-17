@@ -11,7 +11,7 @@ namespace DistributionTool.Models
 	/// <summary>
 	/// Class model representing product parameters.
 	/// </summary>
-	class ProductParametersModel
+	class ProductParameters
 	{
 		/// <summary>
 		/// Price look-up code.
