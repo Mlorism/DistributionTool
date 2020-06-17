@@ -14,8 +14,8 @@ namespace DistributionTool.ViewModels.Lists
 	class ProductsListViewModel
 	{
 		#region Properties
-		private readonly ObservableCollection<Product> productList = new ObservableCollection<Product>();
-		public ObservableCollection<Product> ProductList => productList;
+		private readonly ObservableCollection<ProductModel> productList = new ObservableCollection<ProductModel>();
+		public ObservableCollection<ProductModel> ProductList => productList;
 		#endregion
 
 		#region Constructor

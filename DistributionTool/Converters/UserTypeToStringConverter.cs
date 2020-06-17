@@ -17,9 +17,9 @@ namespace DistributionTool.Converters
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			if (value is UserType userType)
+			if (value is UserTypeEnum userType)
 			{
-				if (userType == UserType.AllocationManager)
+				if (userType == UserTypeEnum.AllocationManager)
 					return "Allocation Manager";
 				else return userType.ToString();
 			}

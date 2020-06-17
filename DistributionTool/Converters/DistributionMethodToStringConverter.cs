@@ -17,19 +17,19 @@ namespace DistributionTool.Converters
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			if (value is DistributionMethod method)
+			if (value is DistributionMethodEnum method)
 			{
 				switch (method)
 				{
-					case DistributionMethod.KeepMinimum:
+					case DistributionMethodEnum.KeepMinimum:
 						return "Keep Minimum";
-					case DistributionMethod.WeeksOfSales:
+					case DistributionMethodEnum.WeeksOfSales:
 						return "Weeks Of Sales";
-					case DistributionMethod.SubgroupTrend:
+					case DistributionMethodEnum.SubgroupTrend:
 						return "Subgroup Trend";
-					case DistributionMethod.GroupTrend:
+					case DistributionMethodEnum.GroupTrend:
 						return "Group Trend";
-					case DistributionMethod.FinalDistribution:
+					case DistributionMethodEnum.FinalDistribution:
 						return "Final Distribution";
 					default:
 						return value.ToString();

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DistributionTool.Enumerators
 {
-	public enum DistributionMethod
+	public enum DistributionMethodEnum
 	{
 		/// <summary>
 		/// Keep only the minimum. If the number falls below the minimum, distribute the package.

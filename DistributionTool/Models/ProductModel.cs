@@ -12,7 +12,7 @@ namespace DistributionTool.Models
     /// <summary>
     /// Class model representing product.
     /// </summary>
-    public class Product
+    public class ProductModel
     {
         /// <summary>
         /// Price look-up code.
@@ -26,11 +26,11 @@ namespace DistributionTool.Models
         /// <summary>
         /// Product group name.
         /// </summary>
-        public ProductGroup GroupName { get; set; }
+        public ProductGroupEnum GroupName { get; set; }
         /// <summary>
         /// Product subgropup name.
         /// </summary>
-        public ProductSubGroup SubGroup { get; set; }
+        public ProductSubGroupEnum SubGroup { get; set; }
         /// <summary>
         /// Color of the product.
         /// </summary>
@@ -86,7 +86,7 @@ namespace DistributionTool.Models
         /// <summary>
         /// Selected method used to calculate distribution.
         /// </summary>
-        public DistributionMethod MethodOfDistribution { get; set; }
+        public DistributionMethodEnum MethodOfDistribution { get; set; }
 
     }
 }

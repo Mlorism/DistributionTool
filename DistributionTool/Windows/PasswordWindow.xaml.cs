@@ -63,11 +63,11 @@ namespace DistributionTool.Windows
 				{
 					if (passwordText == passwordConfirmation)
 					{
-						User selectedUser = MainWindowViewModel.Context.Users.FirstOrDefault(u => u.Id == userId);
+						UserModel selectedUser = MainWindowViewModel.Context.Users.FirstOrDefault(u => u.Id == userId);
 						selectedUser.PasswordSalt = PasswordEncryptor.GenerateSalt();
 						selectedUser.Password = PasswordEncryptor.GeneratePassword(passwordProposition.Password, selectedUser.PasswordSalt);
 						MainWindowViewModel.SaveContext();
-						selectedUser = new User();
+						selectedUser = new UserModel();
 						this.Close();
 					}
 					else MainWindowViewModel.NotifyUser("Those passwords didn't match. Try again.");

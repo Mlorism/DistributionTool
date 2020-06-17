@@ -9,9 +9,9 @@ namespace DistributionTool.Models
 {
 	class ApplicationDbContext : DbContext
 	{
-		public DbSet<User> Users { get; set; }
-		public DbSet<Product> Products { get; set; }
-		public DbSet<ProductParameters> ProductParameters { get; set; }
+		public DbSet<UserModel> Users { get; set; }
+		public DbSet<ProductModel> Products { get; set; }
+		public DbSet<ProductParametersModel> ProductParameters { get; set; }
 
 		public ApplicationDbContext()
 			: base("name=DefaultConnection")
@@ -19,9 +19,9 @@ namespace DistributionTool.Models
 			
 		}
 
-		protected override void OnModelCreating(DbModelBuilder modelBuilder)
+		protected override void OnModelCreating(DbModelBuilder modelbuilder)
 		{
-			modelBuilder.Entity<ProductParameters>().HasKey( p => new { p.PLU, p.Grade });
+			modelbuilder.Entity<ProductParametersModel>().HasKey(p => new { p.PLU, p.Grade });
 		}
 	}
 }

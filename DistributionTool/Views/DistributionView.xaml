@@ -16,7 +16,7 @@
                             MethodName="GetValues"
                             ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="enums:DistributionMethod" />
+                <x:Type TypeName="enums:DistributionMethodEnum" />
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
 

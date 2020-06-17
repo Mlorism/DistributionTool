@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DistributionTool.Enumerators
 {
-	public enum UserType
+	public enum UserTypeEnum
 	{
 		/// <summary>
 		/// Admin can create, delete, update or suspend user account.

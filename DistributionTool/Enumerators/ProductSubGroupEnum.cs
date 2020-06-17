@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DistributionTool.Enumerators
 {
-	public enum ProductSubGroup
+	public enum ProductSubGroupEnum
 	{
 		
 		/// <summary>

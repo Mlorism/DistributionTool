@@ -1,6 +1,7 @@
 ﻿using DistributionTool.Enumerators;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,11 +11,12 @@ namespace DistributionTool.Models
 	/// <summary>
 	/// Class model representing application user.
 	/// </summary>
-	public class User
+	public class UserModel
 	{	
 		/// <summary>
 		/// Identification numer of a user.
 		/// </summary>
+		[Key]
 		public int Id { get; set; }
 		/// <summary>
 		/// Name of the user. It is recommended to use the first and last name as the username, and if the number of users is large, use also the middle name.
@@ -31,7 +33,7 @@ namespace DistributionTool.Models
 		/// <summary>
 		/// User type is associated with access to specific parts of the application.
 		/// </summary>
-		public UserType Type { get; set; }
+		public UserTypeEnum Type { get; set; }
 		/// <summary>
 		/// User account could be active or blocked.
 		/// </summary>

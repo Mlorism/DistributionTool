@@ -11,16 +11,16 @@ namespace DistributionTool.Models
 	/// <summary>
 	/// Class model representing product parameters.
 	/// </summary>
-	class ProductParameters
+	class ProductParametersModel
 	{
 		/// <summary>
 		/// Price look-up code.
-		/// </summary>		
+		/// </summary>			
 		public int PLU { get; set; }
 		/// <summary>
 		/// Store grade.
 		/// </summary>		
-		public StoreGrade Grade { get; set; }
+		public StoreGradeEnum Grade { get; set; }
 		/// <summary>
 		/// Minimum quantity for the grade.
 		/// </summary>

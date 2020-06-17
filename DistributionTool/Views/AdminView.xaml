@@ -19,7 +19,7 @@
                             MethodName="GetValues"
                             ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="enums:UserType" />
+                <x:Type TypeName="enums:UserTypeEnum" />
             </ObjectDataProvider.MethodParameters>            
         </ObjectDataProvider>
 

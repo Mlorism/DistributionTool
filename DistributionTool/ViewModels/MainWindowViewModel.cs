@@ -42,8 +42,8 @@ namespace DistributionTool.ViewModels
 
 		public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
 		
-		private static User loggedInUser;
-		public static User LoggedInUser
+		private static UserModel loggedInUser;
+		public static UserModel LoggedInUser
 		{
 			get { return loggedInUser; }
 			set 
@@ -119,7 +119,7 @@ namespace DistributionTool.ViewModels
 		} // SaveContext()
 		public static void LogIn(object x)
 		{
-			LoggedInUser = (User)x;
+			LoggedInUser = (UserModel)x;
 			LoadTabs();
 		}
 		public static void LogOut(object x)

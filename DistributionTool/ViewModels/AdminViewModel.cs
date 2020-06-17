@@ -27,8 +27,8 @@ namespace DistributionTool.ViewModels
 		#endregion
 
 		#region Properties
-		private User currentUser;
-		public User CurrentUser 
+		private UserModel currentUser;
+		public UserModel CurrentUser 
 		{ 
 			get { return currentUser; }
 
@@ -63,7 +63,7 @@ namespace DistributionTool.ViewModels
 			var usersSourceList = new CollectionViewSource() { Source = UsersListViewModel.Instance.UsersList };
 			userFilteredList = usersSourceList.View;
 
-			CurrentUser = new User();
+			CurrentUser = new UserModel();
 			ChoseCurrentUser(UsersListViewModel.Instance.UsersList.FirstOrDefault());			
 						
 			ChoseCurrentUserCommand = new RelayCommand(ChoseCurrentUser, null);
@@ -81,7 +81,7 @@ namespace DistributionTool.ViewModels
 		/// </summary>
 		private void FilterList()
 		{
-			Predicate<object> Filter = new Predicate<object>(item => ((User)item).Name.ToLower().Contains(FindUserText.ToLower()));			
+			Predicate<object> Filter = new Predicate<object>(item => ((UserModel)item).Name.ToLower().Contains(FindUserText.ToLower()));			
 			userFilteredList.Filter = Filter;
 			OnPropertyChange("userFilteredList");
 		} // FilterList()
@@ -93,7 +93,7 @@ namespace DistributionTool.ViewModels
 		{
 			if (user != null)
 			{
-				User tempUser = UsersListViewModel.Instance.UsersList.FirstOrDefault(x => x.Id == ((User)user).Id);
+				UserModel tempUser = UsersListViewModel.Instance.UsersList.FirstOrDefault(x => x.Id == ((UserModel)user).Id);
 
 				if (tempUser != null)
 				{
@@ -118,7 +118,7 @@ namespace DistributionTool.ViewModels
 		/// </summary>
 		public void ClearData(object x)
 		{
-			CurrentUser = new User()
+			CurrentUser = new UserModel()
 			{
 				Id = 0
 			};
@@ -138,7 +138,7 @@ namespace DistributionTool.ViewModels
 
 				if (confirmWindow.AskQuestion())
 				{
-					var tempUser = new User();
+					var tempUser = new UserModel();
 
 					tempUser.Name = currentUser.Name;
 					tempUser.Type = currentUser.Type;

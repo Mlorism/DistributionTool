@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DistributionTool.Enumerators
 {
-	public enum ProductGroup
+	public enum ProductGroupEnum
 	{
 		RoomDecorations,
 		KitchenDining,

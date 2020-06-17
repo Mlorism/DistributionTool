@@ -145,10 +145,10 @@
     <Compile Include="Converters\QuantityToPacksConverter.cs" />
     <Compile Include="Converters\UserTypeToStringConverter.cs" />
     <Compile Include="Cryptography\PasswordEncryptor.cs" />
-    <Compile Include="Enumerators\DistributionMethod.cs" />
-    <Compile Include="Enumerators\ProductGroup.cs" />
-    <Compile Include="Enumerators\ProductSubGroup.cs" />
-    <Compile Include="Enumerators\StoreGrade.cs" />
+    <Compile Include="Enumerators\DistributionMethodEnum.cs" />
+    <Compile Include="Enumerators\ProductGroupEnum.cs" />
+    <Compile Include="Enumerators\ProductSubGroupEnum.cs" />
+    <Compile Include="Enumerators\StoreGradeEnum.cs" />
     <Compile Include="Interfaces\ITab.cs" />
     <Compile Include="Migrations\202006161904515_CreateProductPropertiesTable.cs" />
     <Compile Include="Migrations\202006161904515_CreateProductPropertiesTable.designer.cs">
@@ -158,8 +158,17 @@
     <Compile Include="Migrations\202006171744127_ProductModelVarsChangedForGrups.designer.cs">
       <DependentUpon>202006171744127_ProductModelVarsChangedForGrups.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\Product.cs" />
-    <Compile Include="Models\ProductParameters.cs" />
+    <Compile Include="Migrations\202006171805534_UpdateColumnTypes.cs" />
+    <Compile Include="Migrations\202006171805534_UpdateColumnTypes.designer.cs">
+      <DependentUpon>202006171805534_UpdateColumnTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006171808392_UpdateColumnNames.cs" />
+    <Compile Include="Migrations\202006171808392_UpdateColumnNames.designer.cs">
+      <DependentUpon>202006171808392_UpdateColumnNames.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductModel.cs" />
+    <Compile Include="Models\ProductParametersModel.cs" />
+    <Compile Include="Models\StoreGradeModel.cs" />
     <Compile Include="ViewModels\AdminViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\DistributionViewModel.cs" />
@@ -204,7 +213,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Enumerators\UserType.cs" />
+    <Compile Include="Enumerators\UserTypeEnum.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -249,7 +258,7 @@
   <ItemGroup>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -268,6 +277,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006171744127_ProductModelVarsChangedForGrups.resx">
       <DependentUpon>202006171744127_ProductModelVarsChangedForGrups.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006171805534_UpdateColumnTypes.resx">
+      <DependentUpon>202006171805534_UpdateColumnTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006171808392_UpdateColumnNames.resx">
+      <DependentUpon>202006171808392_UpdateColumnNames.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

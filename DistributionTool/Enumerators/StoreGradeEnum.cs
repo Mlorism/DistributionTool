@@ -9,7 +9,7 @@ namespace DistributionTool.Enumerators
 	/// <summary>
 	/// Each store is assigned to a grade. 
 	/// </summary>
-	public enum StoreGrade
+	public enum StoreGradeEnum
 	{
 		/// <summary>
 		/// Best stores.
