@@ -146,6 +146,8 @@
     <Compile Include="Converters\UserTypeToStringConverter.cs" />
     <Compile Include="Cryptography\PasswordEncryptor.cs" />
     <Compile Include="Enumerators\DistributionMethod.cs" />
+    <Compile Include="Enumerators\ProductGroup.cs" />
+    <Compile Include="Enumerators\ProductSubGroup.cs" />
     <Compile Include="Enumerators\StoreGrade.cs" />
     <Compile Include="Interfaces\ITab.cs" />
     <Compile Include="Migrations\202006161904515_CreateProductPropertiesTable.cs" />
