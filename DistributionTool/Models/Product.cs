@@ -26,11 +26,11 @@ namespace DistributionTool.Models
         /// <summary>
         /// Product group name.
         /// </summary>
-        public string GroupName { get; set; }
+        public ProductGroup GroupName { get; set; }
         /// <summary>
         /// Product subgropup name.
         /// </summary>
-        public string SubGroup { get; set; }
+        public ProductSubGroup SubGroup { get; set; }
         /// <summary>
         /// Color of the product.
         /// </summary>

@@ -154,6 +154,10 @@
     <Compile Include="Migrations\202006161904515_CreateProductPropertiesTable.designer.cs">
       <DependentUpon>202006161904515_CreateProductPropertiesTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006171744127_ProductModelVarsChangedForGrups.cs" />
+    <Compile Include="Migrations\202006171744127_ProductModelVarsChangedForGrups.designer.cs">
+      <DependentUpon>202006171744127_ProductModelVarsChangedForGrups.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductParameters.cs" />
     <Compile Include="ViewModels\AdminViewModel.cs" />
@@ -261,6 +265,9 @@
     </Compile>
     <EmbeddedResource Include="Migrations\202006161904515_CreateProductPropertiesTable.resx">
       <DependentUpon>202006161904515_CreateProductPropertiesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006171744127_ProductModelVarsChangedForGrups.resx">
+      <DependentUpon>202006171744127_ProductModelVarsChangedForGrups.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
