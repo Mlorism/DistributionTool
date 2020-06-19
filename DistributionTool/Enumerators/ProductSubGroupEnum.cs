@@ -24,7 +24,6 @@ namespace DistributionTool.Enumerators
 		Cutlery,
 		KitchenTools,
 		PotsPans,
-		Kettles,
 		Glasses,
 		MugsCups,
 		/// <summary>
