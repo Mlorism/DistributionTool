@@ -17,10 +17,6 @@ namespace DistributionTool.Enumerators
 		/// </summary>
 		WeeksOfSales,
 		/// <summary>
-		/// Calculate future sales based on the sales curve for the subgroup.
-		/// </summary>
-		SubgroupTrend,
-		/// <summary>
 		/// Calculate future sales based on the sales curve for the group.
 		/// </summary>
 		GroupTrend,

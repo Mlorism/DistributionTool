@@ -20,12 +20,20 @@ namespace DistributionTool.Models
 		/// </summary>
 		public int StoreNumber { get; set; }
 		/// <summary>
-		/// Date of sale.
+		/// Sale qty from last 7 days.
 		/// </summary>
-		public DateTime Date { get; set; }
+		public int SlsLW { get; set; }
 		/// <summary>
-		/// Sale quantity.
+		/// Sale qty from last 7 to 14 days.
 		/// </summary>
-		public int Sales { get; set; }
+		public int SlsLW1 { get; set; }
+		/// <summary>
+		/// Sale qty from last 14 to 21 days.
+		/// </summary>
+		public int SlsLW2 { get; set; }
+		/// <summary>
+		/// Sale qty from last 21 to 28 days.
+		/// </summary>
+		public int SlsLW3 { get; set; }
 	}
 }

@@ -26,7 +26,7 @@ namespace DistributionTool.Models
 		{
 			modelbuilder.Entity<ProductParameters>().HasKey(p => new { p.PLU, p.Grade });
 			modelbuilder.Entity<StoreGrade>().HasKey(p => new { p.StoreNumber, p.Group });
-			modelbuilder.Entity<ProductSales>().HasKey(p => new { p.PLU, p.StoreNumber, p.Date });
+			modelbuilder.Entity<ProductSales>().HasKey(p => new { p.PLU, p.StoreNumber});
 			modelbuilder.Entity<ProductStock>().HasKey(p => new { p.PLU, p.StoreNumber });
 		}
 	}

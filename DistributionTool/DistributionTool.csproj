@@ -194,6 +194,10 @@
     <Compile Include="Migrations\202006172043594_ProducStockTableCreation.designer.cs">
       <DependentUpon>202006172043594_ProducStockTableCreation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006201949076_ProductSalesAltered.cs" />
+    <Compile Include="Migrations\202006201949076_ProductSalesAltered.designer.cs">
+      <DependentUpon>202006201949076_ProductSalesAltered.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductParameters.cs" />
     <Compile Include="Models\ProductStock.cs" />
@@ -334,6 +338,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006172043594_ProducStockTableCreation.resx">
       <DependentUpon>202006172043594_ProducStockTableCreation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006201949076_ProductSalesAltered.resx">
+      <DependentUpon>202006201949076_ProductSalesAltered.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

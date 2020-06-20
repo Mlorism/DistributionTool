@@ -24,9 +24,7 @@ namespace DistributionTool.Converters
 					case DistributionMethodEnum.KeepMinimum:
 						return "Keep Minimum";
 					case DistributionMethodEnum.WeeksOfSales:
-						return "Weeks Of Sales";
-					case DistributionMethodEnum.SubgroupTrend:
-						return "Subgroup Trend";
+						return "Weeks Of Sales";					
 					case DistributionMethodEnum.GroupTrend:
 						return "Group Trend";
 					case DistributionMethodEnum.FinalDistribution:
