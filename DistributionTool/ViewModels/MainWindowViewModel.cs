@@ -1,10 +1,13 @@
 ﻿using DistributionTool.Interfaces;
 using DistributionTool.Models;
+using DistributionTool.ViewModels.DataSets;
 using DistributionTool.Windows;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -19,6 +22,7 @@ namespace DistributionTool.ViewModels
 		#region Commands	
 		public RelayCommand LogOutCommand { get; private set; }
 		public RelayCommand ChangePasswordCommand { get; private set; }
+		public RelayCommand LoadDataToDatabaseCommand { get; set; }
 		#endregion
 
 		#region Properties
@@ -73,6 +77,7 @@ namespace DistributionTool.ViewModels
 
 			LogOutCommand = new RelayCommand(LogOut, null);
 			ChangePasswordCommand = new RelayCommand(ChangePassword, null);
+			LoadDataToDatabaseCommand = new RelayCommand(LoadDataToDatabase, null);
 		}
 		#endregion
 
@@ -126,8 +131,7 @@ namespace DistributionTool.ViewModels
 		{
 			LoggedInUser = null;
 			LoadLoginPage();			
-		} // LogOut() current user
-		
+		} // LogOut() current user		
 		public static void ChangePassword(object x)
 		{
 			PasswordWindow passwordWindow = new PasswordWindow("Change Password", LoggedInUser.Id);
@@ -137,11 +141,20 @@ namespace DistributionTool.ViewModels
 		{
 			await ShowNotification(notification);
 		} // NotifyUser()
-
 		public static void RaiseStaticPropertyChanged(string PropertyName)
 		{
 			StaticPropertyChanged?.Invoke(null, new PropertyChangedEventArgs(PropertyName));
 		} // RaiseStaticPropertyChanged()
+
+		public static void LoadDataToDatabase(object x)
+		{						
+			DataSet data = ExcelConnection.Import("DataBaseData.xlsx");
+			MessageBox.Show("Data loaded to DataSet");
+
+			MessageBox.Show(data.Tables[0].TableName.ToString());
+			MessageBox.Show(data.Tables[1].TableName.ToString());
+			MessageBox.Show(data.Tables[2].TableName.ToString());
+		}
 		#endregion
 
 		#region Tasks
