@@ -150,8 +150,8 @@
     <Compile Include="Enumerators\ProductSubGroupEnum.cs" />
     <Compile Include="Enumerators\StoreGradeEnum.cs" />
     <Compile Include="Interfaces\ITab.cs" />
-    <Compile Include="Method Extensions\BoolConverter.cs" />
-    <Compile Include="Method Extensions\EnumConverter.cs" />
+    <Compile Include="Converters\StringToBoolConverter.cs" />
+    <Compile Include="Converters\StringToEnumConverter.cs" />
     <Compile Include="Migrations\202006161904515_CreateProductPropertiesTable.cs" />
     <Compile Include="Migrations\202006161904515_CreateProductPropertiesTable.designer.cs">
       <DependentUpon>202006161904515_CreateProductPropertiesTable.cs</DependentUpon>

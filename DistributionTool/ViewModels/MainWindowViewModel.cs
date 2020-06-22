@@ -168,11 +168,11 @@ namespace DistributionTool.ViewModels
 				StoresBelowMinimum = Convert.ToInt16(Row.Field<string>("StoresBelowMinimum")),
 				StoresCover = Convert.ToSingle(Row.Field<string>("StoresCover")),
 				StoresEffectiveCover = Convert.ToSingle(Row.Field<string>("StoresEffectiveCover")),
-				MondayDistribution = BoolConverter.StringToBool(Row.Field<string>("Mon")),
-				TuesdayDistribution = BoolConverter.StringToBool(Row.Field<string>("Tue")),
-				WednesdayDistribution = BoolConverter.StringToBool(Row.Field<string>("Wed")),
-				ThursdayDistribution = BoolConverter.StringToBool(Row.Field<string>("Thu")),
-				FridayDistribution = BoolConverter.StringToBool(Row.Field<string>("Fri")),
+				MondayDistribution = StringToBoolConverter.StringToBool(Row.Field<string>("Mon")),
+				TuesdayDistribution = StringToBoolConverter.StringToBool(Row.Field<string>("Tue")),
+				WednesdayDistribution = StringToBoolConverter.StringToBool(Row.Field<string>("Wed")),
+				ThursdayDistribution = StringToBoolConverter.StringToBool(Row.Field<string>("Thu")),
+				FridayDistribution = StringToBoolConverter.StringToBool(Row.Field<string>("Fri")),
 				//MethodOfDistribution = Convert.ToInt32(Row.Field<string>("MethodOfDistribution"))
 
 			}).ToList();

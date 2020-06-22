@@ -11,6 +11,7 @@ namespace DistributionTool.Enumerators
 		RoomDecorations,
 		KitchenDining,
 		Bathroom,
-		CleaningStorage
+		CleaningStorage,
+		Other
 	}
 }

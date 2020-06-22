@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace DistributionTool.Method_Extensions
 {
 	/// <summary>
-	/// Clas containing bool converters.
+	/// Class containing bool converters.
 	/// </summary>
-	static class BoolConverter
+	static class StringToBoolConverter
 	{
 		/// <summary>
 		/// Converts string to bool.

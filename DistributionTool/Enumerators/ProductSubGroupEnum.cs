@@ -39,6 +39,8 @@ namespace DistributionTool.Enumerators
 		Brushes,
 		Rags,
 		CardboardBoxes,
-		PlaticBoxes
+		PlaticBoxes,
+
+		Other
 	}
 }
