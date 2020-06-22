@@ -1,4 +1,5 @@
-﻿using DistributionTool.Interfaces;
+﻿using DistributionTool.Enumerators;
+using DistributionTool.Interfaces;
 using DistributionTool.Models;
 using DistributionTool.ViewModels.DataSets;
 using DistributionTool.Windows;
@@ -14,6 +15,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using DistributionTool.Method_Extensions;
 
 namespace DistributionTool.ViewModels
 {
@@ -150,10 +152,31 @@ namespace DistributionTool.ViewModels
 		{						
 			DataSet data = ExcelConnection.Import("DataBaseData.xlsx");
 			MessageBox.Show("Data loaded to DataSet");
+			DataTable table = data.Tables[0];
 
-			MessageBox.Show(data.Tables[0].TableName.ToString());
-			MessageBox.Show(data.Tables[1].TableName.ToString());
-			MessageBox.Show(data.Tables[2].TableName.ToString());
+			var productList = table.AsEnumerable().Select(Row => new Product 
+			{				
+				PLU = Convert.ToInt32(Row.Field<string>("PLU")),			
+				Name = Row.Field<string>("Name"),				
+				//GroupName = Row.Field<ProductGroupEnum>("GroupName"),
+				//SubGroup = Row.Field<ProductSubGroupEnum>("SubGroup"),
+				Color = Row.Field<string>("Color"),
+				Price = Convert.ToSingle(Row.Field<string>("Price")),
+				PackSize = Convert.ToInt16(Row.Field<string>("PackSize")),
+				Promotion = Row.Field<string>("Promotion"),
+				WarehouseFreeQty = Convert.ToInt16(Row.Field<string>("WarehouseFreeQty")),
+				StoresBelowMinimum = Convert.ToInt16(Row.Field<string>("StoresBelowMinimum")),
+				StoresCover = Convert.ToSingle(Row.Field<string>("StoresCover")),
+				StoresEffectiveCover = Convert.ToSingle(Row.Field<string>("StoresEffectiveCover")),
+				MondayDistribution = BoolConverter.StringToBool(Row.Field<string>("Mon")),
+				TuesdayDistribution = BoolConverter.StringToBool(Row.Field<string>("Tue")),
+				WednesdayDistribution = BoolConverter.StringToBool(Row.Field<string>("Wed")),
+				ThursdayDistribution = BoolConverter.StringToBool(Row.Field<string>("Thu")),
+				FridayDistribution = BoolConverter.StringToBool(Row.Field<string>("Fri")),
+				//MethodOfDistribution = Convert.ToInt32(Row.Field<string>("MethodOfDistribution"))
+
+			}).ToList();
+			MessageBox.Show(productList[7].Name);
 		}
 		#endregion
 
