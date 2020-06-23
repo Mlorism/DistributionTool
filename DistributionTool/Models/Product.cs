@@ -18,7 +18,7 @@ namespace DistributionTool.Models
         /// Price look-up code.
         /// </summary>  
         [Key]
-        public int PLU {get; set;}
+        public int? PLU {get; set;}
         /// <summary>
         /// Product name.
         /// </summary>

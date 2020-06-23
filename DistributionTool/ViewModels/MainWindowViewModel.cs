@@ -154,28 +154,7 @@ namespace DistributionTool.ViewModels
 			MessageBox.Show("Data loaded to DataSet");
 			DataTable table = data.Tables[0];
 
-			var productList = table.AsEnumerable().Select(Row => new Product
-			{
-				PLU = Convert.ToInt32(Row.Field<string>("PLU")),
-				Name = Row.Field<string>("Name"),
-				GroupName = StringToEnumConverter.StringNumToGroup(Row.Field<string>("GroupName")),
-				SubGroup = StringToEnumConverter.StringNumToSubGroup(Row.Field<string>("SubGroup")),
-				Color = Row.Field<string>("Color"),
-				Price = Convert.ToSingle(Row.Field<string>("Price")),
-				PackSize = Convert.ToInt16(Row.Field<string>("PackSize")),
-				Promotion = Row.Field<string>("Promotion"),
-				WarehouseFreeQty = Convert.ToInt16(Row.Field<string>("WarehouseFreeQty")),
-				StoresBelowMinimum = Convert.ToInt16(Row.Field<string>("StoresBelowMinimum")),
-				StoresCover = Convert.ToSingle(Row.Field<string>("StoresCover")),
-				StoresEffectiveCover = Convert.ToSingle(Row.Field<string>("StoresEffectiveCover")),
-				MondayDistribution = StringToBoolConverter.StringToBool(Row.Field<string>("Mon")),
-				TuesdayDistribution = StringToBoolConverter.StringToBool(Row.Field<string>("Tue")),
-				WednesdayDistribution = StringToBoolConverter.StringToBool(Row.Field<string>("Wed")),
-				ThursdayDistribution = StringToBoolConverter.StringToBool(Row.Field<string>("Thu")),
-				FridayDistribution = StringToBoolConverter.StringToBool(Row.Field<string>("Fri")),
-				MethodOfDistribution = StringToEnumConverter.StringNumToMethodOfDistribution(Row.Field<string>("MethodOfDistribution"))
-			}).ToList();
-			MessageBox.Show(productList[7].Name);
+			TableToDbExtraction.LoadProductToDatabase(table);
 		}
 		#endregion
 

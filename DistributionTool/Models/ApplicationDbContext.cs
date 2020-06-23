@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using System.Data.Entity.Core.Metadata.Edm;
 
 namespace DistributionTool.Models
 {
@@ -24,6 +25,7 @@ namespace DistributionTool.Models
 
 		protected override void OnModelCreating(DbModelBuilder modelbuilder)
 		{
+			modelbuilder.Entity<Product>().Property(p => p.PLU).HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
 			modelbuilder.Entity<ProductParameters>().HasKey(p => new { p.PLU, p.Grade });
 			modelbuilder.Entity<StoreGrade>().HasKey(p => new { p.StoreNumber, p.Group });
 			modelbuilder.Entity<ProductSales>().HasKey(p => new { p.PLU, p.StoreNumber});

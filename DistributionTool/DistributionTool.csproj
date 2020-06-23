@@ -200,6 +200,14 @@
     <Compile Include="Migrations\202006201949076_ProductSalesAltered.designer.cs">
       <DependentUpon>202006201949076_ProductSalesAltered.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006222041149_Cleaning.cs" />
+    <Compile Include="Migrations\202006222041149_Cleaning.designer.cs">
+      <DependentUpon>202006222041149_Cleaning.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006222113092_IdentytyChangeInProductTable.cs" />
+    <Compile Include="Migrations\202006222113092_IdentytyChangeInProductTable.designer.cs">
+      <DependentUpon>202006222113092_IdentytyChangeInProductTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductParameters.cs" />
     <Compile Include="Models\ProductStock.cs" />
@@ -208,6 +216,7 @@
     <Compile Include="ViewModels\AdminViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\DataSets\ExcelConnection.cs" />
+    <Compile Include="ViewModels\DataSets\TableToDbExtraction.cs" />
     <Compile Include="ViewModels\DistributionViewModel.cs" />
     <Compile Include="ViewModels\Lists\ProductParameterListViewModel.cs" />
     <Compile Include="ViewModels\Lists\ProductsListViewModel.cs" />
@@ -344,6 +353,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006201949076_ProductSalesAltered.resx">
       <DependentUpon>202006201949076_ProductSalesAltered.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006222041149_Cleaning.resx">
+      <DependentUpon>202006222041149_Cleaning.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006222113092_IdentytyChangeInProductTable.resx">
+      <DependentUpon>202006222113092_IdentytyChangeInProductTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

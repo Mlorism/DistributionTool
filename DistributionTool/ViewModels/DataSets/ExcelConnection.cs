@@ -49,7 +49,7 @@ namespace DistributionTool.ViewModels.DataSets
 
 						table = new System.Data.DataTable();
 						var columnCount = ((Excel.Range)sheet.UsedRange.Rows[1, Type.Missing]).Columns.Count;
-						var rowCount = ((Excel.Range)sheet.UsedRange.Columns[1, Type.Missing]).Rows.Count;
+						var rowCount = ((Excel.Range)sheet.UsedRange.Columns[1, Type.Missing]).Rows.Count - (headers ? 1: 0);
 
 						File.AppendAllLines("LogAction.txt", new string[] { "Przed 1 for", DateTime.Now.ToString() });						
 
