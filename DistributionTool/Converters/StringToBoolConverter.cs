@@ -19,7 +19,7 @@ namespace DistributionTool.Method_Extensions
 		public static bool StringToBool(this string x)
 		{
 			if (x == "1") return true;
-			else return true;
+			else return false;
 		}
 	}
 }
