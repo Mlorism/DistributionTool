@@ -14,13 +14,56 @@ namespace DistributionTool.ViewModels.DataSets
 {
 	static public class TableToDbExtraction
 	{
+		public static void ExportToDatabase(DataSet data)
+		{
+			MainWindowViewModel.NotifyUser("0/5 Export to database started");
+			if (MainWindowViewModel.Context.Products.Count() > 0)
+			{
+				MainWindowViewModel.Context.Database.ExecuteSqlCommand("TRUNCATE TABLE[Products]");
+			} 			
+			DataTable table = data.Tables[0];
+			TableToDbExtraction.LoadProducts(table);
+			MainWindowViewModel.NotifyUser("1/5 Product table loaded");
+
+			if (MainWindowViewModel.Context.ProductParameters.Count() > 0)
+			{
+				MainWindowViewModel.Context.Database.ExecuteSqlCommand("TRUNCATE TABLE[ProductParameters]");
+			}			
+			table = data.Tables[1];
+			TableToDbExtraction.LoadProductParameters(table);
+			MainWindowViewModel.NotifyUser("2/5 Product parameters table loaded");
+
+			if (MainWindowViewModel.Context.StoresGrades.Count() > 0)
+			{
+				MainWindowViewModel.Context.Database.ExecuteSqlCommand("TRUNCATE TABLE[StoreGrades]");
+			}			
+			table = data.Tables[2];
+			TableToDbExtraction.LoadStoreGrades(table);
+			MainWindowViewModel.NotifyUser("3/5 Store grades table loaded");
+
+			if (MainWindowViewModel.Context.ProductSales.Count() > 0)
+			{
+				MainWindowViewModel.Context.Database.ExecuteSqlCommand("TRUNCATE TABLE[ProductSales]");
+			}			
+			table = data.Tables[3];
+			TableToDbExtraction.LoadProductSales(table);
+			MainWindowViewModel.NotifyUser("4/5 Sales table loaded");
+
+			if (MainWindowViewModel.Context.ProductStock.Count() > 0)
+			{
+				MainWindowViewModel.Context.Database.ExecuteSqlCommand("TRUNCATE TABLE[ProductStocks]");
+			}			
+			table = data.Tables[4];
+			TableToDbExtraction.LoadStoresStocks(table);
+			MainWindowViewModel.NotifyUser("5/5 Stocks table loaded");
+		} // ExportToDatabase()
+
 		/// <summary>
 		/// Load product from table to database.
 		/// </summary>
 		/// <param name="table"></param>
 		static public void LoadProducts(DataTable table)
 		{
-
 			var productList = table.AsEnumerable().Select(Row => new Product
 			{
 				PLU = Convert.ToInt32(Row.Field<string>("PLU")),

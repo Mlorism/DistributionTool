@@ -128,7 +128,7 @@ namespace DistributionTool.ViewModels
 		{
 			LoggedInUser = (User)x;
 			LoadTabs();
-		}
+		} // LogIn()
 		public static void LogOut(object x)
 		{
 			LoggedInUser = null;
@@ -148,14 +148,14 @@ namespace DistributionTool.ViewModels
 			StaticPropertyChanged?.Invoke(null, new PropertyChangedEventArgs(PropertyName));
 		} // RaiseStaticPropertyChanged()
 
+		/// <summary>
+		/// First load data from excel file, next export it to DistributionTool database tables.
+		/// </summary>		
 		public static void LoadDataToDatabase(object x)
 		{						
-			DataSet data = ExcelConnection.Import("DataBaseData.xlsx");
-			MessageBox.Show("Data loaded to DataSet");
-			DataTable table = data.Tables[0];
-
-			TableToDbExtraction.LoadStoresStocks(table);
-		}
+			DataSet data = ExcelConnection.ImportFile("DataBaseData.xlsx");
+			TableToDbExtraction.ExportToDatabase(data);
+		} //LoadDataToDatabase
 		#endregion
 
 		#region Tasks
