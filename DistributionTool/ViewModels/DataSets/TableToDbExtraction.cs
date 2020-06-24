@@ -14,6 +14,10 @@ namespace DistributionTool.ViewModels.DataSets
 {
 	static public class TableToDbExtraction
 	{
+		/// <summary>
+		/// Load product from table to database.
+		/// </summary>
+		/// <param name="table"></param>
 		static public void LoadProductToDatabase(DataTable table)
 		{
 			var productList = table.AsEnumerable().Select(Row => new Product
@@ -39,7 +43,29 @@ namespace DistributionTool.ViewModels.DataSets
 			}).ToList();
 
 			MainWindowViewModel.Context.Products.AddRange(productList);
-			MainWindowViewModel.SaveContext();			
-		}
+			MainWindowViewModel.SaveContext();
+			MessageBox.Show("Product list loaded to the database.");
+		} // LoadProductToDatabase()
+
+		/// <summary>
+		/// Load product parameters from table to database.
+		/// </summary>
+		/// <param name="table"></param>
+		public static void LoadProductParametersToDatabase(DataTable table)
+		{
+			var parameterList = table.AsEnumerable().Select(Row => new ProductParameters
+			{
+				PLU =  Convert.ToInt32(Row.Field<string>("PLU")),
+				Grade = StringToEnumConverter.StringNumToStoreGrade(Row.Field<string>("Grade")),
+				Min = Convert.ToInt16(Row.Field<string>("Min")),
+				Max = Convert.ToInt16(Row.Field<string>("Max")),
+				Cover = Convert.ToInt16(Row.Field<string>("Cover"))
+			}).ToList();
+			
+			MainWindowViewModel.Context.ProductParameters.AddRange(parameterList);
+			MainWindowViewModel.SaveContext();
+			MessageBox.Show("Parameter list loaded to the database.");
+		} // LoadProductParametersToDatabase()
+
 	}
 }

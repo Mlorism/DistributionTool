@@ -84,7 +84,7 @@ namespace DistributionTool.Method_Extensions
 		} // StringNumToSubGroup()
 
 		/// <summary>
-		/// 
+		/// Returns DistributionMethodEnum based on number value as string.
 		/// </summary>
 		/// <param name="x"></param>
 		/// <returns></returns>
@@ -104,5 +104,28 @@ namespace DistributionTool.Method_Extensions
 					return DistributionMethodEnum.WeeksOfSales;
 			}
 		} // StringNumToMethodOfDistribution()
+
+		/// <summary>
+		/// Returns StoreGradeEnum based on number value as string.
+		/// </summary>
+		/// <param name="x"></param>
+		/// <returns></returns>
+		public static StoreGradeEnum StringNumToStoreGrade(string x)
+		{
+			switch (x)
+			{ 
+				case "0":
+				return StoreGradeEnum.A;
+				case "1":
+					return StoreGradeEnum.B;
+				case "2":
+					return StoreGradeEnum.C;
+				default:
+					return StoreGradeEnum.B;
+			}
+		} // StringNumToStoreGrade()
+
+
+
 	}
 }

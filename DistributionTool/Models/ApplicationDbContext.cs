@@ -26,7 +26,7 @@ namespace DistributionTool.Models
 		protected override void OnModelCreating(DbModelBuilder modelbuilder)
 		{
 			modelbuilder.Entity<Product>().Property(p => p.PLU).HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
-			modelbuilder.Entity<ProductParameters>().HasKey(p => new { p.PLU, p.Grade });
+			modelbuilder.Entity<ProductParameters>().HasKey(p => new { p.PLU, p.Grade });			
 			modelbuilder.Entity<StoreGrade>().HasKey(p => new { p.StoreNumber, p.Group });
 			modelbuilder.Entity<ProductSales>().HasKey(p => new { p.PLU, p.StoreNumber});
 			modelbuilder.Entity<ProductStock>().HasKey(p => new { p.PLU, p.StoreNumber });
