@@ -18,8 +18,9 @@ namespace DistributionTool.ViewModels.DataSets
 		/// Load product from table to database.
 		/// </summary>
 		/// <param name="table"></param>
-		static public void LoadProductToDatabase(DataTable table)
+		static public void LoadProducts(DataTable table)
 		{
+			
 			var productList = table.AsEnumerable().Select(Row => new Product
 			{
 				PLU = Convert.ToInt32(Row.Field<string>("PLU")),
@@ -45,13 +46,13 @@ namespace DistributionTool.ViewModels.DataSets
 			MainWindowViewModel.Context.Products.AddRange(productList);
 			MainWindowViewModel.SaveContext();
 			MessageBox.Show("Product list loaded to the database.");
-		} // LoadProductToDatabase()
+		} // LoadProduct()
 
 		/// <summary>
 		/// Load product parameters from table to database.
 		/// </summary>
 		/// <param name="table"></param>
-		public static void LoadProductParametersToDatabase(DataTable table)
+		public static void LoadProductParameters(DataTable table)
 		{
 			var parameterList = table.AsEnumerable().Select(Row => new ProductParameters
 			{
@@ -65,7 +66,22 @@ namespace DistributionTool.ViewModels.DataSets
 			MainWindowViewModel.Context.ProductParameters.AddRange(parameterList);
 			MainWindowViewModel.SaveContext();
 			MessageBox.Show("Parameter list loaded to the database.");
-		} // LoadProductParametersToDatabase()
+		} // LoadProductParameters()
+
+		public static void LoadStoreGrades(DataTable table)
+		{
+			var storeGradeList = table.AsEnumerable().Select(Row => new StoreGrade
+			{
+				StoreNumber = Convert.ToInt16(Row.Field<string>("StoreNumber")),
+				Group = StringToEnumConverter.StringNumToGroup(Row.Field<string>("Group")),
+				Grade = StringToEnumConverter.StringNumToStoreGrade(Row.Field<string>("Grade"))
+			}).ToList();
+
+			MainWindowViewModel.Context.StoresGrades.AddRange(storeGradeList);
+			MainWindowViewModel.SaveContext();
+			MessageBox.Show("Grade list loaded to the database.");
+
+		} // LoadStoreGrades()
 
 	}
 }
