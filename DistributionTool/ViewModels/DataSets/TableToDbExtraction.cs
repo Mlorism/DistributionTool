@@ -101,5 +101,20 @@ namespace DistributionTool.ViewModels.DataSets
 
 		} // LoadProductSales()
 
+		public static void LoadStoresStocks(DataTable table)
+		{
+			var storesStocksList = table.AsEnumerable().Select(Row => new ProductStock
+			{
+				PLU = Convert.ToInt32(Row.Field<string>("PLU")),
+				StoreNumber = Convert.ToInt16(Row.Field<string>("StoreNumber")),
+				Stock = Convert.ToInt16(Row.Field<string>("Stock")),
+				EffectiveStock = Convert.ToInt16(Row.Field<string>("EffectiveStock"))
+			}).ToList();
+
+			MainWindowViewModel.Context.ProductStock.AddRange(storesStocksList);
+			MainWindowViewModel.SaveContext();
+			MessageBox.Show("Stores stocks list loaded to the database.");
+		} // LoadStoreStocks()
+
 	}
 }
