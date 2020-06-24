@@ -154,7 +154,7 @@ namespace DistributionTool.ViewModels
 			MessageBox.Show("Data loaded to DataSet");
 			DataTable table = data.Tables[0];
 
-			TableToDbExtraction.LoadStoreGrades(table);
+			TableToDbExtraction.LoadProductSales(table);
 		}
 		#endregion
 

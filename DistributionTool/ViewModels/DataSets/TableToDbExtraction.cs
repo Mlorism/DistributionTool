@@ -20,7 +20,7 @@ namespace DistributionTool.ViewModels.DataSets
 		/// <param name="table"></param>
 		static public void LoadProducts(DataTable table)
 		{
-			
+
 			var productList = table.AsEnumerable().Select(Row => new Product
 			{
 				PLU = Convert.ToInt32(Row.Field<string>("PLU")),
@@ -56,13 +56,13 @@ namespace DistributionTool.ViewModels.DataSets
 		{
 			var parameterList = table.AsEnumerable().Select(Row => new ProductParameters
 			{
-				PLU =  Convert.ToInt32(Row.Field<string>("PLU")),
+				PLU = Convert.ToInt32(Row.Field<string>("PLU")),
 				Grade = StringToEnumConverter.StringNumToStoreGrade(Row.Field<string>("Grade")),
 				Min = Convert.ToInt16(Row.Field<string>("Min")),
 				Max = Convert.ToInt16(Row.Field<string>("Max")),
 				Cover = Convert.ToInt16(Row.Field<string>("Cover"))
 			}).ToList();
-			
+
 			MainWindowViewModel.Context.ProductParameters.AddRange(parameterList);
 			MainWindowViewModel.SaveContext();
 			MessageBox.Show("Parameter list loaded to the database.");
@@ -82,6 +82,24 @@ namespace DistributionTool.ViewModels.DataSets
 			MessageBox.Show("Grade list loaded to the database.");
 
 		} // LoadStoreGrades()
+
+		public static void LoadProductSales(DataTable table)
+		{
+			var salesList = table.AsEnumerable().Select(Row => new ProductSales 
+			{ 
+				PLU = Convert.ToInt32(Row.Field<string>("PLU")),
+				StoreNumber = Convert.ToInt16(Row.Field<string>("StoreNumber")),
+				SlsLW = Convert.ToInt16(Row.Field<string>("SlsLW")),
+				SlsLW1 = Convert.ToInt16(Row.Field<string>("SlsLW1")),
+				SlsLW2 = Convert.ToInt16(Row.Field<string>("SlsLW2")),
+				SlsLW3 = Convert.ToInt16(Row.Field<string>("SlsLW3"))
+			}).ToList();
+
+			MainWindowViewModel.Context.ProductSales.AddRange(salesList);
+			MainWindowViewModel.SaveContext();
+			MessageBox.Show("Sales list loaded to the database.");
+
+		} // LoadProductSales()
 
 	}
 }
