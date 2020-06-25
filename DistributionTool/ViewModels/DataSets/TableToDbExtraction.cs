@@ -87,8 +87,7 @@ namespace DistributionTool.ViewModels.DataSets
 			}).ToList();
 
 			MainWindowViewModel.Context.Products.AddRange(productList);
-			MainWindowViewModel.SaveContext();
-			MessageBox.Show("Product list loaded to the database.");
+			MainWindowViewModel.SaveContext();			
 		} // LoadProduct()
 
 		/// <summary>
@@ -107,8 +106,7 @@ namespace DistributionTool.ViewModels.DataSets
 			}).ToList();
 
 			MainWindowViewModel.Context.ProductParameters.AddRange(parameterList);
-			MainWindowViewModel.SaveContext();
-			MessageBox.Show("Parameter list loaded to the database.");
+			MainWindowViewModel.SaveContext();			
 		} // LoadProductParameters()
 
 		public static void LoadStoreGrades(DataTable table)
@@ -121,9 +119,7 @@ namespace DistributionTool.ViewModels.DataSets
 			}).ToList();
 
 			MainWindowViewModel.Context.StoresGrades.AddRange(storeGradeList);
-			MainWindowViewModel.SaveContext();
-			MessageBox.Show("Grade list loaded to the database.");
-
+			MainWindowViewModel.SaveContext();			
 		} // LoadStoreGrades()
 
 		public static void LoadProductSales(DataTable table)
@@ -139,9 +135,7 @@ namespace DistributionTool.ViewModels.DataSets
 			}).ToList();
 
 			MainWindowViewModel.Context.ProductSales.AddRange(salesList);
-			MainWindowViewModel.SaveContext();
-			MessageBox.Show("Sales list loaded to the database.");
-
+			MainWindowViewModel.SaveContext();			
 		} // LoadProductSales()
 
 		public static void LoadStoresStocks(DataTable table)
@@ -155,8 +149,7 @@ namespace DistributionTool.ViewModels.DataSets
 			}).ToList();
 
 			MainWindowViewModel.Context.ProductStock.AddRange(storesStocksList);
-			MainWindowViewModel.SaveContext();
-			MessageBox.Show("Stores stocks list loaded to the database.");
+			MainWindowViewModel.SaveContext();			
 		} // LoadStoreStocks()
 
 	}

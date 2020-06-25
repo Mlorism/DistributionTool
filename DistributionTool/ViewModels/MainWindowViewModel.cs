@@ -154,6 +154,7 @@ namespace DistributionTool.ViewModels
 		public static void LoadDataToDatabase(object x)
 		{						
 			DataSet data = ExcelConnection.ImportFile("DataBaseData.xlsx");
+			MessageBox.Show("DataBase file loaded to DataSet."); // temporary line to delete
 			TableToDbExtraction.ExportToDatabase(data);
 		} //LoadDataToDatabase
 		#endregion
