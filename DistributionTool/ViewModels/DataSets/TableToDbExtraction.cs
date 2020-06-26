@@ -75,8 +75,8 @@ namespace DistributionTool.ViewModels.DataSets
 				PackSize = Convert.ToInt16(Row.Field<string>("PackSize")),
 				Promotion = Row.Field<string>("Promotion"),
 				WarehouseFreeQty = Convert.ToInt16(Row.Field<string>("WarehouseFreeQty")),
-				StoresBelowMinimum = Convert.ToInt16(Row.Field<string>("StoresBelowMinimum")),
-				StoresCover = Convert.ToSingle(Row.Field<string>("StoresCover")),
+				WarehouseDistributedQty = Convert.ToInt16(Row.Field<string>("WarehouseDistributedQty")),
+				StoresBelowMinimum = Convert.ToInt16(Row.Field<string>("StoresBelowMinimum")),				
 				StoresEffectiveCover = Convert.ToSingle(Row.Field<string>("StoresEffectiveCover")),
 				MondayDistribution = StringToBoolConverter.StringToBool(Row.Field<string>("Mon")),
 				TuesdayDistribution = StringToBoolConverter.StringToBool(Row.Field<string>("Tue")),
@@ -131,7 +131,8 @@ namespace DistributionTool.ViewModels.DataSets
 				SlsLW = Convert.ToInt16(Row.Field<string>("SlsLW")),
 				SlsLW1 = Convert.ToInt16(Row.Field<string>("SlsLW1")),
 				SlsLW2 = Convert.ToInt16(Row.Field<string>("SlsLW2")),
-				SlsLW3 = Convert.ToInt16(Row.Field<string>("SlsLW3"))
+				SlsLW3 = Convert.ToInt16(Row.Field<string>("SlsLW3")),
+				AverageSales = Convert.ToSingle(Row.Field<string>("AvgSls"))
 			}).ToList();
 
 			MainWindowViewModel.Context.ProductSales.AddRange(salesList);
@@ -143,9 +144,10 @@ namespace DistributionTool.ViewModels.DataSets
 			var storesStocksList = table.AsEnumerable().Select(Row => new ProductStock
 			{
 				PLU = Convert.ToInt32(Row.Field<string>("PLU")),
-				StoreNumber = Convert.ToInt16(Row.Field<string>("StoreNumber")),
-				Stock = Convert.ToInt16(Row.Field<string>("Stock")),
-				EffectiveStock = Convert.ToInt16(Row.Field<string>("EffectiveStock"))
+				StoreNumber = Convert.ToInt16(Row.Field<string>("StoreNumber")),				
+				EffectiveStock = Convert.ToInt16(Row.Field<string>("EffectiveStock")),
+				EffectiveCover = Convert.ToSingle(Row.Field<string>("EffectiveCover"))
+
 			}).ToList();
 
 			MainWindowViewModel.Context.ProductStock.AddRange(storesStocksList);

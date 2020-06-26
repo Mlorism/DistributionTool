@@ -52,13 +52,13 @@ namespace DistributionTool.Models
         /// </summary>
         public int WarehouseFreeQty { get; set; }
         /// <summary>
+        /// Product quantity available in warehouse for distribution to stores.
+        /// </summary>
+        public int WarehouseDistributedQty { get; set; }
+        /// <summary>
         /// Number of stores with smaller quantity of product than the set minimum. 
         /// </summary>
-        public int StoresBelowMinimum { get; set; }
-        /// <summary>
-        /// Number of weeks of stock with current rate of sales.
-        /// </summary>
-        public float StoresCover { get; set; }
+        public int StoresBelowMinimum { get; set; }   
         /// <summary>
         /// Number of weeks of stock with current rate of sales with addditional shipped stock.
         /// </summary>

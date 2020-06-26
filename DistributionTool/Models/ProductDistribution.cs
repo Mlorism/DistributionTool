@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DistributionTool.Models
-{	
+{
 	/// <summary>
-	/// Class model representing product sales.
+	/// Class model representing distribution.
 	/// </summary>
-	class ProductSales
+	class ProductDistribution
 	{
 		/// <summary>
 		/// Price look-up code.
@@ -20,25 +20,22 @@ namespace DistributionTool.Models
 		/// </summary>
 		public int StoreNumber { get; set; }
 		/// <summary>
-		/// Sale qty from last 7 days.
+		/// Number of distributed items.
 		/// </summary>
-		public int SlsLW { get; set; }
+		public int DistributedQuantity { get; set; }
 		/// <summary>
-		/// Sale qty from last 7 to 14 days.
+		/// Number of distributed packs.
 		/// </summary>
-		public int SlsLW1 { get; set; }
+		public int DistributedPacks { get; set; }
 		/// <summary>
-		/// Sale qty from last 14 to 21 days.
+		///  Number of weeks of stock with current rate of sales after distibution.
 		/// </summary>
-		public int SlsLW2 { get; set; }
+		public float DistributionCover { get; set; }
 		/// <summary>
-		/// Sale qty from last 21 to 28 days.
+		/// Quantity of stock in the store plus quantity sent previously and with current distribution.
 		/// </summary>
-		public int SlsLW3 { get; set; }
-		/// <summary>
-		/// Average sales based on last 4 weeks.
-		/// </summary>
-		public float AverageSales { get; set; }
+		public int StockAfterDistribution { get; set; }
+
 
 	}
 }

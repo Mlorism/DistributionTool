@@ -18,14 +18,14 @@ namespace DistributionTool.Models
 		/// <summary>
 		/// Store number.
 		/// </summary>
-		public int StoreNumber { get; set; }
-		/// <summary>
-		/// Product quantity in store.
-		/// </summary>
-		public int Stock { get; set; }
+		public int StoreNumber { get; set; }		
 		/// <summary>
 		/// Product quantity in store with quantity that has been sent from warehouse.
 		/// </summary>
-		public int EffectiveStock { get; set; }
+		public int EffectiveStock { get; set; }		
+		/// <summary>
+		/// Number of weeks of stock with current rate of sales with shipped stock.
+		/// </summary>
+		public float EffectiveCover { get; set; }
 	}
 }

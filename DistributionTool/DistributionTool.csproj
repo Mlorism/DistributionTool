@@ -208,7 +208,12 @@
     <Compile Include="Migrations\202006222113092_IdentytyChangeInProductTable.designer.cs">
       <DependentUpon>202006222113092_IdentytyChangeInProductTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006261718488_AlteredTabelesColumns.cs" />
+    <Compile Include="Migrations\202006261718488_AlteredTabelesColumns.designer.cs">
+      <DependentUpon>202006261718488_AlteredTabelesColumns.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ProductDistribution.cs" />
     <Compile Include="Models\ProductParameters.cs" />
     <Compile Include="Models\ProductStock.cs" />
     <Compile Include="Models\StoreGrade.cs" />
@@ -359,6 +364,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006222113092_IdentytyChangeInProductTable.resx">
       <DependentUpon>202006222113092_IdentytyChangeInProductTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006261718488_AlteredTabelesColumns.resx">
+      <DependentUpon>202006261718488_AlteredTabelesColumns.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
