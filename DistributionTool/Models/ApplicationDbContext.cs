@@ -16,6 +16,7 @@ namespace DistributionTool.Models
 		public DbSet<StoreGrade> StoresGrades { get; set; }
 		public DbSet<ProductSales> ProductSales { get; set; }
 		public DbSet<ProductStock> ProductStock{ get; set; }
+		public DbSet<ProductDistribution> ProductDistribution { get; set; }
 
 		public ApplicationDbContext()
 			: base("name=DefaultConnection")
@@ -30,6 +31,7 @@ namespace DistributionTool.Models
 			modelbuilder.Entity<StoreGrade>().HasKey(p => new { p.StoreNumber, p.Group });
 			modelbuilder.Entity<ProductSales>().HasKey(p => new { p.PLU, p.StoreNumber});
 			modelbuilder.Entity<ProductStock>().HasKey(p => new { p.PLU, p.StoreNumber });
+			modelbuilder.Entity<ProductDistribution>().HasKey(p => new { p.PLU, p.StoreNumber });
 		}
 	}
 }

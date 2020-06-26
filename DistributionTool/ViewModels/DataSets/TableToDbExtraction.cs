@@ -23,7 +23,7 @@ namespace DistributionTool.ViewModels.DataSets
 			} 			
 			DataTable table = data.Tables[0];
 			TableToDbExtraction.LoadProducts(table);
-			MainWindowViewModel.NotifyUser("1/5 Product table loaded");
+			MainWindowViewModel.NotifyUser("1/6 Product table loaded");
 
 			if (MainWindowViewModel.Context.ProductParameters.Count() > 0)
 			{
@@ -31,7 +31,7 @@ namespace DistributionTool.ViewModels.DataSets
 			}			
 			table = data.Tables[1];
 			TableToDbExtraction.LoadProductParameters(table);
-			MainWindowViewModel.NotifyUser("2/5 Product parameters table loaded");
+			MainWindowViewModel.NotifyUser("2/6 Product parameters table loaded");
 
 			if (MainWindowViewModel.Context.StoresGrades.Count() > 0)
 			{
@@ -39,7 +39,7 @@ namespace DistributionTool.ViewModels.DataSets
 			}			
 			table = data.Tables[2];
 			TableToDbExtraction.LoadStoreGrades(table);
-			MainWindowViewModel.NotifyUser("3/5 Store grades table loaded");
+			MainWindowViewModel.NotifyUser("3/6 Store grades table loaded");
 
 			if (MainWindowViewModel.Context.ProductSales.Count() > 0)
 			{
@@ -47,7 +47,7 @@ namespace DistributionTool.ViewModels.DataSets
 			}			
 			table = data.Tables[3];
 			TableToDbExtraction.LoadProductSales(table);
-			MainWindowViewModel.NotifyUser("4/5 Sales table loaded");
+			MainWindowViewModel.NotifyUser("4/6 Sales table loaded");
 
 			if (MainWindowViewModel.Context.ProductStock.Count() > 0)
 			{
@@ -55,7 +55,15 @@ namespace DistributionTool.ViewModels.DataSets
 			}			
 			table = data.Tables[4];
 			TableToDbExtraction.LoadStoresStocks(table);
-			MainWindowViewModel.NotifyUser("5/5 Stocks table loaded");
+			MainWindowViewModel.NotifyUser("5/6 Stocks table loaded");
+
+			if (MainWindowViewModel.Context.ProductDistribution.Count() > 0)
+			{
+				MainWindowViewModel.Context.Database.ExecuteSqlCommand("TRUNCATE TABLE[ProductDistributions]");
+			}
+			table = data.Tables[5];
+			TableToDbExtraction.LoadDistributionTable(table);
+			MainWindowViewModel.NotifyUser("6/6 Distribution table loaded");
 		} // ExportToDatabase()
 
 		/// <summary>
@@ -153,6 +161,23 @@ namespace DistributionTool.ViewModels.DataSets
 			MainWindowViewModel.Context.ProductStock.AddRange(storesStocksList);
 			MainWindowViewModel.SaveContext();			
 		} // LoadStoreStocks()
+
+
+		public static void LoadDistributionTable(DataTable table)
+		{
+			var distributionList = table.AsEnumerable().Select(Row => new ProductDistribution
+			{
+				PLU = Convert.ToInt32(Row.Field<string>("PLU")),
+				StoreNumber = Convert.ToInt16(Row.Field<string>("StoreNumber")),
+				DistributionCover = Convert.ToSingle(Row.Field<string>("DistributionCover")),
+				StockAfterDistribution = Convert.ToInt16(Row.Field<string>("StockAfterDistribution")),
+				DistributedQuantity = Convert.ToInt16(Row.Field<string>("DistributedQuantity")),
+				DistributedPacks = Convert.ToInt16(Row.Field<string>("DistributedPacks"))
+			}).ToList();
+
+			MainWindowViewModel.Context.ProductDistribution.AddRange(distributionList);
+			MainWindowViewModel.SaveContext();
+		} // LoadDistributionTable()
 
 	}
 }

@@ -20,14 +20,6 @@ namespace DistributionTool.Models
 		/// </summary>
 		public int StoreNumber { get; set; }
 		/// <summary>
-		/// Number of distributed items.
-		/// </summary>
-		public int DistributedQuantity { get; set; }
-		/// <summary>
-		/// Number of distributed packs.
-		/// </summary>
-		public int DistributedPacks { get; set; }
-		/// <summary>
 		///  Number of weeks of stock with current rate of sales after distibution.
 		/// </summary>
 		public float DistributionCover { get; set; }
@@ -35,6 +27,15 @@ namespace DistributionTool.Models
 		/// Quantity of stock in the store plus quantity sent previously and with current distribution.
 		/// </summary>
 		public int StockAfterDistribution { get; set; }
+		/// <summary>
+		/// Number of distributed items.
+		/// </summary>
+		public int DistributedQuantity { get; set; }
+		/// <summary>
+		/// Number of distributed packs.
+		/// </summary>
+		public int DistributedPacks { get; set; }
+		
 
 
 	}
