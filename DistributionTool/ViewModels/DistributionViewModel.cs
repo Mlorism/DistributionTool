@@ -67,7 +67,10 @@ namespace DistributionTool.ViewModels
 						 join parameters in context.ProductParameters.AsEnumerable()
 						 on (sales.PLU, grade.Grade) equals (parameters.PLU, parameters.Grade)
 
-						 select new { sales.PLU, stock.EffectiveCover }).ToList();
+						 select new { sales.PLU, grade.Grade, sales.SlsLW, sales.SlsLW1, sales.SlsLW2, sales.SlsLW3, sales.AverageSales,
+						 stock.EffectiveStock, distribution.StockAfterDistribution, parameters.Min, parameters.Max, parameters.Cover,
+						 distribution.DistributionCover, distribution.DistributedQuantity, distribution.DistributedPacks})
+						 .ToList();
 
 			MessageBox.Show(table.Count().ToString());
 
