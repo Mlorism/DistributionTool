@@ -231,6 +231,7 @@
     <Compile Include="ViewModels\DataSets\ExcelConnection.cs" />
     <Compile Include="ViewModels\DataSets\TableToDbExtraction.cs" />
     <Compile Include="ViewModels\DistributionViewModel.cs" />
+    <Compile Include="ViewModels\Lists\DistributionListViewModel.cs" />
     <Compile Include="ViewModels\Lists\ProductParameterListViewModel.cs" />
     <Compile Include="ViewModels\Lists\ProductsListViewModel.cs" />
     <Compile Include="ViewModels\Lists\UsersListViewModel.cs" />
