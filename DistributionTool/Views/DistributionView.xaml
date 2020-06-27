@@ -157,9 +157,10 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <Button Content="save"
+                    <Button Content="test/save"
                             Margin="5"
-                            Style="{StaticResource AccentedDialogSquareButton}" />
+                            Style="{StaticResource AccentedDialogSquareButton}"
+                            Command="{Binding createContextCommand}"/>
                 </StackPanel>
                 <!--#endregion-->
 
