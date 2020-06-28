@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DistributionTool.Models;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -13,8 +14,8 @@ namespace DistributionTool.ViewModels.Lists
 	class DistributionListViewModel
 	{
 		#region Properties
-		private readonly ObservableCollection<object> distributionList = new ObservableCollection<object>();
-		public ObservableCollection<object> DistributionList => distributionList;
+		private readonly ObservableCollection<Distribution> distributionList = new ObservableCollection<Distribution>();
+		public ObservableCollection<Distribution> DistributionList => distributionList;
 		#endregion
 
 		#region Constructor
@@ -51,6 +52,7 @@ namespace DistributionTool.ViewModels.Lists
 
 						 select new	{	 
 							 sales.PLU,
+							 sales.StoreNumber,
 							 grade.Grade,
 							 sales.SlsLW,
 							 sales.SlsLW1,
@@ -58,6 +60,7 @@ namespace DistributionTool.ViewModels.Lists
 							 sales.SlsLW3,
 							 sales.AverageSales,
 							 stock.EffectiveStock,
+							 stock.EffectiveCover,
 							 distribution.StockAfterDistribution,
 							 parameters.Min,
 							 parameters.Max,
@@ -76,6 +79,10 @@ namespace DistributionTool.ViewModels.Lists
 			}
 
 		} // Refresh()
+		public void GetProduct(int PLU)
+		{
+			
+		} // GetProduct()
 		#endregion
 	}
 }

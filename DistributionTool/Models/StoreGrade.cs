@@ -11,7 +11,7 @@ namespace DistributionTool.Models
 	/// <summary>
 	/// Class model representing product grade.
 	/// </summary>
-	class StoreGrade
+	public class StoreGrade
 	{	
 		/// <summary>
 		/// Store unique number.
@@ -22,7 +22,7 @@ namespace DistributionTool.Models
 		/// </summary>
 		public ProductGroupEnum Group { get; set; }
 		/// <summary>
-		/// Product Group Grade.
+		/// Store group grade.
 		/// </summary>
 		public StoreGradeEnum Grade { get; set; }
 

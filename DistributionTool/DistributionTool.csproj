@@ -220,6 +220,7 @@
     <Compile Include="Migrations\202006261936374_CreateTableProductDistribution.designer.cs">
       <DependentUpon>202006261936374_CreateTableProductDistribution.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Distribution.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductDistribution.cs" />
     <Compile Include="Models\ProductParameters.cs" />

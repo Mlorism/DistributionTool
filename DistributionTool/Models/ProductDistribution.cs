@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace DistributionTool.Models
 {
 	/// <summary>
-	/// Class model representing distribution.
+	/// Class model representing distribution data.
 	/// </summary>
 	class ProductDistribution
 	{
@@ -20,7 +20,7 @@ namespace DistributionTool.Models
 		/// </summary>
 		public int StoreNumber { get; set; }
 		/// <summary>
-		///  Number of weeks of stock with current rate of sales after distibution.
+		/// Number of weeks of stock with current rate of sales after distibution.
 		/// </summary>
 		public float DistributionCover { get; set; }
 		/// <summary>
@@ -35,8 +35,6 @@ namespace DistributionTool.Models
 		/// Number of distributed packs.
 		/// </summary>
 		public int DistributedPacks { get; set; }
-		
 
-
-	}
+	} // ProductDistribution
 }

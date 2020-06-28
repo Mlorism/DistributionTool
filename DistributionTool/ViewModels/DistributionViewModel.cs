@@ -32,6 +32,13 @@ namespace DistributionTool.ViewModels
 			}
 		}
 
+		/// <summary>
+		/// DistributionListViewModel only for selected product.
+		/// </summary>
+		public static ObservableCollection<object> SelectedProductList { 
+			get { return null; } 
+		}
+
 		#endregion
 
 
