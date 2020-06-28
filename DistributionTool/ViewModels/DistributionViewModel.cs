@@ -37,12 +37,7 @@ namespace DistributionTool.ViewModels
 		/// </summary>
 		public static ObservableCollection<Distribution> SelectedProductList { 
 			get 
-			{
-				if (DistributionListViewModel.Instance.DistributionList == null)
-				{
-					DistributionListViewModel.Instance.Refresh();
-				}							
-				
+			{				
 				return DistributionListViewModel.Instance.GetProduct(ProductsViewModel.SelectedProduct.PLU);
 			}
 		} //SelectedProductList 
@@ -55,9 +50,8 @@ namespace DistributionTool.ViewModels
 		{
 			TabName = "Distribution";
 			createContextCommand = new RelayCommand(createContext, null);
-			
-			
-		}
+
+		} // DistributionViewModel()
 		#endregion
 
 		#region Methods

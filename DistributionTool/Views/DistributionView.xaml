@@ -86,26 +86,44 @@
                 BorderBrush="Black"
                 Grid.Row="1"
                 Grid.Column="0">
-            <DataGrid>
+            <DataGrid ItemsSource="{Binding SelectedProductList}"
+                      AutoGenerateColumns="False"
+                      CanUserDeleteRows="False"
+                      CanUserAddRows="False"
+                      GridLinesVisibility="All">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Str No" />
-                    <DataGridTextColumn Header="Grade" />
-                    <DataGridTextColumn Header="Sls LW" />
-                    <DataGridTextColumn Header="Sls LW1" />
-                    <DataGridTextColumn Header="Sls LW2" />
-                    <DataGridTextColumn Header="Sls LW3" />
-                    <DataGridTextColumn Header="Sls Avg" />
-                    <DataGridTextColumn Header="Stock" />
-                    <DataGridTextColumn Header="Eff Stk" />
-                    <DataGridTextColumn Header="Dis Stk" />
-                    <DataGridTextColumn Header="Min" />
-                    <DataGridTextColumn Header="Max" />
-                    <DataGridTextColumn Header="Min Cov" />
-                    <DataGridTextColumn Header="Cover" />
-                    <DataGridTextColumn Header="Eff Cov" />
-                    <DataGridTextColumn Header="Dist Cov" />
-                    <DataGridTextColumn Header="Dis Qty" />
-                    <DataGridTextColumn Header="Dis Pc" />
+                    <DataGridTextColumn Header="Str No"
+                                        Binding="{Binding StoreNumber}"/>
+                    <DataGridTextColumn Header="Grade"
+                                        Binding="{Binding Grade}"/>
+                    <DataGridTextColumn Header="Sls LW"
+                                        Binding="{Binding SlsLW}"/>
+                    <DataGridTextColumn Header="Sls LW1"
+                                        Binding="{Binding SlsLW1}" />
+                    <DataGridTextColumn Header="Sls LW2"
+                                        Binding="{Binding SlsLW2}" />
+                    <DataGridTextColumn Header="Sls LW3"
+                                        Binding="{Binding SlsLW3}" />
+                    <DataGridTextColumn Header="Sls Avg"
+                                        Binding="{Binding AverageSales}" />
+                    <DataGridTextColumn Header="Eff Stock"
+                                        Binding="{Binding EffectiveStock}" />                    
+                    <DataGridTextColumn Header="Dis Stk"
+                                        Binding="{Binding StockAfterDistribution}" />
+                    <DataGridTextColumn Header="Min"
+                                        Binding="{Binding Min}" />
+                    <DataGridTextColumn Header="Max"
+                                        Binding="{Binding Max}" />
+                    <DataGridTextColumn Header="Min Cov"
+                                        Binding="{Binding MinCover}" />
+                    <DataGridTextColumn Header="Eff Cover"
+                                        Binding="{Binding EffectiveCover}" />             
+                    <DataGridTextColumn Header="Dist Cov"
+                                        Binding="{Binding DistributionCover}" />
+                    <DataGridTextColumn Header="Dis Qty"
+                                        Binding="{Binding DistributedQuantity}" />
+                    <DataGridTextColumn Header="Dis Pc"
+                                        Binding="{Binding DistributedPacks}" />
                 </DataGrid.Columns>
             </DataGrid>
         </Border>        

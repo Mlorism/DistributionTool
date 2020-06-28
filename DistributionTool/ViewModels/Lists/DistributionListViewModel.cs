@@ -22,7 +22,7 @@ namespace DistributionTool.ViewModels.Lists
 		#region Constructor
 		private static readonly DistributionListViewModel instance = new DistributionListViewModel();
 		public static DistributionListViewModel Instance => instance;
-		DistributionListViewModel() => Instance.Refresh();
+		static DistributionListViewModel() => Instance.Refresh();
 		#endregion
 
 		#region Methods
@@ -112,7 +112,9 @@ namespace DistributionTool.ViewModels.Lists
 		/// </summary>		
 		public ObservableCollection<Distribution> GetProduct(int PLU)
 		{
-			ObservableCollection<Distribution> selectedDistribution = (ObservableCollection<Distribution>)DistributionList.Where(p => p.PLU == PLU);
+			ObservableCollection<Distribution> selectedDistribution = 
+				new ObservableCollection<Distribution>(DistributionList.Where(x => x.PLU == PLU));
+			
 			return selectedDistribution;
 		} // GetProduct()
 		#endregion
