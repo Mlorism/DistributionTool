@@ -35,9 +35,17 @@ namespace DistributionTool.ViewModels
 		/// <summary>
 		/// DistributionListViewModel only for selected product.
 		/// </summary>
-		public static ObservableCollection<object> SelectedProductList { 
-			get { return null; } 
-		}
+		public static ObservableCollection<Distribution> SelectedProductList { 
+			get 
+			{
+				if (DistributionListViewModel.Instance.DistributionList == null)
+				{
+					DistributionListViewModel.Instance.Refresh();
+				}							
+				
+				return DistributionListViewModel.Instance.GetProduct(ProductsViewModel.SelectedProduct.PLU);
+			}
+		} //SelectedProductList 
 
 		#endregion
 
@@ -47,7 +55,8 @@ namespace DistributionTool.ViewModels
 		{
 			TabName = "Distribution";
 			createContextCommand = new RelayCommand(createContext, null);
-			//createContext();
+			
+			
 		}
 		#endregion
 
@@ -55,7 +64,7 @@ namespace DistributionTool.ViewModels
 
 		public void createContext(object x)
 		{
-				
+			DistributionListViewModel.Instance.GetProduct(189977);
 		}
 
 		#endregion
