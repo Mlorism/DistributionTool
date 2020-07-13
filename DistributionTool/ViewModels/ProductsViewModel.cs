@@ -15,6 +15,7 @@ namespace DistributionTool.ViewModels
 	{
 		#region Commands
 		public RelayCommand ChoseSelectedProductCommand { get; private set; }
+		public RelayCommand ApplyChangesCommand { get; private set; }
 
 		#endregion
 
@@ -56,6 +57,7 @@ namespace DistributionTool.ViewModels
 
 			
 			ChoseSelectedProductCommand = new RelayCommand(ChoseSelectedProduct, null);
+			ApplyChangesCommand = new RelayCommand(ApplyChanges, null);
 		}
 		#endregion
 
@@ -72,6 +74,14 @@ namespace DistributionTool.ViewModels
 				SelectedProduct = ProductsListViewModel.Instance.ProductList.FirstOrDefault(x => x.PLU == ((Product)product).PLU);
 			}
 		} // ChoseSelectedProduct()
+
+		/// <summary>
+		/// Save changes to distribution method and days of distribution.
+		/// </summary>		
+		public void ApplyChanges(object x)
+		{
+			MainWindowViewModel.SaveContext();			
+		} // ApplyChanges()
 		#endregion
 
 		#region Validators

@@ -47,6 +47,7 @@
                             Margin="5"
                             Width="70"
                             Style="{StaticResource AccentedSquareButtonStyle}"
+                            Command="{Binding ApplyChangesCommand}"
                             ToolTip="Save changes for distribution days and distribution method."/>
                     <Button Content="Refresh"
                             Margin="5"
@@ -98,6 +99,9 @@
                     <DataGridTextColumn Header="Product name"
                                         Binding="{Binding Name}"
                                         IsReadOnly="True" />
+                    <DataGridTextColumn Header="Color"
+                                        Binding="{Binding Color}"
+                                        IsReadOnly="True"/>
                     <DataGridTextColumn Header="Pc size"
                                         Binding="{Binding PackSize}"
                                         IsReadOnly="True" />
