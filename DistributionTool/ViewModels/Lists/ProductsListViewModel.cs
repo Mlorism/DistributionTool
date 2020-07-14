@@ -30,6 +30,8 @@ namespace DistributionTool.ViewModels.Lists
 			if (ProductList.Count > 0)
 				ProductList.Clear();
 
+			MainWindowViewModel.ReloadContext();
+
 			var products = MainWindowViewModel.Context.Products.ToList();
 
 			if (products != null)

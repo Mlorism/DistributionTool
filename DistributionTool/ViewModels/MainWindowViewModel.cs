@@ -147,16 +147,18 @@ namespace DistributionTool.ViewModels
 		{
 			StaticPropertyChanged?.Invoke(null, new PropertyChangedEventArgs(PropertyName));
 		} // RaiseStaticPropertyChanged()
-
 		/// <summary>
 		/// First load data from excel file, next export it to DistributionTool database tables.
 		/// </summary>		
 		public static void LoadDataToDatabase(object x)
 		{						
-			DataSet data = ExcelConnection.ImportFile("DataBaseData.xlsx");
-			MessageBox.Show("DataBase file loaded to DataSet."); // temporary line to delete
+			DataSet data = ExcelConnection.ImportFile("DataBaseData.xlsx");			
 			TableToDbExtraction.ExportToDatabase(data);
 		} //LoadDataToDatabase
+		public static void ReloadContext()
+		{
+			context = new ApplicationDbContext();
+		}
 		#endregion
 
 		#region Tasks

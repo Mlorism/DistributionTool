@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 
 namespace DistributionTool.ViewModels
@@ -16,6 +17,7 @@ namespace DistributionTool.ViewModels
 		#region Commands
 		public RelayCommand ChoseSelectedProductCommand { get; private set; }
 		public RelayCommand ApplyChangesCommand { get; private set; }
+		public RelayCommand RefreshCommand { get; set; }
 
 		#endregion
 
@@ -54,10 +56,10 @@ namespace DistributionTool.ViewModels
 			
 			var productSourceList = new CollectionViewSource() { Source = ProductsListViewModel.Instance.ProductList };
 			productsFilteredList = productSourceList.View;
-
 			
 			ChoseSelectedProductCommand = new RelayCommand(ChoseSelectedProduct, null);
 			ApplyChangesCommand = new RelayCommand(ApplyChanges, null);
+			RefreshCommand = new RelayCommand(Refresh, null);
 		}
 		#endregion
 
@@ -82,6 +84,21 @@ namespace DistributionTool.ViewModels
 		{
 			MainWindowViewModel.SaveContext();			
 		} // ApplyChanges()
+
+		/// <summary>
+		/// Reload product list.
+		/// </summary>		
+		public void Refresh(object x)
+		{
+			ProductsListViewModel.Instance.Refresh();
+			MessageBox.Show(ProductsListViewModel.Instance.ProductList.FirstOrDefault(p => p.PLU == selectedProduct.PLU).PackSize.ToString());
+
+			var productSourceList = new CollectionViewSource() { Source = ProductsListViewModel.Instance.ProductList };
+			productsFilteredList = productSourceList.View;
+
+			CollectionViewSource.GetDefaultView(productsFilteredList).Refresh();
+			
+		} // Refresh()
 		#endregion
 
 		#region Validators
