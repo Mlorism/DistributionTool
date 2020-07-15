@@ -31,6 +31,8 @@ namespace DistributionTool.ViewModels.Lists
 			if (ParametersList.Count > 0)
 				ParametersList.Clear();
 
+			MainWindowViewModel.ReloadContext();
+
 			var parameters = MainWindowViewModel.Context.ProductParameters.ToList();
 
 			if (parameters != null)

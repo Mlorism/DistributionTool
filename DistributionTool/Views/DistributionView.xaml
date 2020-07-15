@@ -143,7 +143,8 @@
                 <!--#region product parameters-->
                 <Border BorderThickness="1"
                         BorderBrush="Black">
-                    <DataGrid ItemsSource="{Binding SelectedProductParameters}"
+                    <DataGrid ItemsSource="{Binding SelectedProductParameters, 
+                        UpdateSourceTrigger=PropertyChanged}"
                               AutoGenerateColumns="False"                              
                               CanUserDeleteRows="False"                              
                               CanUserAddRows="False"
@@ -168,14 +169,15 @@
                     <ComboBox Grid.Row="0"
                               Margin="5"
                               ItemsSource="{Binding Source={StaticResource DistributionMethod}}"
-                              SelectedValue="{Binding SelectedProduct.MethodOfDistribution}">
+                              SelectedItem="{Binding SelectedProduct.MethodOfDistribution, 
+                                                      UpdateSourceTrigger=PropertyChanged}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Converter={StaticResource DistributionMethodToStringConverter}}" />
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <Button Content="test/save"
+                    <Button Content="save params"
                             Margin="5"
                             Style="{StaticResource AccentedDialogSquareButton}"
                             Command="{Binding createContextCommand}"/>
@@ -199,7 +201,8 @@
                     <Button Content=" reload &#10;params"
                             Width="90"
                             Margin="5"
-                            Style="{StaticResource SquareButtonStyle}" />
+                            Style="{StaticResource SquareButtonStyle}"
+                            Command="{Binding ReloadParametersCommand}"/>
                 </StackPanel>
             <!--#endregion-->
         </Grid>

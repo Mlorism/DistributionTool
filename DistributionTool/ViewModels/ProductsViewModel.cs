@@ -18,6 +18,7 @@ namespace DistributionTool.ViewModels
 		public RelayCommand ChoseSelectedProductCommand { get; private set; }
 		public RelayCommand ApplyChangesCommand { get; private set; }
 		public RelayCommand RefreshCommand { get; set; }
+		public RelayCommand ProductDistributionCommand { get; set; }
 
 		#endregion
 
@@ -60,6 +61,7 @@ namespace DistributionTool.ViewModels
 			ChoseSelectedProductCommand = new RelayCommand(ChoseSelectedProduct, null);
 			ApplyChangesCommand = new RelayCommand(ApplyChanges, null);
 			RefreshCommand = new RelayCommand(Refresh, null);
+			ProductDistributionCommand = new RelayCommand(ProductDistribution, null);
 		}
 		#endregion
 
@@ -81,7 +83,7 @@ namespace DistributionTool.ViewModels
 		/// Save changes to distribution method and days of distribution.
 		/// </summary>		
 		public void ApplyChanges(object x)
-		{
+		{	
 			MainWindowViewModel.SaveContext();			
 		} // ApplyChanges()
 
@@ -90,15 +92,20 @@ namespace DistributionTool.ViewModels
 		/// </summary>		
 		public void Refresh(object x)
 		{
-			ProductsListViewModel.Instance.Refresh();
-			MessageBox.Show(ProductsListViewModel.Instance.ProductList.FirstOrDefault(p => p.PLU == selectedProduct.PLU).PackSize.ToString());
+			ProductsListViewModel.Instance.Refresh();			
 
 			var productSourceList = new CollectionViewSource() { Source = ProductsListViewModel.Instance.ProductList };
 			productsFilteredList = productSourceList.View;
 
 			CollectionViewSource.GetDefaultView(productsFilteredList).Refresh();
-			
+
+			RaiseStaticPropertyChanged("SelectedProduct");
 		} // Refresh()
+		public void ProductDistribution(object x)
+		{
+			MessageBox.Show(SelectedProduct.MethodOfDistribution.ToString());
+		} // ProductDistribution()				
+
 		#endregion
 
 		#region Validators

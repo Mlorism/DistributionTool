@@ -58,7 +58,8 @@
                     <Button Content="prod. distr."
                             Margin="5"
                             Width="80"
-                            Style="{StaticResource SquareButtonStyle}" 
+                            Style="{StaticResource SquareButtonStyle}"
+                            Command="{Binding ProductDistributionCommand}"
                             ToolTip="Create a distribution for the selected product."/>
                     <Button Content="Day distr."
                             Margin="5"
@@ -144,12 +145,12 @@
                                             Binding="{Binding ThursdayDistribution}" />
                     <DataGridCheckBoxColumn Header="Fri"
                                             Binding="{Binding FridayDistribution}" />
-                    <DataGridTemplateColumn Header="Distribution method"
-                                            IsReadOnly="True">
+                    <DataGridTemplateColumn Header="Distribution method">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <ComboBox ItemsSource="{Binding Source={StaticResource DistributionMethodType}}"
-                                          SelectedItem="{Binding MethodOfDistribution}"
+                                          SelectedItem="{Binding MethodOfDistribution, 
+                                                                 UpdateSourceTrigger=PropertyChanged}"
                                           Style="{StaticResource MetroComboBox}">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>

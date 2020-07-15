@@ -17,21 +17,16 @@ namespace DistributionTool.ViewModels
 	class DistributionViewModel : BaseViewModel, ITab
 	{
 		#region Commands
-		public static RelayCommand createContextCommand { get; set; }
+		public static RelayCommand SaveParametersCommand { get; set; }
+		public  static RelayCommand ReloadParametersCommand { get; set; }
 		#endregion
 
 		#region Properties
-		public Product SelectedProduct => ProductsViewModel.SelectedProduct;
+		public Product SelectedProduct { get; set; } 
+		public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
 
-		public ObservableCollection<ProductParameters> SelectedProductParameters
-		{
-			get
-			{
-				var subList = ProductParameterListViewModel.Instance.ParametersList.Where(x => x.PLU == SelectedProduct.PLU);
-				return new ObservableCollection<ProductParameters>(subList);
-			}
-		}
-
+		public ICollectionView SelectedProductParameters { get; set; }
+		
 		/// <summary>
 		/// DistributionListViewModel only for selected product.
 		/// </summary>
@@ -41,25 +36,83 @@ namespace DistributionTool.ViewModels
 				return DistributionListViewModel.Instance.GetProduct(ProductsViewModel.SelectedProduct.PLU);
 			}
 		} //SelectedProductList 
-
 		#endregion
-
 
 		#region Constructor
 		public DistributionViewModel()
 		{
 			TabName = "Distribution";
-			createContextCommand = new RelayCommand(createContext, null);
+
+			SelectedProduct = ProductsViewModel.SelectedProduct;
+
+			var productParameterList = new CollectionViewSource()
+			{
+				Source = ProductParameterListViewModel.Instance.ParametersList
+					.Where(p => p.PLU == SelectedProduct.PLU)
+					.Select(c => ((ProductParameters)(c.Clone()))).ToList()
+			};
+			
+			SelectedProductParameters = productParameterList.View;
+
+			SaveParametersCommand = new RelayCommand(SaveParameters, null);
+			ReloadParametersCommand = new RelayCommand(ReloadParameters, null);
 
 		} // DistributionViewModel()
 		#endregion
 
 		#region Methods
-
-		public void createContext(object x)
+		public static void RaiseStaticPropertyChanged(string PropertyName)
 		{
-			DistributionListViewModel.Instance.GetProduct(189977);
-		}
+			StaticPropertyChanged?.Invoke(null, new PropertyChangedEventArgs(PropertyName));
+		} // RaiseStaticPropertyChanged()
+
+		public void SaveParameters(object x)
+		{
+			
+
+		} // SaveParameters()
+
+		/// <summary>
+		/// Reload parameters to SelectedProductParameters.
+		/// </summary>		
+		public void ReloadParameters(object x)
+		{
+			ProductParameterListViewModel.Instance.Refresh();
+
+			var productParameterList = new CollectionViewSource()
+			{
+				Source = ProductParameterListViewModel.Instance.ParametersList
+					.Where(p => p.PLU == SelectedProduct.PLU)
+					.Select(c => ((ProductParameters)(c.Clone()))).ToList()
+			};		
+
+			SelectedProductParameters = productParameterList.View;
+			OnPropertyChange("SelectedProductParameters");
+			SelectedProductParameters.Refresh();	
+
+			CollectionViewSource.GetDefaultView(SelectedProductParameters).Refresh();
+
+			/// Reload selected product.
+			var PLU = SelectedProduct.PLU;
+			SelectedProduct = MainWindowViewModel.Context.Products.FirstOrDefault(p => p.PLU == PLU);
+			
+			//RaiseStaticPropertyChanged("SelectedProduct");
+			OnPropertyChange("SelectedProduct");
+
+		} // ReloadParameters()
+		
+
+		/// <summary>
+		/// Returns reloaded parameters list.
+		/// </summary>	
+		public ObservableCollection<ProductParameters> ReloadedParametersList()
+		{
+			return new ObservableCollection <ProductParameters> 
+				(ProductParameterListViewModel.Instance.ParametersList
+					.Where(p => p.PLU == SelectedProduct.PLU)
+					.Select(c => ((ProductParameters)(c.Clone()))).ToList());
+		} //ReloadedParametersList()
+
 
 		#endregion
 	}

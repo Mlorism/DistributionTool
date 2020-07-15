@@ -72,9 +72,9 @@ namespace DistributionTool.Windows
 					}
 					else MainWindowViewModel.NotifyUser("Those passwords didn't match. Try again.");
 				}
-				else MainWindowViewModel.NotifyUser("Password is to short, shoud contain at least 8 characters.");
+				else MainWindowViewModel.NotifyUser("Password is to short, should contain at least 8 characters.");
 			}
-			else MainWindowViewModel.NotifyUser("Invalid password. Password shoud contain at least one number or special character.");
+			else MainWindowViewModel.NotifyUser("Invalid password. Password should contain at least one number or special character.");
 		} // Save_password()		
 		#endregion
 

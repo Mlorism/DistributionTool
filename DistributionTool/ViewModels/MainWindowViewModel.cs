@@ -154,11 +154,11 @@ namespace DistributionTool.ViewModels
 		{						
 			DataSet data = ExcelConnection.ImportFile("DataBaseData.xlsx");			
 			TableToDbExtraction.ExportToDatabase(data);
-		} //LoadDataToDatabase
+		} // LoadDataToDatabase
 		public static void ReloadContext()
 		{
 			context = new ApplicationDbContext();
-		}
+		} // ReloadContext()
 		#endregion
 
 		#region Tasks

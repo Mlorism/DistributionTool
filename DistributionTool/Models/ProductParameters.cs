@@ -11,7 +11,7 @@ namespace DistributionTool.Models
 	/// <summary>
 	/// Class model representing product parameters.
 	/// </summary>
-	class ProductParameters
+	class ProductParameters  : ICloneable
 	{
 		/// <summary>
 		/// Price look-up code.
@@ -33,5 +33,17 @@ namespace DistributionTool.Models
 		/// Minimum cover for the grade.
 		/// </summary>
 		public int Cover { get; set; }
+
+		public object Clone()
+		{
+			ProductParameters param = new ProductParameters();
+			param.PLU = this.PLU;
+			param.Grade = this.Grade;
+			param.Min = this.Min;
+			param.Max = this.Max;
+			param.Cover = this.Cover;
+
+			return param;
+		} //  Clone()
 	}
 }
