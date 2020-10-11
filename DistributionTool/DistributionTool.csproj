@@ -142,6 +142,8 @@
     </ApplicationDefinition>
     <Compile Include="Converters\DistributionMethodToStringConverter.cs" />
     <Compile Include="Converters\MultipleValuesConverter.cs" />
+    <Compile Include="Converters\ProductGroupToStringConverter.cs" />
+    <Compile Include="Converters\ProductSubGroupToStringConverter.cs" />
     <Compile Include="Converters\QuantityToPacksConverter.cs" />
     <Compile Include="Converters\UserTypeToStringConverter.cs" />
     <Compile Include="Cryptography\PasswordEncryptor.cs" />

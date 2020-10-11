@@ -11,30 +11,29 @@ using System.Windows.Data;
 namespace DistributionTool.Converters
 {
 	/// <summary>
-	/// Converts DistributionMethod to string.
+	/// Converts ProductGroup to string.
 	/// </summary>
-	class DistributionMethodToStringConverter : IValueConverter
+	class ProductGroupToStringConverter : IValueConverter
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			if (value is DistributionMethodEnum method)
+			if (value is ProductGroupEnum group)
 			{
-				switch (method)
-				{
-					case DistributionMethodEnum.KeepMinimum:
-						return "Keep Minimum";
-					case DistributionMethodEnum.WeeksOfSales:
-						return "Weeks Of Sales";					
-					case DistributionMethodEnum.GroupTrend:
-						return "Group Trend";
-					case DistributionMethodEnum.FinalDistribution:
-						return "Final Distribution";
+				switch (group)
+				{					
+					case ProductGroupEnum.CleaningStorage:
+						return "Cleaning & Storage";
+					case ProductGroupEnum.KitchenDining:
+						return "Kitchen & Dining";					
+					case ProductGroupEnum.RoomDecorations:
+						return "Room Decorations";
 					default:
 						return value.ToString();
 				}
 			}
 
 			else return value.ToString();
+
 		} // Convert()
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
