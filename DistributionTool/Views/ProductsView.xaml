@@ -23,6 +23,8 @@
 
         <conv:QuantityToPacksConverter x:Key="QuantityToPacksConverter" />
         <conv:DistributionMethodToStringConverter x:Key="DistributionMethodToStringConverter"/>
+        <conv:ProductGroupToStringConverter x:Key="ProductGroupToStringConverter" />
+        <conv:ProductSubGroupToStringConverter x:Key="ProductSubGroupToStringConverter" />
 
     </UserControl.Resources>
     <!--#endregion-->
@@ -110,14 +112,14 @@
                     <DataGridTextColumn Header="Pc size"
                                         Binding="{Binding PackSize}"
                                         IsReadOnly="True" />
-                    <DataGridTextColumn Header="Promotion"
+                    <DataGridTextColumn Header="Promo"
                                         Binding="{Binding Promotion}"
                                         IsReadOnly="True" />
                     <DataGridTextColumn Header="Group"
-                                        Binding="{Binding GroupName}"
+                                        Binding="{Binding GroupName, Converter={StaticResource ProductGroupToStringConverter}}"
                                         IsReadOnly="True" />
                     <DataGridTextColumn Header="Subgroup"
-                                        Binding="{Binding SubGroup}"
+                                        Binding="{Binding SubGroup, Converter={StaticResource ProductSubGroupToStringConverter}}"
                                         IsReadOnly="True" />
                     <DataGridTextColumn Header="Avail Qty"
                                         Binding="{Binding WarehouseFreeQty, StringFormat='### ### ##0'}"
