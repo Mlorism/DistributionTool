@@ -82,8 +82,23 @@ namespace DistributionTool.ViewModels
 		/// <summary>
 		/// Save changes to distribution method and days of distribution.
 		/// </summary>		
-		public void ApplyChanges(object x)
-		{	
+		public void ApplyChanges(object o)
+		{
+			Product contextProduct = new Product();
+			Product viewProduct = new Product();
+			List<Product> tempList = productsFilteredList.Cast<Product>().ToList();
+
+			foreach(Product row in productsFilteredList)
+			{
+				contextProduct = MainWindowViewModel.Context.Products.Where(x => x.PLU == row.PLU).FirstOrDefault();
+				viewProduct = tempList.Where(p => p.PLU == contextProduct.PLU).FirstOrDefault();
+				contextProduct.MondayDistribution = viewProduct.MondayDistribution;
+				contextProduct.TuesdayDistribution = viewProduct.TuesdayDistribution;
+				contextProduct.WednesdayDistribution = viewProduct.WednesdayDistribution;
+				contextProduct.ThursdayDistribution = viewProduct.ThursdayDistribution;
+				contextProduct.FridayDistribution = viewProduct.FridayDistribution;
+			}
+
 			MainWindowViewModel.SaveContext();			
 		} // ApplyChanges()
 
