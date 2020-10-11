@@ -43,7 +43,7 @@ namespace DistributionTool.ViewModels
 		{
 			TabName = "Distribution";
 
-			SelectedProduct = ProductsViewModel.SelectedProduct;
+			SelectedProduct = ProductsViewModel.SelectedProduct.Clone();				
 
 			var productParameterList = new CollectionViewSource()
 			{
@@ -80,7 +80,10 @@ namespace DistributionTool.ViewModels
 				ParameterRow.Min = currentParameter.Min;
 				ParameterRow.Max = currentParameter.Max;
 				ParameterRow.Cover = currentParameter.Cover;
-			}			
+			}
+
+			Product methodProduct = MainWindowViewModel.Context.Products.Where(p => p.PLU == SelectedProduct.PLU).FirstOrDefault();
+			methodProduct.MethodOfDistribution = SelectedProduct.MethodOfDistribution;
 
 			MainWindowViewModel.SaveContext();
 			ProductParameterListViewModel.Instance.Refresh();

@@ -14,6 +14,7 @@ namespace DistributionTool.Models
     /// </summary>
     public class Product
     {
+        #region Properties
         /// <summary>
         /// Price look-up code.
         /// </summary>  
@@ -87,6 +88,35 @@ namespace DistributionTool.Models
         /// Selected method used to calculate distribution.
         /// </summary>
         public DistributionMethodEnum MethodOfDistribution { get; set; }
+        #endregion
+
+        #region Methods
+
+        public Product Clone()
+        {
+            Product product = new Product();
+            product.PLU = this.PLU;
+            product.Name = this.Name;
+            product.GroupName = this.GroupName;
+            product.SubGroup = this.SubGroup;
+            product.Color = this.Color;
+            product.PackSize = this.PackSize;
+            product.Promotion = this.Promotion;
+            product.WarehouseFreeQty = this.WarehouseFreeQty;
+            product.WarehouseDistributedQty = this.WarehouseDistributedQty;
+            product.StoresBelowMinimum = this.StoresBelowMinimum;
+            product.StoresEffectiveCover = this.StoresEffectiveCover;
+            product.MondayDistribution = this.MondayDistribution;
+            product.TuesdayDistribution = this.TuesdayDistribution;
+            product.WednesdayDistribution = this.WednesdayDistribution;
+            product.ThursdayDistribution = this.ThursdayDistribution;
+            product.FridayDistribution = this.FridayDistribution;
+            product.MethodOfDistribution = this.MethodOfDistribution;
+            
+            return product;
+        }
+
+        #endregion
 
     }
 }
