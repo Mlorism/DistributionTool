@@ -68,7 +68,23 @@ namespace DistributionTool.ViewModels
 
 		public void SaveParameters(object x)
 		{
-			
+			List<ProductParameters> tempParamList = SelectedProductParameters.Cast<ProductParameters>().ToList();
+
+			foreach (Enumerators.StoreGradeEnum g in Enum.GetValues(typeof(Enumerators.StoreGradeEnum)))
+			{
+				var ParameterRow = MainWindowViewModel.Context.ProductParameters
+				.Where(p => p.PLU == SelectedProduct.PLU && p.Grade == g).FirstOrDefault();
+
+				var currentParameter = tempParamList.Where(p => p.Grade == g).FirstOrDefault();
+
+				ParameterRow.Min = currentParameter.Min;
+				ParameterRow.Max = currentParameter.Max;
+				ParameterRow.Cover = currentParameter.Cover;
+			}			
+
+			MainWindowViewModel.SaveContext();
+			ProductParameterListViewModel.Instance.Refresh();
+			ReloadParameters(new object());
 
 		} // SaveParameters()
 

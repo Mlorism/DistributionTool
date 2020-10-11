@@ -180,7 +180,7 @@
                     <Button Content="save params"
                             Margin="5"
                             Style="{StaticResource AccentedDialogSquareButton}"
-                            Command="{Binding createContextCommand}"/>
+                            Command="{Binding SaveParametersCommand}"/>
                 </StackPanel>
                 <!--#endregion-->
 
