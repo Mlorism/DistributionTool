@@ -22,10 +22,10 @@ namespace DistributionTool.ViewModels
 		#endregion
 
 		#region Properties
-		public Product SelectedProduct { get; set; } 
+		public static Product SelectedProduct { get; set; } 
 		public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
 
-		public ICollectionView SelectedProductParameters { get; set; }
+		public static ObservableCollection<ProductParameters> SelectedProductParameters { get; set; }
 		
 		/// <summary>
 		/// DistributionListViewModel only for selected product.
@@ -43,17 +43,10 @@ namespace DistributionTool.ViewModels
 		{
 			TabName = "Distribution";
 
-			SelectedProduct = ProductsViewModel.SelectedProduct.Clone();				
+			SelectedProduct = ProductsViewModel.SelectedProduct.Clone();
 
-			var productParameterList = new CollectionViewSource()
-			{
-				Source = ProductParameterListViewModel.Instance.ParametersList
-					.Where(p => p.PLU == SelectedProduct.PLU)
-					.Select(c => ((ProductParameters)(c.Clone()))).ToList()
-			};
+			SelectedProductParameters = ProductParameterListViewModel.Instance.GetProductParameters(SelectedProduct.PLU);
 			
-			SelectedProductParameters = productParameterList.View;
-
 			SaveParametersCommand = new RelayCommand(SaveParameters, null);
 			ReloadParametersCommand = new RelayCommand(ReloadParameters, null);
 		} // DistributionViewModel()
@@ -87,7 +80,6 @@ namespace DistributionTool.ViewModels
 			MainWindowViewModel.SaveContext();
 			ProductParameterListViewModel.Instance.Refresh();
 			ReloadParameters(new object());
-
 		} // SaveParameters()
 
 		/// <summary>
@@ -102,11 +94,9 @@ namespace DistributionTool.ViewModels
 				Source = ProductParameterListViewModel.Instance.ParametersList
 					.Where(p => p.PLU == SelectedProduct.PLU)
 					.Select(c => ((ProductParameters)(c.Clone()))).ToList()
-			};		
+			};
 
-			SelectedProductParameters = productParameterList.View;
-			OnPropertyChange("SelectedProductParameters");
-			SelectedProductParameters.Refresh();	
+			SelectedProductParameters = ProductParameterListViewModel.Instance.GetProductParameters(SelectedProduct.PLU);
 
 			CollectionViewSource.GetDefaultView(SelectedProductParameters).Refresh();
 

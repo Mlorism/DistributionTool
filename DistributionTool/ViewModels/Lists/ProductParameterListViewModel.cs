@@ -43,6 +43,11 @@ namespace DistributionTool.ViewModels.Lists
 				}
 			}
 		} // Refresh()
+
+		public ObservableCollection<ProductParameters> GetProductParameters(int PLUnumber)
+		{
+			return new ObservableCollection<ProductParameters>(ParametersList.Where(x => x.PLU == PLUnumber));
+		}
 		#endregion
 	}
 }
