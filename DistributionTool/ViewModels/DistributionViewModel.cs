@@ -56,7 +56,6 @@ namespace DistributionTool.ViewModels
 
 			SaveParametersCommand = new RelayCommand(SaveParameters, null);
 			ReloadParametersCommand = new RelayCommand(ReloadParameters, null);
-
 		} // DistributionViewModel()
 		#endregion
 

@@ -3,7 +3,9 @@ using DistributionTool.Models;
 using DistributionTool.ViewModels.Lists;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +28,7 @@ namespace DistributionTool.ViewModels
 		public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
 
 		/// <summary>
-		/// Selected product from productsFilteredList.
+		/// Selected product from ProductsFilteredList.
 		/// </summary>
 		private static Product selectedProduct;
 		public static Product SelectedProduct
@@ -42,7 +44,17 @@ namespace DistributionTool.ViewModels
 		/// <summary>
 		/// Filtered ProductList
 		/// </summary>
-		public ICollectionView productsFilteredList { get; set; }
+		private static ObservableCollection<Product> productsFilteredList;
+		public static ObservableCollection<Product> ProductsFilteredList
+		{
+			get { return productsFilteredList; }
+			set 
+			{	
+				productsFilteredList = value;
+				RaiseStaticPropertyChanged("ProductsFilteredList");
+			}
+		}
+
 		#endregion
 
 		#region Constructor
@@ -55,9 +67,11 @@ namespace DistributionTool.ViewModels
 				SelectedProduct = ProductsListViewModel.Instance.ProductList.FirstOrDefault();
 			}
 			
-			var productSourceList = new CollectionViewSource() { Source = ProductsListViewModel.Instance.ProductList };
-			productsFilteredList = productSourceList.View;
-			
+			if (ProductsFilteredList == null)
+			{				
+				ProductsFilteredList = ProductsListViewModel.Instance.ProductList;
+			}				
+						
 			ChoseSelectedProductCommand = new RelayCommand(ChoseSelectedProduct, null);
 			ApplyChangesCommand = new RelayCommand(ApplyChanges, null);
 			RefreshCommand = new RelayCommand(Refresh, null);
@@ -108,11 +122,10 @@ namespace DistributionTool.ViewModels
 		public void Refresh(object x)
 		{
 			ProductsListViewModel.Instance.Refresh();			
+			
+			ProductsFilteredList = ProductsListViewModel.Instance.ProductList;
 
-			var productSourceList = new CollectionViewSource() { Source = ProductsListViewModel.Instance.ProductList };
-			productsFilteredList = productSourceList.View;
-
-			CollectionViewSource.GetDefaultView(productsFilteredList).Refresh();
+			CollectionViewSource.GetDefaultView(ProductsFilteredList).Refresh();
 
 			RaiseStaticPropertyChanged("SelectedProduct");
 		} // Refresh()

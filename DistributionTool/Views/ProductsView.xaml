@@ -82,7 +82,7 @@
                 Grid.Row="1">
             <DataGrid x:Name="ProductsDataGrid"
                       Style="{DynamicResource AzureDataGrid}"
-                      ItemsSource="{Binding productsFilteredList}"                      
+                      ItemsSource="{Binding ProductsFilteredList}"                      
                       AutoGenerateColumns="False"
                       CanUserAddRows="False"
                       FrozenColumnCount="2"
