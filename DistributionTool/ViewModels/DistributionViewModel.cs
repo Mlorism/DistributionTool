@@ -22,10 +22,10 @@ namespace DistributionTool.ViewModels
 		#endregion
 
 		#region Properties
-		public static Product SelectedProduct { get; set; } 
+		public static Product SelectedProduct { get; set; } = ProductsListViewModel.Instance.ProductList.FirstOrDefault();
 		public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
 
-		public static ObservableCollection<ProductParameters> SelectedProductParameters { get; set; }
+		public static ObservableCollection<ProductParameters> SelectedProductParameters { get; set; } = new ObservableCollection<ProductParameters>();
 		
 		/// <summary>
 		/// DistributionListViewModel only for selected product.
@@ -43,9 +43,20 @@ namespace DistributionTool.ViewModels
 		{
 			TabName = "Distribution";
 
-			SelectedProduct = ProductsViewModel.SelectedProduct.Clone();
+			if (SelectedProduct.PLU != ProductsViewModel.SelectedProduct.PLU)
+			{
+				SelectedProduct = ProductsViewModel.SelectedProduct.Clone();								
+			}
 
-			SelectedProductParameters = ProductParameterListViewModel.Instance.GetProductParameters(SelectedProduct.PLU);
+			if (SelectedProductParameters.Count == 0)
+			{
+				SelectedProductParameters = ProductParameterListViewModel.Instance.GetProductParameters(SelectedProduct.PLU);
+			}
+
+			if (SelectedProductParameters[0].PLU != ProductsViewModel.SelectedProduct.PLU)
+			{
+				SelectedProductParameters = ProductParameterListViewModel.Instance.GetProductParameters(SelectedProduct.PLU);
+			}					
 			
 			SaveParametersCommand = new RelayCommand(SaveParameters, null);
 			ReloadParametersCommand = new RelayCommand(ReloadParameters, null);
