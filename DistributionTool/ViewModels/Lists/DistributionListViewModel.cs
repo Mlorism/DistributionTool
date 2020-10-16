@@ -112,7 +112,8 @@ namespace DistributionTool.ViewModels.Lists
 		/// </summary>		
 		public ObservableCollection<Distribution> GetProduct(int PLU)
 		{
-			ObservableCollection<Distribution> selectedDistribution = 
+		
+			ObservableCollection<Distribution> selectedDistribution =
 				new ObservableCollection<Distribution>(DistributionList.Where(x => x.PLU == PLU));
 			
 			return selectedDistribution;

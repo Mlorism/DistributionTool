@@ -26,16 +26,12 @@ namespace DistributionTool.ViewModels
 		public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
 
 		public static ObservableCollection<ProductParameters> SelectedProductParameters { get; set; } = new ObservableCollection<ProductParameters>();
-		
+
 		/// <summary>
 		/// DistributionListViewModel only for selected product.
 		/// </summary>
-		public static ObservableCollection<Distribution> SelectedProductList { 
-			get 
-			{				
-				return DistributionListViewModel.Instance.GetProduct(ProductsViewModel.SelectedProduct.PLU);
-			}
-		} //SelectedProductList 
+		public static ObservableCollection<Distribution> SelectedProductList { get; set; } = new ObservableCollection<Distribution>();
+		//SelectedProductList 
 		#endregion
 
 		#region Constructor
@@ -56,8 +52,19 @@ namespace DistributionTool.ViewModels
 			if (SelectedProductParameters[0].PLU != ProductsViewModel.SelectedProduct.PLU)
 			{
 				SelectedProductParameters = ProductParameterListViewModel.Instance.GetProductParameters(SelectedProduct.PLU);
-			}					
-			
+			}
+
+			if (SelectedProductList.Count == 0)
+			{
+				SelectedProductList = DistributionListViewModel.Instance.GetProduct(ProductsViewModel.SelectedProduct.PLU); 
+			}
+
+			if (SelectedProductList[0].PLU != ProductsViewModel.SelectedProduct.PLU)
+			{
+				SelectedProductList = DistributionListViewModel.Instance.GetProduct(ProductsViewModel.SelectedProduct.PLU);
+			}
+
+
 			SaveParametersCommand = new RelayCommand(SaveParameters, null);
 			ReloadParametersCommand = new RelayCommand(ReloadParameters, null);
 		} // DistributionViewModel()
