@@ -64,7 +64,6 @@ namespace DistributionTool.ViewModels
 				SelectedProductList = DistributionListViewModel.Instance.GetProduct(ProductsViewModel.SelectedProduct.PLU);
 			}
 
-
 			SaveParametersCommand = new RelayCommand(SaveParameters, null);
 			ReloadParametersCommand = new RelayCommand(ReloadParameters, null);
 		} // DistributionViewModel()
@@ -126,7 +125,6 @@ namespace DistributionTool.ViewModels
 			OnPropertyChange("SelectedProduct");
 
 		} // ReloadParameters()
-		
 
 		/// <summary>
 		/// Returns reloaded parameters list.
@@ -139,7 +137,14 @@ namespace DistributionTool.ViewModels
 					.Select(c => ((ProductParameters)(c.Clone()))).ToList());
 		} //ReloadedParametersList()
 
+		public void CreateDistibution(object x)
+		{
+			DistributionCalculator.CalculateDistribution(SelectedProduct.PLU);
+			
+			// ... code to refresh DataGrid ...
 
+		} // CreateDistibution() calculate distribution based on store parameters, method of distribution and available stock
+				
 		#endregion
 	}
 }
