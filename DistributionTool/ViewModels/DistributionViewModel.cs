@@ -19,6 +19,7 @@ namespace DistributionTool.ViewModels
 		#region Commands
 		public static RelayCommand SaveParametersCommand { get; set; }
 		public  static RelayCommand ReloadParametersCommand { get; set; }
+		public static RelayCommand CreateDistibutionCommand { get; set; }
 		#endregion
 
 		#region Properties
@@ -66,6 +67,7 @@ namespace DistributionTool.ViewModels
 
 			SaveParametersCommand = new RelayCommand(SaveParameters, null);
 			ReloadParametersCommand = new RelayCommand(ReloadParameters, null);
+			CreateDistibutionCommand = new RelayCommand(CreateDistibution, null);
 		} // DistributionViewModel()
 		#endregion
 

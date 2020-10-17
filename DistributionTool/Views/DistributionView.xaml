@@ -193,7 +193,8 @@
                     <Button Content="distribute"
                             Margin="5"
                             Width="90"
-                            Style="{StaticResource AccentedSquareButtonStyle}" />
+                            Style="{StaticResource AccentedSquareButtonStyle}"
+                            Command="{Binding CreateDistibutionCommand}"/>
                     <Button Content="clear"
                             Width="90"
                             Margin="5"
