@@ -1,6 +1,7 @@
 ﻿using DistributionTool.Enumerators;
 using DistributionTool.Interfaces;
 using DistributionTool.Models;
+using DistributionTool.ViewModels.Lists;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,14 +19,21 @@ namespace DistributionTool.ViewModels
 
 		#region Properties and structures
 
-		struct productSummary
+		struct productSummary 
 		{
-			int productNo;
-			ProductGroupEnum group;
-			ProductSubGroupEnum subgroup;
-			int qty;
-			double retail;
-		}
+			public int productNo;
+			public ProductGroupEnum group;
+			public ProductSubGroupEnum subgroup;
+			public int qty;
+			public double retail;			
+
+			public productSummary(int PLU, ProductGroupEnum gr, ProductSubGroupEnum sgr) : this()
+			{
+				productNo = PLU;
+				group = gr;
+				subgroup = sgr;
+			}
+		} // product PLU, group, subgroup, distributed qty and retail
 
 		struct groupSummary
 		{
@@ -42,7 +50,7 @@ namespace DistributionTool.ViewModels
 		static ObservableCollection<productSummary> productSummaryList { get; set; }
 		static ObservableCollection<groupSummary> groupList { get; set; }
 		static ObservableCollection<subGroupSummary> subGroupList { get; set; }
-		static ObservableCollection<ProductDistribution> ProductDistributionList { get; set; }
+		static ObservableCollection<ProductDistribution> productDistributionList { get; set; }
 
 		#endregion
 
@@ -57,6 +65,27 @@ namespace DistributionTool.ViewModels
 		#region Methods
 		public void CalculateSummary(object x)
 		{
+			foreach (Product item in ProductsListViewModel.Instance.ProductList)
+			{
+				productSummaryList.Add(new productSummary(item.PLU, item.GroupName, item.SubGroup));
+			} // creates productSummary for each product
+
+			foreach (var line in productSummaryList)
+			{
+				foreach(var item in DistributionListViewModel.Instance.DistributionList.Where(q => q.PLU == line.productNo))
+				{
+					var temp = productSummaryList.Where(p => p.productNo == line.productNo).FirstOrDefault();
+					temp.qty += item.DistributedQuantity;
+				}
+			} // sums up distribution quantity for each product in productSummaryList
+
+			foreach (productSummary line in productSummaryList)
+			{
+				var temp = productSummaryList.Where(q => q.productNo == line.productNo).FirstOrDefault();
+				temp.retail 
+					= line.qty * ProductsListViewModel.Instance.ProductList.Where(q => q.PLU == line.productNo).FirstOrDefault().Price;
+			} // calculate retail value for each product in productSummaryList
+
 
 		} // CalculateSummary()
 		#endregion
