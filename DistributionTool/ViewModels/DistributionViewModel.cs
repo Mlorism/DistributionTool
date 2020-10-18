@@ -28,7 +28,9 @@ namespace DistributionTool.ViewModels
 		#region Properties
 		public static Product SelectedProduct { get; set; } = ProductsListViewModel.Instance.ProductList.FirstOrDefault();
 		public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
-
+		public int DistributedPcs { get; set; }
+		public int TotalPcs { get; set; } = SelectedProduct.WarehouseFreeQty / SelectedProduct.PackSize;
+		
 		public static ObservableCollection<ProductParameters> SelectedProductParameters { get; set; } = new ObservableCollection<ProductParameters>();
 
 		/// <summary>
@@ -67,6 +69,8 @@ namespace DistributionTool.ViewModels
 			{
 				SelectedProductList = DistributionListViewModel.Instance.GetProduct(ProductsViewModel.SelectedProduct.PLU);
 			}
+
+			DistributedPcs = SelectedProductList.Sum(x => x.DistributedPacks);
 
 			SaveParametersCommand = new RelayCommand(SaveParameters, null);
 			ReloadParametersCommand = new RelayCommand(ReloadParameters, null);
@@ -147,6 +151,8 @@ namespace DistributionTool.ViewModels
 		{
 			DistributionCalculator.CalculateDistribution(SelectedProduct.PLU);
 			MainWindowViewModel.SaveContext();
+			DistributedPcs = SelectedProductList.Sum(o => o.DistributedPacks);
+			OnPropertyChange("DistributedPcs");
 			CollectionViewSource.GetDefaultView(SelectedProductList).Refresh();
 		} // CreateDistibution() calculate distribution based on store parameters, method of distribution and available stock
 				
@@ -161,6 +167,8 @@ namespace DistributionTool.ViewModels
 				store.EffectiveCover = store.EffectiveStock / store.AverageSales;
 				store.DistributionCover = store.EffectiveCover;
 			}
+			DistributedPcs = 0;
+			OnPropertyChange("DistributedPcs");
 			MainWindowViewModel.SaveContext();
 			CollectionViewSource.GetDefaultView(SelectedProductList).Refresh();
 		} // ClearDistribution() 

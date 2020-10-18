@@ -66,16 +66,16 @@
                     HorizontalAlignment="Center"
                     Grid.Row="0"
                     Grid.Column="1">
-            <TextBlock Text="Pcs total/distributed:"
+            <TextBlock Text="Pcs distributed/total:"
                        FontWeight="SemiBold"
                        Margin="5 5 5 5"/>
-            <TextBlock Text="666"
+            <TextBlock Text="{Binding DistributedPcs, UpdateSourceTrigger=PropertyChanged}"
                        FontWeight="SemiBold"
                        Margin="0 5 1 5" />
             <TextBlock Text="/"
                        FontWeight="SemiBold"
                        Margin="0 5 0 5" />
-            <TextBlock Text="120"
+            <TextBlock Text="{Binding TotalPcs}"
                        FontWeight="SemiBold"
                        Margin="1 5 0 5" />
         </StackPanel>
