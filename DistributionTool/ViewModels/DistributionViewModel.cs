@@ -20,6 +20,9 @@ namespace DistributionTool.ViewModels
 		public static RelayCommand SaveParametersCommand { get; set; }
 		public  static RelayCommand ReloadParametersCommand { get; set; }
 		public static RelayCommand CreateDistibutionCommand { get; set; }
+
+		public static RelayCommand ClearDistributionCommand { get; set; }
+
 		#endregion
 
 		#region Properties
@@ -68,6 +71,7 @@ namespace DistributionTool.ViewModels
 			SaveParametersCommand = new RelayCommand(SaveParameters, null);
 			ReloadParametersCommand = new RelayCommand(ReloadParameters, null);
 			CreateDistibutionCommand = new RelayCommand(CreateDistibution, null);
+			ClearDistributionCommand = new RelayCommand(ClearDistribution, null);
 		} // DistributionViewModel()
 		#endregion
 
@@ -142,11 +146,24 @@ namespace DistributionTool.ViewModels
 		public void CreateDistibution(object x)
 		{
 			DistributionCalculator.CalculateDistribution(SelectedProduct.PLU);
-			
-			// ... code to refresh DataGrid ...
-
+			MainWindowViewModel.SaveContext();
+			CollectionViewSource.GetDefaultView(SelectedProductList).Refresh();
 		} // CreateDistibution() calculate distribution based on store parameters, method of distribution and available stock
 				
+
+		public void ClearDistribution(object x)
+		{
+			foreach (Distribution store in SelectedProductList)
+			{
+				store.DistributedPacks = 0;
+				store.DistributedQuantity = 0;
+				store.StockAfterDistribution = store.EffectiveStock;
+				store.EffectiveCover = store.EffectiveStock / store.AverageSales;
+				store.DistributionCover = store.EffectiveCover;
+			}
+			MainWindowViewModel.SaveContext();
+			CollectionViewSource.GetDefaultView(SelectedProductList).Refresh();
+		} // ClearDistribution() 
 		#endregion
 	}
 }

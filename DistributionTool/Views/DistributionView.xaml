@@ -105,7 +105,7 @@
                     <DataGridTextColumn Header="Sls LW3"
                                         Binding="{Binding SlsLW3}" />
                     <DataGridTextColumn Header="Sls Avg"
-                                        Binding="{Binding AverageSales}" />
+                                        Binding="{Binding AverageSales, StringFormat='0.0'}" />
                     <DataGridTextColumn Header="Eff Stock"
                                         Binding="{Binding EffectiveStock}" />                    
                     <DataGridTextColumn Header="Dis Stk"
@@ -117,9 +117,9 @@
                     <DataGridTextColumn Header="Min Cov"
                                         Binding="{Binding MinCover}" />
                     <DataGridTextColumn Header="Eff Cover"
-                                        Binding="{Binding EffectiveCover}" />             
+                                        Binding="{Binding EffectiveCover, StringFormat='0.0'}" />             
                     <DataGridTextColumn Header="Dist Cov"
-                                        Binding="{Binding DistributionCover}" />
+                                        Binding="{Binding DistributionCover, StringFormat='0.0'}" />
                     <DataGridTextColumn Header="Dis Qty"
                                         Binding="{Binding DistributedQuantity}" />
                     <DataGridTextColumn Header="Dis Pc"
@@ -198,7 +198,8 @@
                     <Button Content="clear"
                             Width="90"
                             Margin="5"
-                            Style="{StaticResource SquareButtonStyle}" />
+                            Style="{StaticResource SquareButtonStyle}"
+                            Command="{Binding ClearDistributionCommand}"/>
                     <Button Content=" reload &#10;params"
                             Width="90"
                             Margin="5"

@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using DistributionTool.Method_Extensions;
+using DistributionTool.ViewModels.Lists;
 
 namespace DistributionTool.ViewModels
 {
@@ -128,6 +129,7 @@ namespace DistributionTool.ViewModels
 		{
 			LoggedInUser = (User)x;
 			LoadTabs();
+			//ClearData();
 		} // LogIn()
 		public static void LogOut(object x)
 		{
@@ -159,6 +161,18 @@ namespace DistributionTool.ViewModels
 		{
 			context = new ApplicationDbContext();
 		} // ReloadContext()
+
+		public static void ClearData()
+		{
+			foreach (Distribution store in DistributionListViewModel.Instance.DistributionList)
+			{
+				store.DistributedPacks = 0;
+				store.DistributedQuantity = 0;
+				store.StockAfterDistribution = store.EffectiveStock;
+				store.DistributionCover = store.EffectiveStock / store.AverageSales;
+				Context.SaveChanges();
+			}
+		} // Clears all data created during previous session
 		#endregion
 
 		#region Tasks

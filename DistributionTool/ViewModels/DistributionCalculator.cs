@@ -27,7 +27,8 @@ namespace DistributionTool.ViewModels
 				store.DistributedPacks = 0;
 				store.DistributedQuantity = 0;
 				store.StockAfterDistribution = store.EffectiveStock;
-				store.DistributionCover = store.EffectiveStock / store.AverageSales;
+				store.EffectiveCover = store.EffectiveStock / store.AverageSales;
+				store.DistributionCover = store.EffectiveCover;
 			}
 
 			switch (distributedProduct.MethodOfDistribution) 
@@ -52,9 +53,7 @@ namespace DistributionTool.ViewModels
 		} // CalculateDistribution()
 
 		static void KeepMinimumDistibution(ObservableCollection<Distribution> distributionList, Product product)
-		{
-
-			// qty na paczki i wtedy pętla na tej podstawie z break jeśli są spełnione min
+		{		
 			int freePc = product.WarehouseFreeQty / product.PackSize;
 			int storeStatus = 0;
 
@@ -67,7 +66,8 @@ namespace DistributionTool.ViewModels
 
 					if (store.StockAfterDistribution < store.Min)
 					{
-						store.StockAfterDistribution = store.EffectiveStock + product.PackSize;
+						store.StockAfterDistribution += product.PackSize;
+						store.DistributedQuantity += product.PackSize;
 						store.DistributedPacks += 1;
 					}
 
@@ -84,6 +84,7 @@ namespace DistributionTool.ViewModels
 					if (store.StockAfterDistribution < store.Min)
 					{
 						store.StockAfterDistribution += product.PackSize;
+						store.DistributedQuantity += product.PackSize;
 						store.DistributedPacks += 1;
 					}
 
@@ -100,6 +101,7 @@ namespace DistributionTool.ViewModels
 					if (store.StockAfterDistribution < store.Min)
 					{
 						store.StockAfterDistribution += product.PackSize;
+						store.DistributedQuantity += product.PackSize;
 						store.DistributedPacks += 1;
 					}
 
