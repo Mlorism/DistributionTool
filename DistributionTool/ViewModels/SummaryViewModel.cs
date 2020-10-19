@@ -63,6 +63,19 @@ namespace DistributionTool.ViewModels
 		#endregion
 
 		#region Methods
+		public static void SaveDistribution()
+		{
+			var distributionList = MainWindowViewModel.Context.ProductDistribution.ToList();
+
+			foreach (Distribution line in DistributionListViewModel.Instance.DistributionList)
+			{
+				distributionList.Find(x => x.PLU == line.PLU && x.StoreNumber == line.StoreNumber).DistributedPacks = line.DistributedPacks;
+				distributionList.Find(x => x.PLU == line.PLU && x.StoreNumber == line.StoreNumber).DistributedQuantity = line.DistributedQuantity;
+			}
+
+			MainWindowViewModel.SaveContext();
+		} // SaveDistribution() saving distribution from applicationb to database
+
 		public void CalculateSummary(object x)
 		{
 			foreach (Product item in ProductsListViewModel.Instance.ProductList)

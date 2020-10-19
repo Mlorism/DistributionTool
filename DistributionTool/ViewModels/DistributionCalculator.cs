@@ -72,7 +72,7 @@ namespace DistributionTool.ViewModels
 		} // CalculateDistribution()
 		#endregion
 
-		#region distribution methods
+		#region Distribution methods
 		static void KeepMinimumDistibution(ObservableCollection<Distribution> distributionList, Product product)
 		{		
 			int freePc = product.WarehouseFreeQty / product.PackSize; // calculate how many packs is available to distribution
@@ -158,7 +158,7 @@ namespace DistributionTool.ViewModels
 				} // foreach loop for stores with grade C
 
 				if (freePc == 0) break;				
-			}
+			}		
 
 		} // KeepMinimumDistibution() calculate distribution according to Keep Minimum method
 
@@ -191,7 +191,15 @@ namespace DistributionTool.ViewModels
 			MessageBox.Show("Method not implemented");
 
 		} // FinalDistributionDistibution() calculate distribution according to Final Distribution method
+		#endregion
+
+		#region Methods
+		
+		#endregion
+
 	}
 
-	#endregion
+
+
+
 }

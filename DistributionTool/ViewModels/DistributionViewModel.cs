@@ -150,12 +150,11 @@ namespace DistributionTool.ViewModels
 		public void CreateDistibution(object x)
 		{
 			DistributionCalculator.CalculateDistribution(SelectedProduct.PLU);
-			MainWindowViewModel.SaveContext();
+			
 			DistributedPcs = SelectedProductList.Sum(o => o.DistributedPacks);
 			OnPropertyChange("DistributedPcs");
 			CollectionViewSource.GetDefaultView(SelectedProductList).Refresh();
 		} // CreateDistibution() calculate distribution based on store parameters, method of distribution and available stock
-				
 
 		public void ClearDistribution(object x)
 		{
