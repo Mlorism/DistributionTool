@@ -14,7 +14,8 @@ namespace DistributionTool.ViewModels
 	class SummaryViewModel : BaseViewModel, ITab
 	{
 		#region Commands
-
+		public static RelayCommand SaveDistributionCommand { get; set; }
+		public static RelayCommand ClearDistributionCommand { get; set; }
 		#endregion
 
 		#region Properties and structures
@@ -59,11 +60,14 @@ namespace DistributionTool.ViewModels
 		public SummaryViewModel()
 		{
 			TabName = "Summary";
+
+			SaveDistributionCommand = new RelayCommand(SaveDistribution, null);
+			ClearDistributionCommand = new RelayCommand(ClearDistribution, null);
 		}
 		#endregion
 
 		#region Methods
-		public static void SaveDistribution()
+		public static void SaveDistribution(object o)
 		{
 			var distributionList = MainWindowViewModel.Context.ProductDistribution.ToList();
 
@@ -74,7 +78,21 @@ namespace DistributionTool.ViewModels
 			}
 
 			MainWindowViewModel.SaveContext();
-		} // SaveDistribution() saving distribution from applicationb to database
+		} // SaveDistribution() saving distribution from application to database
+
+		public static void ClearDistribution(object x)
+		{
+			var distributionList = MainWindowViewModel.Context.ProductDistribution.ToList();
+
+			foreach(var line in distributionList)
+			{
+				line.DistributedPacks = 0;
+				line.DistributedQuantity = 0;
+			}
+
+			MainWindowViewModel.SaveContext();
+
+		} // ClearDistribution() clearing distribution from database
 
 		public void CalculateSummary(object x)
 		{
