@@ -5,9 +5,12 @@ using DistributionTool.ViewModels.Lists;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Data;
 
 namespace DistributionTool.ViewModels
 {
@@ -16,11 +19,15 @@ namespace DistributionTool.ViewModels
 		#region Commands
 		public static RelayCommand SaveDistributionCommand { get; set; }
 		public static RelayCommand ClearDistributionCommand { get; set; }
+		public static RelayCommand CalculateAllCommand { get; set; }
+
+
 		#endregion
 
 		#region Properties and structures
 
-		struct productSummary
+		public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
+		public struct productSummary
 		{
 			public int productNo;
 			public ProductGroupEnum group;
@@ -48,7 +55,7 @@ namespace DistributionTool.ViewModels
 			public double retail;
 		}
 
-		static ObservableCollection<productSummary> productSummaryList { get; set; }
+		public static ObservableCollection<productSummary> ProductSummaryList { get; set; }
 		static ObservableCollection<groupSummary> groupList { get; set; }
 		static ObservableCollection<subGroupSummary> subGroupList { get; set; }
 		static ObservableCollection<ProductDistribution> productDistributionList { get; set; }
@@ -63,10 +70,15 @@ namespace DistributionTool.ViewModels
 
 			SaveDistributionCommand = new RelayCommand(SaveDistribution, null);
 			ClearDistributionCommand = new RelayCommand(ClearDistribution, null);
+			CalculateAllCommand = new RelayCommand(CalculateAll, null);
 		}
 		#endregion
 
 		#region Methods
+		public static void RaiseStaticPropertyChanged(string PropertyName)
+		{
+			StaticPropertyChanged?.Invoke(null, new PropertyChangedEventArgs(PropertyName));
+		} // RaiseStaticPropertyChanged()
 		public static void SaveDistribution(object o)
 		{
 			var distributionList = MainWindowViewModel.Context.ProductDistribution.ToList();
@@ -94,33 +106,37 @@ namespace DistributionTool.ViewModels
 
 		} // ClearDistribution() clearing distribution from database
 
-		public void CalculateSummary(object x)
-		{
+		public void CalculateSummary()
+		{			
+			ProductSummaryList = new ObservableCollection<productSummary>();
+			
 			foreach (Product item in ProductsListViewModel.Instance.ProductList)
 			{
-				productSummaryList.Add(new productSummary(item.PLU, item.GroupName, item.SubGroup));
+				ProductSummaryList.Add(new productSummary(item.PLU, item.GroupName, item.SubGroup));
 			} // creates productSummary for each product
 
-			foreach (var line in productSummaryList)
+			foreach (var line in ProductSummaryList)
 			{
 				foreach (var item in DistributionListViewModel.Instance.DistributionList.Where(q => q.PLU == line.productNo))
 				{
-					var temp = productSummaryList.Where(p => p.productNo == line.productNo).FirstOrDefault();
+					var temp = ProductSummaryList.Where(p => p.productNo == line.productNo).FirstOrDefault();
 					temp.qty += item.DistributedQuantity;
 				}
 			} // sums up distribution quantity for each product in productSummaryList
 
-			foreach (productSummary line in productSummaryList)
+			foreach (productSummary line in ProductSummaryList)
 			{
-				var temp = productSummaryList.Where(q => q.productNo == line.productNo).FirstOrDefault();
+				var temp = ProductSummaryList.Where(q => q.productNo == line.productNo).FirstOrDefault();
 				temp.retail
 					= line.qty * ProductsListViewModel.Instance.ProductList.Where(q => q.PLU == line.productNo).FirstOrDefault().Price;
 			} // calculate retail value for each product in productSummaryList
 
 		} // CalculateSummary()
 
-		public void CalculateGroupSummary(object x)
+		public void CalculateGroupSummary()
 		{
+			groupList = new ObservableCollection<groupSummary>();		
+
 			foreach (ProductGroupEnum line in Enum.GetValues(typeof(ProductGroupEnum)))
 			{
 				groupSummary temp = new groupSummary();
@@ -128,15 +144,17 @@ namespace DistributionTool.ViewModels
 				groupList.Add(temp);
 			}  // creates groupSummary for each group
 
-			foreach (var line in productSummaryList)
+			foreach (var line in ProductSummaryList)
 			{
 				var group = groupList.Where(q => q.group == line.group).FirstOrDefault();
 				group.retail += line.retail;
 			} // calculate retail value for group in groupList
 		} //  CalculategroupSummary()
 
-		public void CalculateSubGroupSummary(object x)
+		public void CalculateSubGroupSummary()
 		{
+			subGroupList = new ObservableCollection<subGroupSummary>();
+
 			foreach (ProductSubGroupEnum line in Enum.GetValues(typeof(ProductSubGroupEnum)))
 			{
 				subGroupSummary temp = new subGroupSummary();
@@ -144,14 +162,28 @@ namespace DistributionTool.ViewModels
 				subGroupList.Add(temp);
 			}  // creates subGroupSummary for each subgroup
 
-			foreach (var line in productSummaryList)
+			foreach (var line in ProductSummaryList)
 			{
 				var subgroup = subGroupList.Where(q => q.subgroup == line.subgroup).FirstOrDefault();
 				subgroup.retail += line.retail;
 			} // calculate retail value for subGroup in subGroupList
 		} // CalculateSubGroupSummary()
 
-	
+		public void CalculateAll(object x)
+		{
+			CalculateSummary();
+			CalculateGroupSummary();
+			CalculateSubGroupSummary();
+			RaiseStaticPropertyChanged("ProductSummaryList");
+			CollectionViewSource.GetDefaultView(ProductSummaryList).Refresh();
+			MessageBox.Show(ProductSummaryList[2].productNo + " " + ProductSummaryList[2].qty +" " + ProductSummaryList[2].retail);
+		}
+
+		///////////////////////
+
+		// podpięcie/przepięcie kolekcji pod grid/gridy w View
+
+		///////////////////////
 
 		#endregion
 
