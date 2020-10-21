@@ -8,8 +8,16 @@
              d:DesignHeight="450" d:DesignWidth="1000">
     
     <!--#region Main grid-->
-    <Grid Background="White">
-        
+    <Grid Background="White"
+          Width="auto">
+        <StackPanel>
+            <Button Content="Save distribution" 
+                    Style="{StaticResource AccentedSquareButtonStyle}"
+                    Command="{Binding SaveDistributionCommand}"/>
+            <Button Content="Clear distribution"
+                    Style="{StaticResource SquareButtonStyle}"
+                    Command="{Binding ClearDistributionCommand}" />
+        </StackPanel>
     </Grid>
     <!--#endregion-->
 </UserControl>

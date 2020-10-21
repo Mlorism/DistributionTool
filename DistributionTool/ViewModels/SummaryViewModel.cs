@@ -20,13 +20,13 @@ namespace DistributionTool.ViewModels
 
 		#region Properties and structures
 
-		struct productSummary 
+		struct productSummary
 		{
 			public int productNo;
 			public ProductGroupEnum group;
 			public ProductSubGroupEnum subgroup;
 			public int qty;
-			public double retail;			
+			public double retail;
 
 			public productSummary(int PLU, ProductGroupEnum gr, ProductSubGroupEnum sgr) : this()
 			{
@@ -38,14 +38,14 @@ namespace DistributionTool.ViewModels
 
 		struct groupSummary
 		{
-			ProductGroupEnum group;
-			double retail;
+			public ProductGroupEnum group;
+			public double retail;
 		}
 
 		struct subGroupSummary
 		{
-			ProductSubGroupEnum subgroup;
-			double retail;
+			public ProductSubGroupEnum subgroup;
+			public double retail;
 		}
 
 		static ObservableCollection<productSummary> productSummaryList { get; set; }
@@ -84,7 +84,7 @@ namespace DistributionTool.ViewModels
 		{
 			var distributionList = MainWindowViewModel.Context.ProductDistribution.ToList();
 
-			foreach(var line in distributionList)
+			foreach (var line in distributionList)
 			{
 				line.DistributedPacks = 0;
 				line.DistributedQuantity = 0;
@@ -103,7 +103,7 @@ namespace DistributionTool.ViewModels
 
 			foreach (var line in productSummaryList)
 			{
-				foreach(var item in DistributionListViewModel.Instance.DistributionList.Where(q => q.PLU == line.productNo))
+				foreach (var item in DistributionListViewModel.Instance.DistributionList.Where(q => q.PLU == line.productNo))
 				{
 					var temp = productSummaryList.Where(p => p.productNo == line.productNo).FirstOrDefault();
 					temp.qty += item.DistributedQuantity;
@@ -113,12 +113,46 @@ namespace DistributionTool.ViewModels
 			foreach (productSummary line in productSummaryList)
 			{
 				var temp = productSummaryList.Where(q => q.productNo == line.productNo).FirstOrDefault();
-				temp.retail 
+				temp.retail
 					= line.qty * ProductsListViewModel.Instance.ProductList.Where(q => q.PLU == line.productNo).FirstOrDefault().Price;
 			} // calculate retail value for each product in productSummaryList
 
-
 		} // CalculateSummary()
+
+		public void CalculateGroupSummary(object x)
+		{
+			foreach (ProductGroupEnum line in Enum.GetValues(typeof(ProductGroupEnum)))
+			{
+				groupSummary temp = new groupSummary();
+				temp.group = line;
+				groupList.Add(temp);
+			}  // creates groupSummary for each group
+
+			foreach (var line in productSummaryList)
+			{
+				var group = groupList.Where(q => q.group == line.group).FirstOrDefault();
+				group.retail += line.retail;
+			} // calculate retail value for group in groupList
+		} //  CalculategroupSummary()
+
+		public void CalculateSubGroupSummary(object x)
+		{
+			foreach (ProductSubGroupEnum line in Enum.GetValues(typeof(ProductSubGroupEnum)))
+			{
+				subGroupSummary temp = new subGroupSummary();
+				temp.subgroup = line;
+				subGroupList.Add(temp);
+			}  // creates subGroupSummary for each subgroup
+
+			foreach (var line in productSummaryList)
+			{
+				var subgroup = subGroupList.Where(q => q.subgroup == line.subgroup).FirstOrDefault();
+				subgroup.retail += line.retail;
+			} // calculate retail value for subGroup in subGroupList
+		} // CalculateSubGroupSummary()
+
+	
+
 		#endregion
 
 	}
