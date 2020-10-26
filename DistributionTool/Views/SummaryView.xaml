@@ -5,21 +5,30 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:DistributionTool.Views"
+             xmlns:conv="clr-namespace:DistributionTool.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="1000">
+    
+    <!--#region Resources-->
+    <UserControl.Resources>
+        <conv:ProductGroupToStringConverter x:Key="ProductGroupToStringConverter" />
+        <conv:ProductSubGroupToStringConverter x:Key="ProductSubGroupToStringConverter" />
+    </UserControl.Resources>
+    
+    <!--#endregion-->
     
     <!--#region Main grid-->
     <Grid Background="White"
           Width="auto">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>             
         
         <!--#region Buttons-->
-        <StackPanel Grid.Column="3">
+        <StackPanel Grid.Column="0">
             <Button Content="Save distribution" 
                     Margin="5"
                     Style="{StaticResource AccentedSquareButtonStyle}"
@@ -50,24 +59,53 @@
                                     Binding="{Binding productNo}"
                                     IsReadOnly="True"/>
                 <DataGridTextColumn Header="Qty"
-                                    Binding="{Binding qty}"
+                                    Binding="{Binding qty, StringFormat='### ### ##0'}"
                                     IsReadOnly="True" />
                 <DataGridTextColumn Header="Retail"
-                                    Binding="{Binding retail}"
+                                    Binding="{Binding retail, StringFormat='### ### ##0'}"
                                     IsReadOnly="True" />
             </DataGrid.Columns>
         </DataGrid>
         <!--#endregion-->
 
         <!--#region GroupLevelDataGrid-->
-        <DataGrid x:Name="GroupLevelDataGrid">
+        <DataGrid x:Name="GroupLevelDataGrid"
+                  Grid.Column="2"
+                  Style="{DynamicResource AzureDataGrid}"
+                  ItemsSource="{Binding GroupList}"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  GridLinesVisibility="All">
+            
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Group"
+                                    Binding="{Binding Group, Converter={StaticResource ProductGroupToStringConverter}}"
+                                    IsReadOnly="True"/>
+                <DataGridTextColumn Header="Retail"
+                                    Binding="{Binding Retail, StringFormat='### ### ##0'}"
+                                    IsReadOnly="True" />
+            </DataGrid.Columns>
 
         </DataGrid>
         <!--#endregion-->
 
         <!--#region SubGroupLevelDataGrid-->
-        <DataGrid x:Name="SubGroupLevelDataGrid">
-
+        <DataGrid x:Name="SubGroupLevelDataGrid"
+                  Grid.Column="3"
+                  Style="{DynamicResource AzureDataGrid}"
+                  ItemsSource="{Binding SubGroupList}"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  GridLinesVisibility="All">
+            
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Subgroup"
+                                    Binding="{Binding Subgroup, Converter={StaticResource ProductSubGroupToStringConverter}}"
+                                    IsReadOnly="True" />
+                <DataGridTextColumn Header="Retail"
+                                    Binding="{Binding Retail, StringFormat='### ### ##0'}"
+                                    IsReadOnly="True" />
+            </DataGrid.Columns>
         </DataGrid>
         <!--#endregion-->
 

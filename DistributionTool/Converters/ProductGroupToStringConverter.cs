@@ -32,6 +32,8 @@ namespace DistributionTool.Converters
 				}
 			}
 
+			else if (value == null) { return null; }
+
 			else return value.ToString();
 
 		} // Convert()

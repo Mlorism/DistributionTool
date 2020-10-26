@@ -43,25 +43,22 @@ namespace DistributionTool.ViewModels
 			}
 		} // product PLU, group, subgroup, distributed qty and retail
 
-		class groupSummary
+		public class groupSummary
 		{
-			public ProductGroupEnum group { get; set; }
-			public double retail { get; set; }
+			public ProductGroupEnum Group { get; set; }
+			public double Retail { get; set; }
 		}
 
-		class subGroupSummary
+		public class subGroupSummary
 		{
-			public ProductSubGroupEnum subgroup { get; set; }
-			public double retail { get; set; }
+			public ProductSubGroupEnum Subgroup { get; set; }
+			public double Retail { get; set; }
 		}
 
-		public static ObservableCollection<productSummary> ProductSummaryList { get; set; } 
-		static ObservableCollection<groupSummary> groupList { get; set; }
-		static ObservableCollection<subGroupSummary> subGroupList { get; set; }
-		static ObservableCollection<ProductDistribution> productDistributionList { get; set; }
-
+		public static ObservableCollection<productSummary> ProductSummaryList { get; set; }
+		public static ObservableCollection<groupSummary> GroupList { get; set; }
+		public static ObservableCollection<subGroupSummary> SubGroupList { get; set; }
 		#endregion
-
 
 		#region Constructor
 		public SummaryViewModel()
@@ -91,7 +88,6 @@ namespace DistributionTool.ViewModels
 
 			MainWindowViewModel.SaveContext();
 		} // SaveDistribution() saving distribution from application to database
-
 		public static void ClearDistribution(object x)
 		{
 			var distributionList = MainWindowViewModel.Context.ProductDistribution.ToList();
@@ -135,49 +131,48 @@ namespace DistributionTool.ViewModels
 
 		public void CalculateGroupSummary()
 		{
-			groupList = new ObservableCollection<groupSummary>();		
+			GroupList = new ObservableCollection<groupSummary>();		
 
 			foreach (ProductGroupEnum line in Enum.GetValues(typeof(ProductGroupEnum)))
 			{
 				groupSummary temp = new groupSummary();
-				temp.group = line;
-				groupList.Add(temp);
+				temp.Group = line;
+				GroupList.Add(temp);
 			}  // creates groupSummary for each group
 
 			foreach (var line in ProductSummaryList)
 			{
-				var group = groupList.Where(q => q.group == line.group).FirstOrDefault();
-				group.retail += line.retail;
+				var group = GroupList.Where(q => q.Group == line.group).FirstOrDefault();
+				group.Retail += line.retail;
 			} // calculate retail value for group in groupList
 		} //  CalculategroupSummary()
 
 		public void CalculateSubGroupSummary()
 		{
-			subGroupList = new ObservableCollection<subGroupSummary>();
+			SubGroupList = new ObservableCollection<subGroupSummary>();
 
 			foreach (ProductSubGroupEnum line in Enum.GetValues(typeof(ProductSubGroupEnum)))
 			{
 				subGroupSummary temp = new subGroupSummary();
-				temp.subgroup = line;
-				subGroupList.Add(temp);
+				temp.Subgroup = line;
+				SubGroupList.Add(temp);
 			}  // creates subGroupSummary for each subgroup
 
 			foreach (var line in ProductSummaryList)
 			{
-				var subgroup = subGroupList.Where(q => q.subgroup == line.subgroup).FirstOrDefault();
-				subgroup.retail += line.retail;
+				var subgroup = SubGroupList.Where(q => q.Subgroup == line.subgroup).FirstOrDefault();
+				subgroup.Retail += line.retail;
 			} // calculate retail value for subGroup in subGroupList
 		} // CalculateSubGroupSummary()
 
 		public void CalculateAll(object x)
 		{
-			//MessageBox.Show();
 			CalculateSummary();
 			CalculateGroupSummary();
 			CalculateSubGroupSummary();
 			RaiseStaticPropertyChanged("ProductSummaryList");
-			CollectionViewSource.GetDefaultView(ProductSummaryList).Refresh();
-			
+			RaiseStaticPropertyChanged("GroupList");
+			RaiseStaticPropertyChanged("SubGroupList");				
 		}
 
 		///////////////////////
