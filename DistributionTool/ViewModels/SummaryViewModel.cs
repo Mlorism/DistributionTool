@@ -25,7 +25,6 @@ namespace DistributionTool.ViewModels
 		#endregion
 
 		#region Properties and classes
-
 		public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
 		public class productSummary
 		{
@@ -56,6 +55,8 @@ namespace DistributionTool.ViewModels
 		public static ObservableCollection<productSummary> ProductSummaryList { get; set; }
 		public static ObservableCollection<groupSummary> GroupList { get; set; }
 		public static ObservableCollection<subGroupSummary> SubGroupList { get; set; }
+
+		public static double DistributedTotal { get; set; }
 		#endregion
 
 		#region Constructor
@@ -163,14 +164,26 @@ namespace DistributionTool.ViewModels
 			} // calculate retail value for subGroup in subGroupList
 		} // CalculateSubGroupSummary()
 
+		public void CalculateTotal()
+		{
+			DistributedTotal = 0;
+
+			foreach (var line in GroupList)
+			{
+				DistributedTotal += line.Retail;
+			}
+		} // CalculateTotal()
+
 		public void CalculateAll(object x)
 		{
 			CalculateSummary();
 			CalculateGroupSummary();
 			CalculateSubGroupSummary();
+			CalculateTotal();
 			RaiseStaticPropertyChanged("ProductSummaryList");
 			RaiseStaticPropertyChanged("GroupList");
 			RaiseStaticPropertyChanged("SubGroupList");
+			RaiseStaticPropertyChanged("DistributedTotal");
 		} // CalculateAll() calculate distribution summary (on product, group and subgroup level)		
 
 		#endregion

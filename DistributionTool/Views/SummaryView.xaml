@@ -34,6 +34,15 @@
                 BorderBrush="LightGray">
             
             <Grid>
+                <StackPanel>
+                    <TextBlock Text="Total distributed retail"
+                               TextAlignment="Center"
+                               FontWeight="DemiBold"/>
+                    <TextBlock Text="{Binding DistributedTotal, StringFormat='### ### ##0'}"
+                               TextAlignment="Center"
+                               FontWeight="DemiBold"/>
+                </StackPanel>
+
                 <StackPanel VerticalAlignment="Center">
                     <Button Content="Calculate summary"
                             Margin="5"
