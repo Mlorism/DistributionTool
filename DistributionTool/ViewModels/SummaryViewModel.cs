@@ -42,13 +42,11 @@ namespace DistributionTool.ViewModels
 				subgroup = sgr;
 			}
 		} // product PLU, group, subgroup, distributed qty and retail
-
 		public class groupSummary
 		{
 			public ProductGroupEnum Group { get; set; }
 			public double Retail { get; set; }
 		}
-
 		public class subGroupSummary
 		{
 			public ProductSubGroupEnum Subgroup { get; set; }
@@ -172,14 +170,8 @@ namespace DistributionTool.ViewModels
 			CalculateSubGroupSummary();
 			RaiseStaticPropertyChanged("ProductSummaryList");
 			RaiseStaticPropertyChanged("GroupList");
-			RaiseStaticPropertyChanged("SubGroupList");				
-		}
-
-		///////////////////////
-
-		// podpięcie/przepięcie kolekcji pod grid/gridy w View
-
-		///////////////////////
+			RaiseStaticPropertyChanged("SubGroupList");
+		} // CalculateAll() calculate distribution summary (on product, group and subgroup level)		
 
 		#endregion
 
