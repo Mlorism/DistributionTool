@@ -40,20 +40,20 @@
         <DataGrid x:Name="ProductLevelDataGrid"
                   Grid.Column="1"
                   Style="{DynamicResource AzureDataGrid}"
-                  ItemsSource="{Binding productSummaryList}"
+                  ItemsSource="{Binding ProductSummaryList}"
                   AutoGenerateColumns="False"
                   CanUserAddRows="False"
                   GridLinesVisibility="All">
             
             <DataGrid.Columns>
                 <DataGridTextColumn Header="PLU"
-                                    Binding="{Binding productSummaryList.productNo}"
+                                    Binding="{Binding productNo}"
                                     IsReadOnly="True"/>
                 <DataGridTextColumn Header="Qty"
                                     Binding="{Binding qty}"
                                     IsReadOnly="True" />
                 <DataGridTextColumn Header="Retail"
-                                    Binding="{Binding XPath=retail}"
+                                    Binding="{Binding retail}"
                                     IsReadOnly="True" />
             </DataGrid.Columns>
         </DataGrid>
