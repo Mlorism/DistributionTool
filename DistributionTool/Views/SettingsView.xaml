@@ -6,10 +6,15 @@
              xmlns:local="clr-namespace:DistributionTool.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <!--#region Main Grid-->
     <Grid>
+        <!--#region Main StackPanel-->
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
+            
+            <!--#region Color Themes-->
             <Border BorderThickness="1"
                     BorderBrush="LightGray">
                 <StackPanel>
@@ -33,7 +38,9 @@
                                  IsChecked="{Binding TealTheme}" />
                 </StackPanel>
             </Border>
-
+           <!--#endregion-->
+            
+            <!--#region Accent Themes-->
             <Border BorderThickness="1"
                     BorderBrush="LightGray">
                 <StackPanel>
@@ -49,8 +56,10 @@
                                  IsChecked="{Binding DarkTheme}" />
                 </StackPanel>
             </Border>
+            <!--#endregion-->
             
         </StackPanel>
-        
+       <!--#endregion-->
     </Grid>
+    <!--#endregion-->
 </UserControl>

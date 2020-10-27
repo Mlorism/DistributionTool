@@ -123,7 +123,6 @@ namespace DistributionTool.ViewModels
 		{
 			ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(ThemeColor), ThemeManager.GetAppTheme(ThemeAccent));
 		} //ChangeColour() change application color or acccent
-
 		#endregion
 
 
