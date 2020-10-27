@@ -16,17 +16,17 @@ namespace DistributionTool.ViewModels
 	/// </summary>
 	public static class DistributionCalculator
 	{
-		#region structs
+		#region Properties and clasess
 		/// <summary>
 		/// Structure that keeps information if store meets the requirements of the method
 		/// </summary>
-		struct storeStatus
+		class storeStatus
 		{
 			public int storeNo;
 			public bool status;
 			public static int summary;
 
-			public storeStatus(int storeNumber, bool v) : this()
+			public storeStatus(int storeNumber, bool v)
 			{
 				storeNo = storeNumber;
 				status = v;
@@ -95,18 +95,18 @@ namespace DistributionTool.ViewModels
 					if (store.StockAfterDistribution < store.Min)
 					{
 						store.StockAfterDistribution += product.PackSize;
-						store.DistributedQuantity += product.PackSize;
-						store.DistributionCover = store.StockAfterDistribution / store.AverageSales;
+						store.DistributedQuantity += product.PackSize;						
 						store.DistributedPacks += 1;
+						freePc -= 1;
 					}
 
 					if (statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status == false)
 					{
 						if (store.StockAfterDistribution >= store.Min)
 						{
-							var stat = statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault();
-							stat.status = true;
+							statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status = true;
 							storeStatus.summary++;
+							store.DistributionCover = store.StockAfterDistribution / store.AverageSales;
 						}					
 					}
 				} // foreach loop for stores with grade A
@@ -118,18 +118,18 @@ namespace DistributionTool.ViewModels
 					if (store.StockAfterDistribution < store.Min)
 					{
 						store.StockAfterDistribution += product.PackSize;
-						store.DistributedQuantity += product.PackSize;
-						store.DistributionCover = store.StockAfterDistribution / store.AverageSales;
+						store.DistributedQuantity += product.PackSize;						
 						store.DistributedPacks += 1;
+						freePc -= 1;
 					}
 
 					if (statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status == false)
 					{
 						if (store.StockAfterDistribution >= store.Min)
 						{
-							var stat = statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault();
-							stat.status = true;
+							statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status = true;
 							storeStatus.summary++;
+							store.DistributionCover = store.StockAfterDistribution / store.AverageSales;
 						}
 					}
 				} // foreach loop for stores with grade B
@@ -141,18 +141,18 @@ namespace DistributionTool.ViewModels
 					if (store.StockAfterDistribution < store.Min)
 					{
 						store.StockAfterDistribution += product.PackSize;
-						store.DistributedQuantity += product.PackSize;
-						store.DistributionCover = store.StockAfterDistribution / store.AverageSales;
+						store.DistributedQuantity += product.PackSize;						
 						store.DistributedPacks += 1;
+						freePc -= 1;
 					}
 
 					if (statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status == false)
 					{
 						if (store.StockAfterDistribution >= store.Min)
 						{
-							var stat = statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault();
-							stat.status = true;
+							statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status = true;
 							storeStatus.summary++;
+							store.DistributionCover = store.StockAfterDistribution / store.AverageSales;
 						}
 					}
 				} // foreach loop for stores with grade C
@@ -173,10 +173,27 @@ namespace DistributionTool.ViewModels
 
 		static void WeeksOfSalesDistibution(ObservableCollection<Distribution> distributionList, Product product)
 		{
+			
 
-			MessageBox.Show("Method not implemented");
 
 		} // WeeksOfSalesDistibution() calculate distribution according to Weeks Of Sales method
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 		static void GroupTrendDistibution(ObservableCollection<Distribution> distributionList, Product product)
 		{
