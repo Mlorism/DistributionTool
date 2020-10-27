@@ -25,11 +25,18 @@ namespace DistributionTool.ViewModels
 			public int storeNo;
 			public bool status;
 			public static int summary;
+			public int methodMinimum;
 
-			public storeStatus(int storeNumber, bool v)
+			public storeStatus(int storeNumber, bool stat)
 			{
 				storeNo = storeNumber;
-				status = v;
+				status = stat;
+			}
+			public storeStatus(int storeNumber, bool stat, int metMin)
+			{
+				storeNo = storeNumber;
+				status = stat;
+				methodMinimum = metMin;
 			}
 		} // storeStatus struct containing store number, store status and how many stores meet the requirements of the method
 		#endregion
@@ -173,8 +180,92 @@ namespace DistributionTool.ViewModels
 
 		static void WeeksOfSalesDistibution(ObservableCollection<Distribution> distributionList, Product product)
 		{
-			
+			int freePc = product.WarehouseFreeQty / product.PackSize; // calculate how many packs is available to distribution
 
+			storeStatus.summary = 0; // zero because this is new distribution so each store needs to be analyzed at least once
+
+			List<storeStatus> statuses = new List<storeStatus>();
+
+			foreach (Distribution store in distributionList)
+			{
+				int minMin = (int)(store.AverageSales * store.MinCover);
+				if (store.Min > minMin) { minMin = store.Min; }
+				statuses.Add(new storeStatus(store.StoreNumber, false, minMin));
+			} // create new storeStatus for each store in distributionList and calculate required store minimum
+
+			while (storeStatus.summary < distributionList.Count) // iterate until all stores have enought stock or there is no free stock to distribute
+			{
+				foreach (Distribution store in distributionList.Where(x => x.Grade == StoreGradeEnum.A))
+				{
+					if (freePc == 0) break;
+					
+					if (store.StockAfterDistribution < statuses.Where(q => q.storeNo==store.StoreNumber).FirstOrDefault().methodMinimum)
+					{
+						store.StockAfterDistribution += product.PackSize;
+						store.DistributedQuantity += product.PackSize;
+						store.DistributedPacks += 1;
+						freePc -= 1;
+					}
+
+					if (statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status == false)
+					{
+						if (store.StockAfterDistribution >= store.Min)
+						{
+							statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status = true;
+							storeStatus.summary++;
+							store.DistributionCover = store.StockAfterDistribution / store.AverageSales;
+						}
+					}
+				} // foreach loop for stores with grade A
+
+				foreach (Distribution store in distributionList.Where(x => x.Grade == StoreGradeEnum.B))
+				{
+					if (freePc == 0) break;
+
+					if (store.StockAfterDistribution < statuses.Where(q => q.storeNo == store.StoreNumber).FirstOrDefault().methodMinimum)
+					{
+						store.StockAfterDistribution += product.PackSize;
+						store.DistributedQuantity += product.PackSize;
+						store.DistributedPacks += 1;
+						freePc -= 1;
+					}
+
+					if (statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status == false)
+					{
+						if (store.StockAfterDistribution >= store.Min)
+						{
+							statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status = true;
+							storeStatus.summary++;
+							store.DistributionCover = store.StockAfterDistribution / store.AverageSales;
+						}
+					}
+				} // foreach loop for stores with grade B
+
+				foreach (Distribution store in distributionList.Where(x => x.Grade == StoreGradeEnum.C))
+				{
+					if (freePc == 0) break;
+
+					if (store.StockAfterDistribution < statuses.Where(q => q.storeNo == store.StoreNumber).FirstOrDefault().methodMinimum)
+					{
+						store.StockAfterDistribution += product.PackSize;
+						store.DistributedQuantity += product.PackSize;
+						store.DistributedPacks += 1;
+						freePc -= 1;
+					}
+
+					if (statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status == false)
+					{
+						if (store.StockAfterDistribution >= store.Min)
+						{
+							statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status = true;
+							storeStatus.summary++;
+							store.DistributionCover = store.StockAfterDistribution / store.AverageSales;
+						}
+					}
+				} // foreach loop for stores with grade C
+
+				if (freePc == 0) break;
+			}
 
 		} // WeeksOfSalesDistibution() calculate distribution according to Weeks Of Sales method
 
