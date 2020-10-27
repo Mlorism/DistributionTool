@@ -67,7 +67,7 @@ namespace DistributionTool.ViewModels
 			SaveDistributionCommand = new RelayCommand(SaveDistribution, null);
 			ClearDistributionCommand = new RelayCommand(ClearDistribution, null);
 			CalculateAllCommand = new RelayCommand(CalculateAll, null);
-		}
+		} //SummaryViewModel()
 		#endregion
 
 		#region Methods

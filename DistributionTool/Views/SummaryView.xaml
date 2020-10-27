@@ -20,12 +20,14 @@
     <!--#region Main grid-->
     <Grid Background="White"
           Width="auto">
+        <!--#region Column definitions-->
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition />
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>             
+        <!--#endregion-->
         
         <!--#region Buttons-->
         <Border Grid.Column="0"
