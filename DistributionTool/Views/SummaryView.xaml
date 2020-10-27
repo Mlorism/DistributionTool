@@ -18,8 +18,7 @@
     <!--#endregion-->
     
     <!--#region Main grid-->
-    <Grid Background="White"
-          Width="auto">
+    <Grid Width="auto">
         <!--#region Column definitions-->
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>

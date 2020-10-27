@@ -14,7 +14,8 @@ namespace DistributionTool.ViewModels
 	class SettingsViewModel : BaseViewModel, ITab
 	{
 		#region Properties
-		public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
+		public static string ThemeColor { get; set; } = "Teal";
+		public static string ThemeAccent { get; set; } = "BaseLight";
 
 		private static bool amberTheme { get; set; }
 		public static bool AmberTheme 
@@ -25,9 +26,9 @@ namespace DistributionTool.ViewModels
 				amberTheme = value;				
 				if(value == true)
 				{
-					ChangeColour("Amber");					
-				}
-				
+					ThemeColor = "Amber";
+					ChangeColour();
+				}				
 			} 
 		}
 
@@ -40,9 +41,9 @@ namespace DistributionTool.ViewModels
 				limeTheme = value;				
 				if (value == true)
 				{
-					ChangeColour("Lime");					
-				}
-				
+					ThemeColor = "Lime";
+					ChangeColour();
+				}				
 			}
 		}
 
@@ -55,7 +56,8 @@ namespace DistributionTool.ViewModels
 				steelTheme = value;				
 				if (value == true)
 				{
-					ChangeColour("Steel");					
+					ThemeColor = "Steel";
+					ChangeColour();
 				}
 				
 			}
@@ -69,26 +71,58 @@ namespace DistributionTool.ViewModels
 			{
 				tealTheme = value;				
 				if (value == true) 
-				{ 
-				ChangeColour("Teal");				
+				{
+					ThemeColor = "Teal";
+					ChangeColour();				
 				} 
 			}
-		} 
+		}
+
+		private static bool lightTheme = true;
+		public static bool LightTheme
+		{
+			get { return lightTheme; }
+			set 
+			{ 
+				lightTheme = value; 
+				if (value == true)
+				{
+					ThemeAccent = "BaseLight";
+					ChangeColour();
+				}
+			}
+		}
+
+		private static bool darkTheme;
+		public static bool DarkTheme
+		{
+			get { return darkTheme; }
+			set 
+			{ 
+				darkTheme = value;
+				if (value == true)
+				{
+					ThemeAccent = "BaseDark";
+					ChangeColour();
+				}
+			}
+		}
+
 		#endregion
 
 
 		#region Constructor
 		public SettingsViewModel()
 		{
-			TabName = "Settings";
+			TabName = "Settings";			
 		}
 		#endregion
 
 		#region Methods		
-		public static void ChangeColour(string color)
+		public static void ChangeColour()
 		{
-			ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(color), ThemeManager.GetAppTheme("BaseLight"));			
-		}
+			ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent(ThemeColor), ThemeManager.GetAppTheme(ThemeAccent));
+		} //ChangeColour() change application color or acccent
 
 		#endregion
 

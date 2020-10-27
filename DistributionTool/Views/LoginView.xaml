@@ -17,8 +17,7 @@
     <!--#endregion-->
     
     <!--#region Main grid-->
-    <Grid Background="White" 
-          VerticalAlignment="Center"
+    <Grid VerticalAlignment="Center"
           HorizontalAlignment="Center">
          <!--#region Grid definitions-->
         <Grid.RowDefinitions>

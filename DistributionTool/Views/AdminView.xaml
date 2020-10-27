@@ -111,8 +111,7 @@
         <!--#endregion-->
         
         <!--#region User profile section-->
-        <Grid Grid.Column="1"
-              Background="White">
+        <Grid Grid.Column="1">
             <!--#region Grid definitions-->
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>

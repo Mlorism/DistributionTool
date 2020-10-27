@@ -5,26 +5,52 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DistributionTool.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Background="White">
+             d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <StackPanel VerticalAlignment="Center"
-                    HorizontalAlignment="Center">
-            <RadioButton GroupName="Theme"
-                         Margin="5"
-                         Content="Amber"
-                         IsChecked="{Binding AmberTheme}"/>
-            <RadioButton GroupName="Theme"
-                         Margin="5"
-                         Content="Lime"
-                         IsChecked="{Binding LimeTheme}"/>
-            <RadioButton GroupName="Theme"
-                         Margin="5"
-                         Content="Steel"
-                         IsChecked="{Binding SteelTheme}"/>
-            <RadioButton GroupName="Theme"
-                         Margin="5"
-                         Content="Teal"                         
-                         IsChecked="{Binding TealTheme}"/>
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <Border BorderThickness="1"
+                    BorderBrush="LightGray">
+                <StackPanel>
+                    <Label Content="Color Theme:" 
+                           FontWeight="DemiBold"/>
+                    <RadioButton GroupName="Color"
+                                 Margin="5"
+                                 Content="Amber"
+                                 IsChecked="{Binding AmberTheme}" />
+                    <RadioButton GroupName="Color"
+                                 Margin="5"
+                                 Content="Lime"
+                                 IsChecked="{Binding LimeTheme}" />
+                    <RadioButton GroupName="Color"
+                                 Margin="5"
+                                 Content="Steel"
+                                 IsChecked="{Binding SteelTheme}" />
+                    <RadioButton GroupName="Color"
+                                 Margin="5"
+                                 Content="Teal"
+                                 IsChecked="{Binding TealTheme}" />
+                </StackPanel>
+            </Border>
+
+            <Border BorderThickness="1"
+                    BorderBrush="LightGray">
+                <StackPanel>
+                    <Label Content="Accent Theme:"
+                           FontWeight="DemiBold" />
+                    <RadioButton GroupName="Theme"
+                                 Margin="5"
+                                 Content="Light"
+                                 IsChecked="{Binding LightTheme}" />
+                    <RadioButton GroupName="Theme"
+                                 Margin="5"
+                                 Content="Dark"
+                                 IsChecked="{Binding DarkTheme}" />
+                </StackPanel>
+            </Border>
+            
         </StackPanel>
+        
     </Grid>
 </UserControl>
