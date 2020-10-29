@@ -135,8 +135,8 @@ namespace DistributionTool.ViewModels
 			
 			foreach (Distribution store in distributionList)
 			{				
-				int minMin = (int)(store.AverageSales * store.MinCover);				
-				if (store.Min > minMin) { minMin = store.Min; }				
+				int minMin = (int)(store.AverageSales * store.MinCover); // required store minimum based on average sales			
+				if (store.Min > minMin) { minMin = store.Min; }	// if minimum based on sales is smaller than store minimum then required min is based on store parameters			
 				statuses.Add(new storeStatus(store.StoreNumber, false, minMin));
 			} // create new storeStatus for each store in distributionList and calculate required store minimum					
 
@@ -147,27 +147,27 @@ namespace DistributionTool.ViewModels
 				{
 					if (freePc == 0) break;
 
-					if (statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status == false)
-					{
-						if (store.StockAfterDistribution < store.Max)
+						if (statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status == false)
 						{
-							if (store.StockAfterDistribution < statuses.Where(q => q.storeNo == store.StoreNumber).FirstOrDefault().methodMinimum)
+							if ((store.StockAfterDistribution + product.PackSize) <= store.Max)
 							{
-								store.StockAfterDistribution += product.PackSize;
-								store.DistributedQuantity += product.PackSize;
-								store.DistributedPacks += 1;
-								freePc -= 1;
+								if (store.StockAfterDistribution < statuses.Where(q => q.storeNo == store.StoreNumber).FirstOrDefault().methodMinimum)
+								{
+									store.StockAfterDistribution += product.PackSize;
+									store.DistributedQuantity += product.PackSize;
+									store.DistributedPacks += 1;
+									freePc -= 1;
+								}
 							}
-						}
-					
-						if (store.StockAfterDistribution >= statuses.Where(q => q.storeNo == store.StoreNumber).FirstOrDefault().methodMinimum 
-							|| store.StockAfterDistribution >= store.Max)
-						{
-							statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status = true;
-							storeStatus.summary++;
-							store.DistributionCover = store.StockAfterDistribution / store.AverageSales;
-						}
 
+							if ((store.StockAfterDistribution >= statuses.Where(q => q.storeNo == store.StoreNumber).FirstOrDefault().methodMinimum)
+								|| ((store.StockAfterDistribution + product.PackSize) > store.Max)
+								|| (store.StockAfterDistribution >= store.Max))
+							{
+								statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status = true;
+								storeStatus.summary++;
+								store.DistributionCover = store.StockAfterDistribution / store.AverageSales;
+							}
 					}
 				} // foreach loop for every store				
 
