@@ -103,16 +103,16 @@ namespace DistributionTool.ViewModels
 				{
 					if (freePc == 0) break;
 
-					if (store.StockAfterDistribution < store.Min)
-					{
-						store.StockAfterDistribution += product.PackSize;
-						store.DistributedQuantity += product.PackSize;						
-						store.DistributedPacks += 1;
-						freePc -= 1;
-					}
-
 					if (statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status == false)
 					{
+						if (store.StockAfterDistribution < store.Min)
+						{
+							store.StockAfterDistribution += product.PackSize;
+							store.DistributedQuantity += product.PackSize;						
+							store.DistributedPacks += 1;
+							freePc -= 1;
+						}
+					
 						if (store.StockAfterDistribution >= store.Min)
 						{
 							statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status = true;
