@@ -131,9 +131,7 @@ namespace DistributionTool.ViewModels
 		{
 			int freePc = product.WarehouseFreeQty / product.PackSize; // calculate how many packs is available to distribution
 			
-			List<storeStatus> statuses = new List<storeStatus>();
-
-			MessageBox.Show(freePc.ToString());
+			List<storeStatus> statuses = new List<storeStatus>();			
 			
 			foreach (Distribution store in distributionList)
 			{				
@@ -148,25 +146,30 @@ namespace DistributionTool.ViewModels
 				foreach (Distribution store in distributionList)
 				{
 					if (freePc == 0) break;
-					
-					if (store.StockAfterDistribution < statuses.Where(q => q.storeNo==store.StoreNumber).FirstOrDefault().methodMinimum)
-					{
-						store.StockAfterDistribution += product.PackSize;
-						store.DistributedQuantity += product.PackSize;
-						store.DistributedPacks += 1;
-						freePc -= 1;
-					}
 
 					if (statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status == false)
 					{
-						if (store.StockAfterDistribution >= statuses.Where(q => q.storeNo == store.StoreNumber).FirstOrDefault().methodMinimum)
+						if (store.StockAfterDistribution < store.Max)
+						{
+							if (store.StockAfterDistribution < statuses.Where(q => q.storeNo == store.StoreNumber).FirstOrDefault().methodMinimum)
+							{
+								store.StockAfterDistribution += product.PackSize;
+								store.DistributedQuantity += product.PackSize;
+								store.DistributedPacks += 1;
+								freePc -= 1;
+							}
+						}
+					
+						if (store.StockAfterDistribution >= statuses.Where(q => q.storeNo == store.StoreNumber).FirstOrDefault().methodMinimum 
+							|| store.StockAfterDistribution >= store.Max)
 						{
 							statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status = true;
 							storeStatus.summary++;
 							store.DistributionCover = store.StockAfterDistribution / store.AverageSales;
 						}
+
 					}
-				} // foreach loop for stores with grade A				
+				} // foreach loop for every store				
 
 				if (freePc == 0) break;
 			}
