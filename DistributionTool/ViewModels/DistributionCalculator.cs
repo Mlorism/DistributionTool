@@ -4,10 +4,12 @@ using DistributionTool.ViewModels.Lists;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+
 
 namespace DistributionTool.ViewModels
 {
@@ -44,10 +46,13 @@ namespace DistributionTool.ViewModels
 		#region CalculateDistribution() main method
 		public static void CalculateDistribution(int PLUcode)
 		{
-			Product distributedProduct = ProductsListViewModel.Instance.ProductList.Where(x => x.PLU == PLUcode).FirstOrDefault();			
+			Product distributedProduct = ProductsListViewModel.Instance.ProductList.Where(x => x.PLU == PLUcode).FirstOrDefault();
 
-			ObservableCollection<Distribution> SelectedProductDistributionList = DistributionListViewModel.Instance.GetProduct(PLUcode);
+			storeStatus.summary = 0; // zero because this is new distribution so each store needs to be analyzed at least once
 
+			ObservableCollection<Distribution> SelectedProductDistributionList =
+				new ObservableCollection<Distribution>(DistributionListViewModel.Instance.GetProduct(PLUcode).OrderBy(q => q.Grade));
+						
 			foreach (Distribution store in SelectedProductDistributionList)
 			{
 				store.DistributedPacks = 0;
@@ -82,9 +87,7 @@ namespace DistributionTool.ViewModels
 		#region Distribution methods
 		static void KeepMinimumDistibution(ObservableCollection<Distribution> distributionList, Product product)
 		{		
-			int freePc = product.WarehouseFreeQty / product.PackSize; // calculate how many packs is available to distribution
-
-			storeStatus.summary = 0; // zero because this is new distribution so each store needs to be analyzed at least once
+			int freePc = product.WarehouseFreeQty / product.PackSize; // calculate how many packs is available to distribution						
 
 			List<storeStatus> statuses = new List<storeStatus>();
 
@@ -93,9 +96,10 @@ namespace DistributionTool.ViewModels
 				statuses.Add(new storeStatus(store.StoreNumber, false));
 			} // create new storeStatus for each store in distributionList
 
+			if(freePc > 0)
 			while (storeStatus.summary < distributionList.Count) // iterate until all stores have enought stock or there is no free stock to distribute
 			{
-				foreach (Distribution store in distributionList.Where(x => x.Grade == StoreGradeEnum.A))
+				foreach (Distribution store in distributionList)
 				{
 					if (freePc == 0) break;
 
@@ -116,86 +120,32 @@ namespace DistributionTool.ViewModels
 							store.DistributionCover = store.StockAfterDistribution / store.AverageSales;
 						}					
 					}
-				} // foreach loop for stores with grade A
-
-				foreach (Distribution store in distributionList.Where(x => x.Grade == StoreGradeEnum.B))
-				{
-					if (freePc == 0) break;
-
-					if (store.StockAfterDistribution < store.Min)
-					{
-						store.StockAfterDistribution += product.PackSize;
-						store.DistributedQuantity += product.PackSize;						
-						store.DistributedPacks += 1;
-						freePc -= 1;
-					}
-
-					if (statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status == false)
-					{
-						if (store.StockAfterDistribution >= store.Min)
-						{
-							statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status = true;
-							storeStatus.summary++;
-							store.DistributionCover = store.StockAfterDistribution / store.AverageSales;
-						}
-					}
-				} // foreach loop for stores with grade B
-
-				foreach (Distribution store in distributionList.Where(x => x.Grade == StoreGradeEnum.C))
-				{
-					if (freePc == 0) break;
-
-					if (store.StockAfterDistribution < store.Min)
-					{
-						store.StockAfterDistribution += product.PackSize;
-						store.DistributedQuantity += product.PackSize;						
-						store.DistributedPacks += 1;
-						freePc -= 1;
-					}
-
-					if (statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status == false)
-					{
-						if (store.StockAfterDistribution >= store.Min)
-						{
-							statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status = true;
-							storeStatus.summary++;
-							store.DistributionCover = store.StockAfterDistribution / store.AverageSales;
-						}
-					}
-				} // foreach loop for stores with grade C
+				} // foreach loop for all stores	
 
 				if (freePc == 0) break;				
 			}		
 
 		} // KeepMinimumDistibution() calculate distribution according to Keep Minimum method
 
-
-
-
-
-
-
-
-
-
 		static void WeeksOfSalesDistibution(ObservableCollection<Distribution> distributionList, Product product)
 		{
 			int freePc = product.WarehouseFreeQty / product.PackSize; // calculate how many packs is available to distribution
-
-			storeStatus.summary = 0; // zero because this is new distribution so each store needs to be analyzed at least once
-
+			
 			List<storeStatus> statuses = new List<storeStatus>();
 
+			MessageBox.Show(freePc.ToString());
+			
 			foreach (Distribution store in distributionList)
-			{
-				int minMin = (int)(store.AverageSales * store.MinCover);
-				if (store.Min > minMin) { minMin = store.Min; }
+			{				
+				int minMin = (int)(store.AverageSales * store.MinCover);				
+				if (store.Min > minMin) { minMin = store.Min; }				
 				statuses.Add(new storeStatus(store.StoreNumber, false, minMin));
-			} // create new storeStatus for each store in distributionList and calculate required store minimum
+			} // create new storeStatus for each store in distributionList and calculate required store minimum					
 
+			if(freePc > 0)
 			while (storeStatus.summary < distributionList.Count) // iterate until all stores have enought stock or there is no free stock to distribute
 			{
-				foreach (Distribution store in distributionList.Where(x => x.Grade == StoreGradeEnum.A))
+				foreach (Distribution store in distributionList)
 				{
 					if (freePc == 0) break;
 					
@@ -209,60 +159,14 @@ namespace DistributionTool.ViewModels
 
 					if (statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status == false)
 					{
-						if (store.StockAfterDistribution >= store.Min)
+						if (store.StockAfterDistribution >= statuses.Where(q => q.storeNo == store.StoreNumber).FirstOrDefault().methodMinimum)
 						{
 							statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status = true;
 							storeStatus.summary++;
 							store.DistributionCover = store.StockAfterDistribution / store.AverageSales;
 						}
 					}
-				} // foreach loop for stores with grade A
-
-				foreach (Distribution store in distributionList.Where(x => x.Grade == StoreGradeEnum.B))
-				{
-					if (freePc == 0) break;
-
-					if (store.StockAfterDistribution < statuses.Where(q => q.storeNo == store.StoreNumber).FirstOrDefault().methodMinimum)
-					{
-						store.StockAfterDistribution += product.PackSize;
-						store.DistributedQuantity += product.PackSize;
-						store.DistributedPacks += 1;
-						freePc -= 1;
-					}
-
-					if (statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status == false)
-					{
-						if (store.StockAfterDistribution >= store.Min)
-						{
-							statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status = true;
-							storeStatus.summary++;
-							store.DistributionCover = store.StockAfterDistribution / store.AverageSales;
-						}
-					}
-				} // foreach loop for stores with grade B
-
-				foreach (Distribution store in distributionList.Where(x => x.Grade == StoreGradeEnum.C))
-				{
-					if (freePc == 0) break;
-
-					if (store.StockAfterDistribution < statuses.Where(q => q.storeNo == store.StoreNumber).FirstOrDefault().methodMinimum)
-					{
-						store.StockAfterDistribution += product.PackSize;
-						store.DistributedQuantity += product.PackSize;
-						store.DistributedPacks += 1;
-						freePc -= 1;
-					}
-
-					if (statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status == false)
-					{
-						if (store.StockAfterDistribution >= store.Min)
-						{
-							statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status = true;
-							storeStatus.summary++;
-							store.DistributionCover = store.StockAfterDistribution / store.AverageSales;
-						}
-					}
-				} // foreach loop for stores with grade C
+				} // foreach loop for stores with grade A				
 
 				if (freePc == 0) break;
 			}

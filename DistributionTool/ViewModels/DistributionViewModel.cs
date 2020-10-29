@@ -29,7 +29,7 @@ namespace DistributionTool.ViewModels
 		public static Product SelectedProduct { get; set; } = ProductsListViewModel.Instance.ProductList.FirstOrDefault();
 		public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
 		public int DistributedPcs { get; set; }
-		public int TotalPcs { get; set; } = SelectedProduct.WarehouseFreeQty / SelectedProduct.PackSize;
+		public int TotalPcs { get; set; } 
 		
 		public static ObservableCollection<ProductParameters> SelectedProductParameters { get; set; } = new ObservableCollection<ProductParameters>();
 
@@ -71,6 +71,7 @@ namespace DistributionTool.ViewModels
 			}
 
 			DistributedPcs = SelectedProductList.Sum(x => x.DistributedPacks);
+			TotalPcs = SelectedProduct.WarehouseFreeQty / SelectedProduct.PackSize;
 
 			SaveParametersCommand = new RelayCommand(SaveParameters, null);
 			ReloadParametersCommand = new RelayCommand(ReloadParameters, null);
