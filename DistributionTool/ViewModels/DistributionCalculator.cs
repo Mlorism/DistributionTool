@@ -52,7 +52,7 @@ namespace DistributionTool.ViewModels
 
 			ObservableCollection<Distribution> SelectedProductDistributionList =
 				new ObservableCollection<Distribution>(DistributionListViewModel.Instance.GetProduct(PLUcode).OrderBy(q => q.Grade));
-						
+
 			foreach (Distribution store in SelectedProductDistributionList)
 			{
 				store.DistributedPacks = 0;
@@ -62,23 +62,23 @@ namespace DistributionTool.ViewModels
 				store.DistributionCover = store.EffectiveCover;
 			}
 
-			switch (distributedProduct.MethodOfDistribution) 
-			{ 
+			switch (distributedProduct.MethodOfDistribution)
+			{
 				case DistributionMethodEnum.KeepMinimum:
 					KeepMinimumDistibution(SelectedProductDistributionList, distributedProduct);
-				break;
-					
+					break;
+
 				case DistributionMethodEnum.WeeksOfSales:
 					WeeksOfSalesDistibution(SelectedProductDistributionList, distributedProduct);
-				break;
+					break;
 
 				case DistributionMethodEnum.GroupTrend:
 					GroupTrendDistibution(SelectedProductDistributionList, distributedProduct);
-				break;
+					break;
 
 				case DistributionMethodEnum.FinalDistribution:
 					FinalDistributionDistibution(SelectedProductDistributionList, distributedProduct);
-				break;
+					break;
 			}
 
 		} // CalculateDistribution()
@@ -86,7 +86,7 @@ namespace DistributionTool.ViewModels
 
 		#region Distribution methods
 		static void KeepMinimumDistibution(ObservableCollection<Distribution> distributionList, Product product)
-		{		
+		{
 			int freePc = product.WarehouseFreeQty / product.PackSize; // calculate how many packs is available to distribution						
 
 			List<storeStatus> statuses = new List<storeStatus>();
@@ -96,56 +96,56 @@ namespace DistributionTool.ViewModels
 				statuses.Add(new storeStatus(store.StoreNumber, false));
 			} // create new storeStatus for each store in distributionList
 
-			if(freePc > 0)
-			while (storeStatus.summary < distributionList.Count) // iterate until all stores have enought stock or there is no free stock to distribute
-			{
-				foreach (Distribution store in distributionList)
+			if (freePc > 0)
+				while (storeStatus.summary < distributionList.Count) // iterate until all stores have enought stock or there is no free stock to distribute
 				{
-					if (freePc == 0) break;
-
-					if (statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status == false)
+					foreach (Distribution store in distributionList)
 					{
-						if (store.StockAfterDistribution < store.Min)
-						{
-							store.StockAfterDistribution += product.PackSize;
-							store.DistributedQuantity += product.PackSize;						
-							store.DistributedPacks += 1;
-							freePc -= 1;
-						}
-					
-						if (store.StockAfterDistribution >= store.Min)
-						{
-							statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status = true;
-							storeStatus.summary++;
-							store.DistributionCover = store.StockAfterDistribution / store.AverageSales;
-						}					
-					}
-				} // foreach loop for all stores	
+						if (freePc == 0) break;
 
-				if (freePc == 0) break;				
-			}		
+						if (statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status == false)
+						{
+							if (store.StockAfterDistribution < store.Min)
+							{
+								store.StockAfterDistribution += product.PackSize;
+								store.DistributedQuantity += product.PackSize;
+								store.DistributedPacks += 1;
+								freePc -= 1;
+							}
+
+							if (store.StockAfterDistribution >= store.Min)
+							{
+								statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status = true;
+								storeStatus.summary++;
+								store.DistributionCover = store.StockAfterDistribution / store.AverageSales;
+							}
+						}
+					} // foreach loop for all stores	
+
+					if (freePc == 0) break;
+				}
 
 		} // KeepMinimumDistibution() calculate distribution according to Keep Minimum method
 
 		static void WeeksOfSalesDistibution(ObservableCollection<Distribution> distributionList, Product product)
 		{
 			int freePc = product.WarehouseFreeQty / product.PackSize; // calculate how many packs is available to distribution
-			
-			List<storeStatus> statuses = new List<storeStatus>();			
-			
+
+			List<storeStatus> statuses = new List<storeStatus>();
+
 			foreach (Distribution store in distributionList)
-			{				
+			{
 				int minMin = (int)(store.AverageSales * store.MinCover); // required store minimum based on average sales			
-				if (store.Min > minMin) { minMin = store.Min; }	// if minimum based on sales is smaller than store minimum then required min is based on store parameters			
+				if (store.Min > minMin) { minMin = store.Min; } // if minimum based on sales is smaller than store minimum then required min is based on store parameters			
 				statuses.Add(new storeStatus(store.StoreNumber, false, minMin));
 			} // create new storeStatus for each store in distributionList and calculate required store minimum					
 
-			if(freePc > 0)
-			while (storeStatus.summary < distributionList.Count) // iterate until all stores have enought stock or there is no free stock to distribute
-			{
-				foreach (Distribution store in distributionList)
+			if (freePc > 0)
+				while (storeStatus.summary < distributionList.Count) // iterate until all stores have enought stock or there is no free stock to distribute
 				{
-					if (freePc == 0) break;
+					foreach (Distribution store in distributionList)
+					{
+						if (freePc == 0) break;
 
 						if (statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status == false)
 						{
@@ -168,30 +168,13 @@ namespace DistributionTool.ViewModels
 								storeStatus.summary++;
 								store.DistributionCover = store.StockAfterDistribution / store.AverageSales;
 							}
-					}
-				} // foreach loop for every store				
+						}
+					} // foreach loop for every store				
 
-				if (freePc == 0) break;
-			}
+					if (freePc == 0) break;
+				}
 
 		} // WeeksOfSalesDistibution() calculate distribution according to Weeks Of Sales method
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 		static void GroupTrendDistibution(ObservableCollection<Distribution> distributionList, Product product)
 		{
@@ -200,10 +183,105 @@ namespace DistributionTool.ViewModels
 
 		} // GroupTrendDistibution() calculate distribution according to Group Trend method
 
+
+
+
+
+
 		static void FinalDistributionDistibution(ObservableCollection<Distribution> distributionList, Product product)
 		{
 
-			MessageBox.Show("Method not implemented");
+			int freePc = product.WarehouseFreeQty / product.PackSize; // calculate how many packs is available to distribution
+
+			foreach (Distribution store in distributionList)
+			{
+				if (freePc == 0) break;
+				if ((store.Grade == StoreGradeEnum.A || store.Grade == StoreGradeEnum.B)
+					&& (store.StockAfterDistribution + product.PackSize) < store.Max)
+				{
+					store.StockAfterDistribution += product.PackSize;
+					store.DistributedQuantity += product.PackSize;
+					store.DistributedPacks += 1;
+					freePc -= 1;
+				}
+			} // if only small amount of stock is avaible then distribute it to grade A and B
+
+			List<storeStatus> statuses = new List<storeStatus>();
+
+			if (freePc > 0)
+			{				
+				foreach (Distribution store in distributionList)
+				{
+					statuses.Add(new storeStatus(store.StoreNumber, false));
+				} // create new storeStatus for each store in distributionList and calculate required store minimum		
+			}
+
+			while (freePc > 0 && storeStatus.summary < distributionList.Count)
+			{
+				foreach(Distribution store in distributionList)
+				{
+					if (freePc == 0) break;
+
+					if ((store.StockAfterDistribution + product.PackSize) > store.Max)
+					{
+						statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status = true;
+						storeStatus.summary ++;
+					}
+
+					if ((store.StockAfterDistribution + product.PackSize) <= store.Max)
+					{
+						if (store.Grade == StoreGradeEnum.A && freePc > 0)
+						{
+							for (int i=0; i<3; i++)
+							{
+								if (freePc == 0) break;
+
+								if ((store.StockAfterDistribution + product.PackSize) <= store.Max)
+								{
+									store.StockAfterDistribution += product.PackSize;
+									store.DistributedQuantity += product.PackSize;
+									store.DistributedPacks += 1;
+									freePc -= 1;
+								}							
+							}							
+						} // Grade A
+
+						if (store.Grade == StoreGradeEnum.B && freePc > 0)
+						{
+							for (int i = 0; i < 2; i++)
+							{
+								if (freePc == 0) break;
+
+								if ((store.StockAfterDistribution + product.PackSize) <= store.Max)
+								{
+									store.StockAfterDistribution += product.PackSize;
+									store.DistributedQuantity += product.PackSize;
+									store.DistributedPacks += 1;
+									freePc -= 1;
+								}
+							}
+						} // Grade B
+
+						if (store.Grade == StoreGradeEnum.C && freePc > 0)
+						{	
+							if ((store.StockAfterDistribution + product.PackSize) <= store.Max)
+							{
+								store.StockAfterDistribution += product.PackSize;
+								store.DistributedQuantity += product.PackSize;
+								store.DistributedPacks += 1;
+								freePc -= 1;
+							}
+							
+						} // Grade C
+					} // if ((store.StockAfterDistribution + product.PackSize) <= store.Max) then store status true
+
+				}
+			}
+
+
+
+
+
 
 		} // FinalDistributionDistibution() calculate distribution according to Final Distribution method
 		#endregion
