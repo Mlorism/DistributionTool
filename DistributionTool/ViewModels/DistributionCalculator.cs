@@ -176,6 +176,8 @@ namespace DistributionTool.ViewModels
 
 		} // WeeksOfSalesDistibution() calculate distribution according to Weeks Of Sales method
 
+
+
 		static void GroupTrendDistibution(ObservableCollection<Distribution> distributionList, Product product)
 		{
 			MessageBox.Show("Method not implemented");
@@ -319,17 +321,8 @@ namespace DistributionTool.ViewModels
 						freePc -= 1;												
 					} // Grade C
 
-
-
-
-
-				}
-
-					} // if there are free pcs after reaching max in stores, continue distribution
-
-
-
-
+				} // foreach (Distribution store in distributionList)
+			} // if there are free pcs after reaching max in stores, continue distribution
 		} // FinalDistributionDistibution() calculate distribution according to Final Distribution method
 		#endregion
 
