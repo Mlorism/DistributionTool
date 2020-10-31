@@ -190,7 +190,6 @@ namespace DistributionTool.ViewModels
 
 		static void FinalDistributionDistibution(ObservableCollection<Distribution> distributionList, Product product)
 		{
-
 			int freePc = product.WarehouseFreeQty / product.PackSize; // calculate how many packs is available to distribution
 
 			foreach (Distribution store in distributionList)
@@ -276,9 +275,57 @@ namespace DistributionTool.ViewModels
 					} // if ((store.StockAfterDistribution + product.PackSize) <= store.Max) then store status true
 
 				}
-			}
+			} // while (freePc > 0 && storeStatus.summary < distributionList.Count)
+
+			while (freePc > 0)
+			{
+				foreach (Distribution store in distributionList)
+				{
+					if (freePc == 0) break;									
+										
+					if (store.Grade == StoreGradeEnum.A)
+					{
+						for (int i = 0; i < 3; i++)
+						{
+							if (freePc == 0) break;				
+							
+							store.StockAfterDistribution += product.PackSize;
+							store.DistributedQuantity += product.PackSize;
+							store.DistributedPacks += 1;
+							freePc -= 1;							
+						}
+					} // Grade A
+
+					if (store.Grade == StoreGradeEnum.B)
+					{
+						for (int i = 0; i < 2; i++)
+						{
+							if (freePc == 0) break;
+							
+							store.StockAfterDistribution += product.PackSize;
+							store.DistributedQuantity += product.PackSize;
+							store.DistributedPacks += 1;
+							freePc -= 1;							
+						}
+					} // Grade B
+
+					if (store.Grade == StoreGradeEnum.C)
+					{
+						if (freePc == 0) break;						
+						
+						store.StockAfterDistribution += product.PackSize;
+						store.DistributedQuantity += product.PackSize;
+						store.DistributedPacks += 1;
+						freePc -= 1;												
+					} // Grade C
 
 
+
+
+
+				}
+
+					} // if there are free pcs after reaching max in stores, continue distribution
 
 
 
