@@ -27,6 +27,17 @@ namespace DistributionTool.Method_Extensions
 				case "3":
 					return ProductGroupEnum.CleaningStorage;
 
+				case "Bathroom":
+					return ProductGroupEnum.Bathroom;
+				case "RoomDecorations":
+					return ProductGroupEnum.RoomDecorations;
+				case "KitchenDining":
+					return ProductGroupEnum.KitchenDining;
+				case "CleaningStorage":
+					return ProductGroupEnum.CleaningStorage;
+				case "Other":
+					return ProductGroupEnum.Other;
+
 				default: return ProductGroupEnum.Other;
 			}
 		} // StringNumToGroup()

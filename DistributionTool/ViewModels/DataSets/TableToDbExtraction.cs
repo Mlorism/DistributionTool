@@ -178,25 +178,21 @@ namespace DistributionTool.ViewModels.DataSets
 		} // LoadDistributionTable()
 
 		public static void LoadCurvesAndWeeks(DataSet data)
-		{
-			MainWindowViewModel.NotifyUser("Start export to database");
-			
+		{			
 			if (MainWindowViewModel.Context.GroupCurve.Count() > 0)
 			{
-				MainWindowViewModel.Context.Database.ExecuteSqlCommand("TRUNCATE TABLE[GroupCurve]");
+				MainWindowViewModel.Context.Database.ExecuteSqlCommand("TRUNCATE TABLE[GroupCurves]");
 			}
 			DataTable table = data.Tables[0];
-			//UpdateCurvesData(table);
-			MainWindowViewModel.NotifyUser("Sales curves loaded to database.");
+			UpdateCurvesData(table);		
 
 			if (MainWindowViewModel.Context.SalesWeek.Count() > 0)
 			{
-				MainWindowViewModel.Context.Database.ExecuteSqlCommand("TRUNCATE TABLE[SalesWeek]");
+				MainWindowViewModel.Context.Database.ExecuteSqlCommand("TRUNCATE TABLE[SalesWeeks]");
 			}
 			table = data.Tables[1];
 			LoadWeeksBorders(table);
-			MainWindowViewModel.NotifyUser("Weeks data loaded to database.");
-
+			MainWindowViewModel.NotifyUser("Sales curve & weeks data loaded to database.");
 		} //LoadCurvesAndWeeks()
 
 		public static void UpdateCurvesData(DataTable table)
@@ -207,9 +203,9 @@ namespace DistributionTool.ViewModels.DataSets
 				Week = Convert.ToInt32(Row.Field<string>("Week")),
 				Value = Convert.ToSingle(Row.Field<string>("Value"))
 			}).ToList();
-
+			
 			MainWindowViewModel.Context.GroupCurve.AddRange(curvesList);
-			//MainWindowViewModel.SaveContext();
+			MainWindowViewModel.SaveContext();
 		} // UpdateCurvesData()
 
 		public static void LoadWeeksBorders(DataTable table)
