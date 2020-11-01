@@ -16,7 +16,7 @@ namespace DistributionTool.ViewModels.DataSets
 	{
 		public static void ExportToDatabase(DataSet data)
 		{
-			MainWindowViewModel.NotifyUser("0/5 Export to database started");
+			MainWindowViewModel.NotifyUser("0/6 Start export to database");
 			if (MainWindowViewModel.Context.Products.Count() > 0)
 			{
 				MainWindowViewModel.Context.Database.ExecuteSqlCommand("TRUNCATE TABLE[Products]");
@@ -100,8 +100,7 @@ namespace DistributionTool.ViewModels.DataSets
 
 		/// <summary>
 		/// Load product parameters from table to database.
-		/// </summary>
-		/// <param name="table"></param>
+		/// </summary>		
 		public static void LoadProductParameters(DataTable table)
 		{
 			var parameterList = table.AsEnumerable().Select(Row => new ProductParameters
@@ -161,8 +160,7 @@ namespace DistributionTool.ViewModels.DataSets
 			MainWindowViewModel.Context.ProductStock.AddRange(storesStocksList);
 			MainWindowViewModel.SaveContext();			
 		} // LoadStoreStocks()
-
-
+		
 		public static void LoadDistributionTable(DataTable table)
 		{
 			var distributionList = table.AsEnumerable().Select(Row => new ProductDistribution
@@ -179,5 +177,54 @@ namespace DistributionTool.ViewModels.DataSets
 			MainWindowViewModel.SaveContext();
 		} // LoadDistributionTable()
 
-	}
+		public static void LoadCurvesAndWeeks(DataSet data)
+		{
+			MainWindowViewModel.NotifyUser("Start export to database");
+			
+			if (MainWindowViewModel.Context.GroupCurve.Count() > 0)
+			{
+				MainWindowViewModel.Context.Database.ExecuteSqlCommand("TRUNCATE TABLE[GroupCurve]");
+			}
+			DataTable table = data.Tables[0];
+			//UpdateCurvesData(table);
+			MainWindowViewModel.NotifyUser("Sales curves loaded to database.");
+
+			if (MainWindowViewModel.Context.SalesWeek.Count() > 0)
+			{
+				MainWindowViewModel.Context.Database.ExecuteSqlCommand("TRUNCATE TABLE[SalesWeek]");
+			}
+			table = data.Tables[1];
+			LoadWeeksBorders(table);
+			MainWindowViewModel.NotifyUser("Weeks data loaded to database.");
+
+		} //LoadCurvesAndWeeks()
+
+		public static void UpdateCurvesData(DataTable table)
+		{
+			var curvesList = table.AsEnumerable().Select(Row => new GroupCurve
+			{
+				Group = StringToEnumConverter.StringNumToGroup(Row.Field<string>("Group")),
+				Week = Convert.ToInt32(Row.Field<string>("Week")),
+				Value = Convert.ToSingle(Row.Field<string>("Value"))
+			}).ToList();
+
+			MainWindowViewModel.Context.GroupCurve.AddRange(curvesList);
+			//MainWindowViewModel.SaveContext();
+		} // UpdateCurvesData()
+
+		public static void LoadWeeksBorders(DataTable table)
+		{
+			var weeksList = table.AsEnumerable().Select(Row => new SalesWeek
+			{
+				Week = Convert.ToInt32	(Row.Field<string>("Week")),
+				StartDate = Convert.ToDateTime(Row.Field<string>("Start")),
+				StopDate = Convert.ToDateTime(Row.Field<string>("Stop"))
+			}).ToList();
+
+			MainWindowViewModel.Context.SalesWeek.AddRange(weeksList);
+			MainWindowViewModel.SaveContext();
+
+		} // UpdateCurvesData()
+
+}
 }

@@ -26,6 +26,7 @@ namespace DistributionTool.ViewModels
 		public RelayCommand LogOutCommand { get; private set; }
 		public RelayCommand ChangePasswordCommand { get; private set; }
 		public RelayCommand LoadDataToDatabaseCommand { get; set; }
+		public RelayCommand LoadSalesCurvesCommand { get; set; }
 		#endregion
 
 		#region Properties
@@ -81,6 +82,7 @@ namespace DistributionTool.ViewModels
 			LogOutCommand = new RelayCommand(LogOut, null);
 			ChangePasswordCommand = new RelayCommand(ChangePassword, null);
 			LoadDataToDatabaseCommand = new RelayCommand(LoadDataToDatabase, null);
+			LoadSalesCurvesCommand = new RelayCommand(LoadSalesCurves, null);
 		}
 		#endregion
 
@@ -157,6 +159,14 @@ namespace DistributionTool.ViewModels
 			DataSet data = ExcelConnection.ImportFile("DataBaseData.xlsx");			
 			TableToDbExtraction.ExportToDatabase(data);
 		} // LoadDataToDatabase
+
+		public static void LoadSalesCurves(object x)
+		{
+			DataSet data = ExcelConnection.ImportFile("salesCurves.xlsx");
+			NotifyUser("Sales Curves and Weeks data loaded to temporary memory.");
+			TableToDbExtraction.LoadCurvesAndWeeks(data);
+		} // LoadSalesCurves()
+
 		public static void ReloadContext()
 		{
 			context = new ApplicationDbContext();

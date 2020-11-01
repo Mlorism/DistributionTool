@@ -44,8 +44,11 @@
                     <MenuItem Header="Save distribution"/>
                     <MenuItem Header="Load data to database"
                               Command="{Binding LoadDataToDatabaseCommand}"/>
+                    <MenuItem Header="Update sales curves"
+                              Command="{Binding LoadSalesCurvesCommand}"/>
                     <MenuItem Header="About" />
                 </MenuItem>
+
                 <MenuItem Header="Profile">
                     <MenuItem Header="Log Out"
                               Command="{Binding LogOutCommand}"/>
