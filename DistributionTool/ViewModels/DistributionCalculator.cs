@@ -175,21 +175,81 @@ namespace DistributionTool.ViewModels
 				}
 
 		} // WeeksOfSalesDistibution() calculate distribution according to Weeks Of Sales method
-
-
-
+		
 		static void GroupTrendDistibution(ObservableCollection<Distribution> distributionList, Product product)
 		{
-			MessageBox.Show("Method not implemented");
+			int freePc = product.WarehouseFreeQty / product.PackSize; // calculate how many packs is available to distribution
 
+			List<storeStatus> statuses = new List<storeStatus>();			
 
+			int week = MainWindowViewModel.Context.SalesWeek
+				.Where(x => x.StartDate <= DateTime.Today && x.StopDate >= DateTime.Today).FirstOrDefault().Week; // get current week
+
+			float previousSalesCurve = 0; // sales values for last 4 weeks from group sales curve
+
+			for (int i = 1; i < 5; i++)
+			{
+				int loopWeek;
+				loopWeek = week - i;
+				if (loopWeek < 1) loopWeek += 52;
+
+				previousSalesCurve 
+				+= MainWindowViewModel.Context.GroupCurve.Where(x => x.Group == product.GroupName && x.Week == (loopWeek)).FirstOrDefault().Value;
+			} // calculate values for past 4 weeks of sales according to group curve
+
+			foreach (Distribution store in distributionList)
+			{
+				float previousSalesQty = store.SlsLW + store.SlsLW1 + store.SlsLW2 + store.SlsLW3;
+				
+				float futureSales = 0;				
+
+				for (int i=0; i<store.MinCover; i++)
+				{
+					futureSales
+					+= MainWindowViewModel.Context.GroupCurve.Where(x => x.Group == product.GroupName && x.Week == (week+i)).FirstOrDefault().Value;
+				}
+
+				float minMin = previousSalesQty * futureSales / previousSalesCurve;
+				if (store.Max > minMin) minMin = store.Max;
+				// required store minimum calculated based on past sales and future curve	
+
+				statuses.Add(new storeStatus(store.StoreNumber, false, (int)minMin));
+			} // create new storeStatus for each store in distributionList and calculate required store minimum	
+						
+			while (storeStatus.summary < distributionList.Count && freePc > 0) // iterate until all stores have enought stock or there is no free stock to distribute
+			{
+				foreach (Distribution store in distributionList)
+				{
+					if (freePc == 0) break;
+
+					if (statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status == false)
+					{
+						if ((store.StockAfterDistribution + product.PackSize) <= store.Max)
+						{
+							if (store.StockAfterDistribution < statuses.Where(q => q.storeNo == store.StoreNumber).FirstOrDefault().methodMinimum)
+							{
+								store.StockAfterDistribution += product.PackSize;
+								store.DistributedQuantity += product.PackSize;
+								store.DistributedPacks += 1;
+								freePc -= 1;
+							}
+						}
+
+						if ((store.StockAfterDistribution >= statuses.Where(q => q.storeNo == store.StoreNumber).FirstOrDefault().methodMinimum)
+							|| ((store.StockAfterDistribution + product.PackSize) > store.Max)
+							|| (store.StockAfterDistribution >= store.Max))
+						{
+							statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status = true;
+							storeStatus.summary++;
+							store.DistributionCover = store.StockAfterDistribution / store.AverageSales;
+						}
+					}
+				} // foreach loop for every store				
+
+				if (freePc == 0) break;
+			}
 		} // GroupTrendDistibution() calculate distribution according to Group Trend method
-
-
-
-
-
-
+		
 		static void FinalDistributionDistibution(ObservableCollection<Distribution> distributionList, Product product)
 		{
 			int freePc = product.WarehouseFreeQty / product.PackSize; // calculate how many packs is available to distribution
