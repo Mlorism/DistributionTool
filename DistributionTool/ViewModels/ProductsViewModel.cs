@@ -132,7 +132,7 @@ namespace DistributionTool.ViewModels
 		} // Refresh()
 		public void ProductDistribution(object x)
 		{
-			MessageBox.Show(SelectedProduct.MethodOfDistribution.ToString());
+			DistributionCalculator.CalculateDistribution(SelectedProduct.PLU);			
 		} // ProductDistribution()				
 
 		#endregion
