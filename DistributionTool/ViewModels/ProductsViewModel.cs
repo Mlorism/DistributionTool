@@ -15,7 +15,7 @@ using System.Windows.Data;
 namespace DistributionTool.ViewModels
 {
 	class ProductsViewModel : BaseViewModel, ITab
-	{
+	{		
 		#region Commands
 		public RelayCommand ChoseSelectedProductCommand { get; private set; }
 		public RelayCommand ApplyChangesCommand { get; private set; }

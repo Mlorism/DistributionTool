@@ -143,6 +143,7 @@
     </ApplicationDefinition>
     <Compile Include="Converters\DistributionMethodToStringConverter.cs" />
     <Compile Include="Converters\MultipleValuesConverter.cs" />
+    <Compile Include="Converters\PLUToAvailableReservedPackConverter.cs" />
     <Compile Include="Converters\ProductGroupToStringConverter.cs" />
     <Compile Include="Converters\ProductSubGroupToStringConverter.cs" />
     <Compile Include="Converters\QuantityToPacksConverter.cs" />
@@ -231,6 +232,7 @@
     <Compile Include="Migrations\202010312137221_AddSalesWeekTable.designer.cs">
       <DependentUpon>202010312137221_AddSalesWeekTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\DistributedPLUPacks.cs" />
     <Compile Include="Models\Distribution.cs" />
     <Compile Include="Models\GroupCurve.cs" />
     <Compile Include="Models\Product.cs" />
@@ -246,6 +248,7 @@
     <Compile Include="ViewModels\DataSets\TableToDbExtraction.cs" />
     <Compile Include="ViewModels\DistributionCalculator.cs" />
     <Compile Include="ViewModels\DistributionViewModel.cs" />
+    <Compile Include="ViewModels\Lists\DistributedPLUPacksViewModel.cs" />
     <Compile Include="ViewModels\Lists\DistributionListViewModel.cs" />
     <Compile Include="ViewModels\Lists\ProductParameterListViewModel.cs" />
     <Compile Include="ViewModels\Lists\ProductsListViewModel.cs" />
