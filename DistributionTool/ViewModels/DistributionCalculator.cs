@@ -192,6 +192,7 @@ namespace DistributionTool.ViewModels
 				int loopWeek;
 				loopWeek = week - i;
 				if (loopWeek < 1) loopWeek += 52;
+				if (loopWeek > 52) loopWeek -= 52;
 
 				previousSalesCurve 
 				+= MainWindowViewModel.Context.GroupCurve.Where(x => x.Group == product.GroupName && x.Week == (loopWeek)).FirstOrDefault().Value;
@@ -201,12 +202,17 @@ namespace DistributionTool.ViewModels
 			{
 				float previousSalesQty = store.SlsLW + store.SlsLW1 + store.SlsLW2 + store.SlsLW3;
 				
-				float futureSales = 0;				
+				float futureSales = 0;
+				int loopWeek;				
 
 				for (int i=0; i<store.MinCover; i++)
 				{
+					loopWeek = week + i;
+					if (loopWeek < 1) loopWeek += 52;
+					if (loopWeek > 52) loopWeek -= 52;
+
 					futureSales
-					+= MainWindowViewModel.Context.GroupCurve.Where(x => x.Group == product.GroupName && x.Week == (week+i)).FirstOrDefault().Value;
+					+= MainWindowViewModel.Context.GroupCurve.Where(x => x.Group == product.GroupName && x.Week == (loopWeek)).FirstOrDefault().Value;
 				}
 
 				float minMin = previousSalesQty * futureSales / previousSalesCurve;
