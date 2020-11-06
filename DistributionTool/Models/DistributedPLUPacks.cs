@@ -12,14 +12,12 @@ namespace DistributionTool.Models
 	public class DistributedPLUPacks
 	{
 		public int PLU;
-		public int DistributedPc;
-		public int AvailableDCPc;
+		public int DistributedPc;		
 
-		public DistributedPLUPacks(int p, int d, int a)
+		public DistributedPLUPacks(int p, int d)
 		{
 			PLU = p;
-			DistributedPc = d;
-			AvailableDCPc = a;
+			DistributedPc = d;			
 		}
 	}
 }

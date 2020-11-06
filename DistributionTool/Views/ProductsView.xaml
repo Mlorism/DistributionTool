@@ -25,6 +25,7 @@
         <conv:DistributionMethodToStringConverter x:Key="DistributionMethodToStringConverter"/>
         <conv:ProductGroupToStringConverter x:Key="ProductGroupToStringConverter" />
         <conv:ProductSubGroupToStringConverter x:Key="ProductSubGroupToStringConverter" />
+        <conv:PLUToAvailableReservedPackConverter x:Key="PLUToAvailableReservedPackConverter" />
 
     </UserControl.Resources>
     <!--#endregion-->
@@ -121,13 +122,13 @@
                     <DataGridTextColumn Header="Subgroup"
                                         Binding="{Binding SubGroup, Converter={StaticResource ProductSubGroupToStringConverter}}"
                                         IsReadOnly="True" />
-                    <DataGridTextColumn Header="Avail Qty"
+                    <DataGridTextColumn Header="DC Qty"
                                         Binding="{Binding WarehouseFreeQty, StringFormat='### ### ##0'}"
                                         IsReadOnly="True" />
                     <DataGridTextColumn Header="Avail/Res Pc"
                                         IsReadOnly="True"
-                                        Binding="{Binding Path=.,
-                                              Converter={StaticResource QuantityToPacksConverter}}" />
+                                        Binding="{Binding PLU,
+                                              Converter={StaticResource PLUToAvailableReservedPackConverter}}" />
                     <DataGridTextColumn Header="STR below min"
                                         Binding="{Binding StoresBelowMinimum}"
                                         IsReadOnly="True" />

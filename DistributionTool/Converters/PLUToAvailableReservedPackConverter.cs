@@ -17,11 +17,11 @@ namespace DistributionTool.Converters
 		{
 			if (value is int PLU)
 			{
-				Product temp = ProductsListViewModel.Instance.ProductList.FirstOrDefault(x => x.PLU == PLU);
-				int distributed;
-				int loop;
-				
-				
+				int distributed = DistributedPLUPacksViewModel.Instance.DistributedPacksList.FirstOrDefault(x => x.PLU == PLU).DistributedPc;
+				Product product = ProductsListViewModel.Instance.ProductList.FirstOrDefault(x => x.PLU == PLU);
+				int AvailableInDC = product.WarehouseFreeQty / product.PackSize;
+
+				return $"{distributed} / {AvailableInDC}";
 			}
 
 			else return "";

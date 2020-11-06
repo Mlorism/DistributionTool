@@ -121,8 +121,9 @@ namespace DistributionTool.ViewModels
 		/// </summary>		
 		public void Refresh(object x)
 		{
-			ProductsListViewModel.Instance.Refresh();			
-			
+			ProductsListViewModel.Instance.Refresh();
+			DistributedPLUPacksViewModel.Instance.Refresh();
+
 			ProductsFilteredList = ProductsListViewModel.Instance.ProductList;
 
 			CollectionViewSource.GetDefaultView(ProductsFilteredList).Refresh();

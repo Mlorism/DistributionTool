@@ -35,7 +35,7 @@ namespace DistributionTool.ViewModels.Lists
 
 			foreach (Product item in ProductsListViewModel.Instance.ProductList)
 			{
-				DistributedPacksList.Add(new DistributedPLUPacks(item.PLU, 0, item.WarehouseDistributedQty/item.PackSize));
+				DistributedPacksList.Add(new DistributedPLUPacks(item.PLU, 0));
 			} // creates productSummary for each product
 
 			foreach (var line in DistributedPacksList)

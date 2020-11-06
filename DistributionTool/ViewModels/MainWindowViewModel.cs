@@ -83,6 +83,10 @@ namespace DistributionTool.ViewModels
 			ChangePasswordCommand = new RelayCommand(ChangePassword, null);
 			LoadDataToDatabaseCommand = new RelayCommand(LoadDataToDatabase, null);
 			LoadSalesCurvesCommand = new RelayCommand(LoadSalesCurves, null);
+
+			ProductsListViewModel.Instance.Refresh();
+			DistributionListViewModel.Instance.Refresh();
+			DistributedPLUPacksViewModel.Instance.Refresh();
 		}
 		#endregion
 
