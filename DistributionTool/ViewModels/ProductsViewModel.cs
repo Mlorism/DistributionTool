@@ -134,7 +134,8 @@ namespace DistributionTool.ViewModels
 		} // Refresh()
 		public void ProductDistribution(object x)
 		{
-			DistributionCalculator.CalculateDistribution(SelectedProduct.PLU);			
+			DistributionCalculator.CalculateDistribution(SelectedProduct.PLU);
+			Refresh(null);
 		} // ProductDistribution()		
 
 		public void TodayDistribution(object x)

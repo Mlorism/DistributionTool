@@ -41,12 +41,14 @@
         <DockPanel Grid.Row="0">
             <Menu>
                 <MenuItem Header="Program">
-                    <MenuItem Header="Save distribution"/>
+                    <MenuItem Header="Save distribution"
+                              Command="{Binding SaveDistributionCommand}"/>
                     <MenuItem Header="Load data to database"
                               Command="{Binding LoadDataToDatabaseCommand}"/>
                     <MenuItem Header="Update sales curves"
                               Command="{Binding LoadSalesCurvesCommand}"/>
-                    <MenuItem Header="About" />
+                    <MenuItem Header="About"
+                              Command="{Binding AboutCommand}"/>
                 </MenuItem>
 
                 <MenuItem Header="Profile">

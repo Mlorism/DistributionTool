@@ -27,6 +27,9 @@ namespace DistributionTool.ViewModels
 		public RelayCommand ChangePasswordCommand { get; private set; }
 		public RelayCommand LoadDataToDatabaseCommand { get; set; }
 		public RelayCommand LoadSalesCurvesCommand { get; set; }
+		public RelayCommand SaveDistributionCommand { get; set; }
+		public RelayCommand AboutCommand { get; set; }
+		
 		#endregion
 
 		#region Properties
@@ -83,6 +86,8 @@ namespace DistributionTool.ViewModels
 			ChangePasswordCommand = new RelayCommand(ChangePassword, null);
 			LoadDataToDatabaseCommand = new RelayCommand(LoadDataToDatabase, null);
 			LoadSalesCurvesCommand = new RelayCommand(LoadSalesCurves, null);
+			SaveDistributionCommand = new RelayCommand(SaveDistribution, null);
+			AboutCommand = new RelayCommand(About, null);
 
 			ProductsListViewModel.Instance.Refresh();
 			DistributionListViewModel.Instance.Refresh();
@@ -176,17 +181,16 @@ namespace DistributionTool.ViewModels
 			context = new ApplicationDbContext();
 		} // ReloadContext()
 
-		public static void ClearData()
+		public static void SaveDistribution(object x)
 		{
-			foreach (Distribution store in DistributionListViewModel.Instance.DistributionList)
-			{
-				store.DistributedPacks = 0;
-				store.DistributedQuantity = 0;
-				store.StockAfterDistribution = store.EffectiveStock;
-				store.DistributionCover = store.EffectiveStock / store.AverageSales;
-				Context.SaveChanges();
-			}
-		} // Clears all data created during previous session
+			SummaryViewModel.SaveDistribution(null);
+		} // SaveDistribution() save dristribution from application to database
+
+		public static void About(object x)
+		{
+			MessageBox.Show("© 2020 Marcin Kupiński. All right reserved. Mail: Mlorism@gmail.com");
+		}
+
 		#endregion
 
 		#region Tasks
