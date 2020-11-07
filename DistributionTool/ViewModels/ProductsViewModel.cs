@@ -21,6 +21,7 @@ namespace DistributionTool.ViewModels
 		public RelayCommand ApplyChangesCommand { get; private set; }
 		public RelayCommand RefreshCommand { get; set; }
 		public RelayCommand ProductDistributionCommand { get; set; }
+		public RelayCommand TodayDistributionCommand { get; set; }
 
 		#endregion
 
@@ -76,6 +77,7 @@ namespace DistributionTool.ViewModels
 			ApplyChangesCommand = new RelayCommand(ApplyChanges, null);
 			RefreshCommand = new RelayCommand(Refresh, null);
 			ProductDistributionCommand = new RelayCommand(ProductDistribution, null);
+			TodayDistributionCommand = new RelayCommand(TodayDistribution, null);
 		}
 		#endregion
 
@@ -133,7 +135,22 @@ namespace DistributionTool.ViewModels
 		public void ProductDistribution(object x)
 		{
 			DistributionCalculator.CalculateDistribution(SelectedProduct.PLU);			
-		} // ProductDistribution()				
+		} // ProductDistribution()		
+
+		public void TodayDistribution(object x)
+		{
+			DateTime today = DateTime.Now;
+			
+			foreach (var line in ProductsFilteredList)
+			{
+				if (line.MondayDistribution == true && today.Day == 2) DistributionCalculator.CalculateDistribution(line.PLU);
+				else if (line.TuesdayDistribution == true && today.Day == 3) DistributionCalculator.CalculateDistribution(line.PLU);
+				else if (line.WednesdayDistribution == true && today.Day == 4) DistributionCalculator.CalculateDistribution(line.PLU);
+				else if (line.ThursdayDistribution == true && today.Day == 5) DistributionCalculator.CalculateDistribution(line.PLU);
+				else if (line.FridayDistribution == true && today.Day == 6) DistributionCalculator.CalculateDistribution(line.PLU);
+				else if ((today.Day == 1 || today.Day == 7) && line.FridayDistribution == true) DistributionCalculator.CalculateDistribution(line.PLU);	
+			}
+		} // TodayDistribution() creates distribution foreach product with selected current day of the week (if weekend then for friday)
 
 		#endregion
 

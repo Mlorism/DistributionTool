@@ -68,6 +68,7 @@
                             Margin="5"
                             Width="80"
                             Style="{StaticResource SquareButtonStyle}"
+                            Command="{Binding TodayDistributionCommand}"
                             ToolTip="Create a distribution for the day of the week." />
                 </StackPanel> 
                 <!--#endregion-->
