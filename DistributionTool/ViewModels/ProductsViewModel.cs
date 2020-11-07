@@ -150,6 +150,8 @@ namespace DistributionTool.ViewModels
 				else if (line.FridayDistribution == true && today.Day == 6) DistributionCalculator.CalculateDistribution(line.PLU);
 				else if ((today.Day == 1 || today.Day == 7) && line.FridayDistribution == true) DistributionCalculator.CalculateDistribution(line.PLU);	
 			}
+
+			Refresh(null);
 		} // TodayDistribution() creates distribution foreach product with selected current day of the week (if weekend then for friday)
 
 		#endregion
