@@ -53,13 +53,19 @@ namespace DistributionTool.ViewModels
 			ObservableCollection<Distribution> SelectedProductDistributionList =
 				new ObservableCollection<Distribution>(DistributionListViewModel.Instance.GetProduct(PLUcode).OrderBy(q => q.Grade));
 
+			int effStock;
+			float effCover;
+
 			foreach (Distribution store in SelectedProductDistributionList)
 			{
+				effStock = store.EffectiveStock;
+				effCover = store.EffectiveStock / store.AverageSales;
+
 				store.DistributedPacks = 0;
 				store.DistributedQuantity = 0;
-				store.StockAfterDistribution = store.EffectiveStock;
+				store.StockAfterDistribution = int.Parse(store.EffectiveStock.ToString());
 				store.EffectiveCover = store.EffectiveStock / store.AverageSales;
-				store.DistributionCover = store.EffectiveCover;
+				store.DistributionCover = float.Parse(store.EffectiveCover.ToString());
 			}
 
 			switch (distributedProduct.MethodOfDistribution)
@@ -170,7 +176,7 @@ namespace DistributionTool.ViewModels
 							{
 								statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status = true;
 								storeStatus.summary++;
-								store.DistributionCover = store.StockAfterDistribution / store.AverageSales;
+								store.DistributionCover = store.StockAfterDistribution / store.AverageSales;								
 							}
 						}
 					} // foreach loop for every store				
@@ -393,6 +399,12 @@ namespace DistributionTool.ViewModels
 
 				} // foreach (Distribution store in distributionList)
 			} // if there are free pcs after reaching max in stores, continue distribution
+
+			foreach(var x in distributionList)
+			{
+				x.DistributionCover = x.StockAfterDistribution / x.AverageSales;
+			}
+
 		} // FinalDistributionDistibution() calculate distribution according to Final Distribution method
 		#endregion
 

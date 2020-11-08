@@ -141,10 +141,7 @@ namespace DistributionTool.ViewModels
 
 			ReloadParameters(null);
 		} // SaveParameters()
-
-		/// <summary>
-		/// Reload parameters to SelectedProductParameters.
-		/// </summary>		
+		
 		public void ReloadParameters(object x)
 		{
 			ProductParameterListViewModel.Instance.Refresh();
@@ -159,18 +156,15 @@ namespace DistributionTool.ViewModels
 			RaiseStaticPropertyChanged("SelectedProductList");
 
 
-		} // ReloadParameters()
-
-		/// <summary>
-		/// Returns reloaded parameters list.
-		/// </summary>	
+		} // ReloadParameters() Reload parameters to SelectedProductParameters.
+			
 		public ObservableCollection<ProductParameters> ReloadedParametersList()
 		{
 			return new ObservableCollection <ProductParameters> 
 				(ProductParameterListViewModel.Instance.ParametersList
 					.Where(p => p.PLU == SelectedProduct.PLU)
 					.Select(c => ((ProductParameters)(c.Clone()))).ToList());
-		} //ReloadedParametersList()
+		} //ReloadedParametersList()  Returns reloaded parameters list.
 
 		public void CreateDistibution(object x)
 		{
@@ -191,6 +185,7 @@ namespace DistributionTool.ViewModels
 				store.EffectiveCover = store.EffectiveStock / store.AverageSales;
 				store.DistributionCover = store.EffectiveCover;
 			}
+
 			DistributedPcs = 0;
 			OnPropertyChange("DistributedPcs");
 			MainWindowViewModel.SaveContext();
