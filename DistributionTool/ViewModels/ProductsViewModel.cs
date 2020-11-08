@@ -28,6 +28,7 @@ namespace DistributionTool.ViewModels
 		#region Properties
 		public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
 
+		static bool tabCreated = false;
 		/// <summary>
 		/// Selected product from ProductsFilteredList.
 		/// </summary>
@@ -78,6 +79,13 @@ namespace DistributionTool.ViewModels
 			RefreshCommand = new RelayCommand(Refresh, null);
 			ProductDistributionCommand = new RelayCommand(ProductDistribution, null);
 			TodayDistributionCommand = new RelayCommand(TodayDistribution, null);
+
+			if (tabCreated == false)
+			{
+				ProductEffectiveCoverCalculator();
+				tabCreated = true;
+			}			
+			
 		}
 		#endregion
 
@@ -170,7 +178,33 @@ namespace DistributionTool.ViewModels
 		public void ProductsDistributionCoverCalculator()
 		{
 			DistributionCoverListViewModel.Instance.Refresh();
-		} // StoresDistributionCoverCalculator() calculate product distribution covers
+		} // StoresDistributionCoverCalculator() calculate products distribution covers
+		public static void ProductEffectiveCoverCalculator()
+		{
+			foreach (var line in ProductsFilteredList)
+			{
+				line.StoresEffectiveCover = 0;
+			}
+
+			foreach (var line in ProductsFilteredList)
+			{
+				float sales = 0;
+				int stock = 0;
+
+				foreach (var product in DistributionListViewModel.Instance.DistributionList)
+				{
+					if (product.PLU == line.PLU)
+					{
+						sales += product.AverageSales;
+						stock += product.EffectiveStock;
+					}
+				}
+
+				MainWindowViewModel.Context.Products.FirstOrDefault(x => x.PLU == line.PLU).StoresEffectiveCover = (stock / sales);				
+			}
+
+			MainWindowViewModel.SaveContext();
+		} // ProductEffectiveCoverCalculator() calculate products effective covers
 
 		#endregion
 
