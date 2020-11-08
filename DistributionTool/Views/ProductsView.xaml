@@ -9,7 +9,7 @@
              xmlns:enums="clr-namespace:DistributionTool.Enumerators"
              xmlns:conv="clr-namespace:DistributionTool.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="1200">
+             d:DesignHeight="450" d:DesignWidth="1400">
     
     <!--#region Resources-->
     <UserControl.Resources>
@@ -133,12 +133,12 @@
                     <DataGridTextColumn Header="STR below min"
                                         Binding="{Binding StoresBelowMinimum}"
                                         IsReadOnly="True" />
-                    <DataGridTextColumn Header="STR cv"
-                                        Binding="{Binding StoresCover}"
-                                        IsReadOnly="True" />
                     <DataGridTextColumn Header="STR eff cv"
-                                        Binding="{Binding StoresEffectiveCover}"
+                                        Binding="{Binding StoresEffectiveCover, StringFormat=N1}"
                                         IsReadOnly="True" />
+                    <DataGridTextColumn Header="STR dis cv"
+                                        Binding="{Binding StoresCover}"
+                                        IsReadOnly="True" />                    
                     <DataGridCheckBoxColumn Header="Mon"
                                             Binding="{Binding MondayDistribution}" />
                     <DataGridCheckBoxColumn Header="Tue"

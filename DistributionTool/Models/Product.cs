@@ -51,11 +51,7 @@ namespace DistributionTool.Models
         /// <summary>
         /// Product quantity available in warehouse for distribution to stores.
         /// </summary>
-        public int WarehouseFreeQty { get; set; }
-        /// <summary>
-        /// Product quantity available in warehouse for distribution to stores.
-        /// </summary>
-        public int WarehouseDistributedQty { get; set; }
+        public int WarehouseFreeQty { get; set; }      
         /// <summary>
         /// Number of stores with smaller quantity of product than the set minimum. 
         /// </summary>
@@ -102,8 +98,7 @@ namespace DistributionTool.Models
             product.Color = this.Color;
             product.PackSize = this.PackSize;
             product.Promotion = this.Promotion;
-            product.WarehouseFreeQty = this.WarehouseFreeQty;
-            product.WarehouseDistributedQty = this.WarehouseDistributedQty;
+            product.WarehouseFreeQty = this.WarehouseFreeQty;           
             product.StoresBelowMinimum = this.StoresBelowMinimum;
             product.StoresEffectiveCover = this.StoresEffectiveCover;
             product.MondayDistribution = this.MondayDistribution;

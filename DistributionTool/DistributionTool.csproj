@@ -232,6 +232,10 @@
     <Compile Include="Migrations\202010312137221_AddSalesWeekTable.designer.cs">
       <DependentUpon>202010312137221_AddSalesWeekTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011081038394_CorrectionInProductTable.cs" />
+    <Compile Include="Migrations\202011081038394_CorrectionInProductTable.designer.cs">
+      <DependentUpon>202011081038394_CorrectionInProductTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\DistributedPLUPacks.cs" />
     <Compile Include="Models\Distribution.cs" />
     <Compile Include="Models\GroupCurve.cs" />
@@ -406,6 +410,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202010312137221_AddSalesWeekTable.resx">
       <DependentUpon>202010312137221_AddSalesWeekTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011081038394_CorrectionInProductTable.resx">
+      <DependentUpon>202011081038394_CorrectionInProductTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
