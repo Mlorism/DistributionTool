@@ -20,15 +20,11 @@ namespace DistributionTool.ViewModels
 		public static RelayCommand SaveParametersCommand { get; set; }
 		public static RelayCommand ReloadParametersCommand { get; set; }
 		public static RelayCommand CreateDistibutionCommand { get; set; }
-
 		public static RelayCommand ClearDistributionCommand { get; set; }
-
 		#endregion
 
 		#region Properties
-
 		static bool tabCreated = false;
-
 		private static Product selectedProduct;
 		public static Product SelectedProduct 
 		{
@@ -45,7 +41,6 @@ namespace DistributionTool.ViewModels
 		public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
 		public int DistributedPcs { get; set; }
 		public int TotalPcs { get; set; }
-
 		private static ObservableCollection<ProductParameters> selectedProductParameters;
 		public static ObservableCollection<ProductParameters> SelectedProductParameters 
 		{
@@ -153,24 +148,16 @@ namespace DistributionTool.ViewModels
 		public void ReloadParameters(object x)
 		{
 			ProductParameterListViewModel.Instance.Refresh();
+			DistributionListViewModel.Instance.Refresh();
 
-			var productParameterList = new CollectionViewSource()
-			{
-				Source = ProductParameterListViewModel.Instance.ParametersList
-					.Where(p => p.PLU == SelectedProduct.PLU)
-					.Select(c => ((ProductParameters)(c.Clone()))).ToList()
-			};
-
-			SelectedProductParameters = ProductParameterListViewModel.Instance.GetProductParameters(SelectedProduct.PLU);
-
+			SelectedProductParameters = ProductParameterListViewModel.Instance.GetProductParameters(SelectedProduct.PLU);			  
 			CollectionViewSource.GetDefaultView(SelectedProductParameters).Refresh();
+			RaiseStaticPropertyChanged("SelectedProductParameters");
 
-			/// Reload selected product.
-			var PLU = SelectedProduct.PLU;
-			SelectedProduct = MainWindowViewModel.Context.Products.FirstOrDefault(p => p.PLU == PLU);
-			
-			//RaiseStaticPropertyChanged("SelectedProduct");
-			OnPropertyChange("SelectedProduct");
+			SelectedProductList = DistributionListViewModel.Instance.GetProduct(ProductsViewModel.SelectedProduct.PLU);
+			CollectionViewSource.GetDefaultView(SelectedProductList).Refresh();
+			RaiseStaticPropertyChanged("SelectedProductList");
+
 
 		} // ReloadParameters()
 
