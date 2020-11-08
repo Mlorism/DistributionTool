@@ -26,7 +26,22 @@ namespace DistributionTool.ViewModels
 		#endregion
 
 		#region Properties
-		public static Product SelectedProduct { get; set; } = ProductsListViewModel.Instance.ProductList.FirstOrDefault();
+
+		static bool tabCreated = false;
+
+		public static Product selectedProduct;
+		public static Product SelectedProduct 
+		{
+			get
+			{
+				return selectedProduct;
+			}
+			set
+			{
+				selectedProduct = value;
+				RaiseStaticPropertyChanged("SelectedProduct");
+			} 
+		}
 		public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
 		public int DistributedPcs { get; set; }
 		public int TotalPcs { get; set; } 
@@ -44,6 +59,12 @@ namespace DistributionTool.ViewModels
 		public DistributionViewModel()
 		{
 			TabName = "Distribution";
+
+			if (tabCreated == false)
+			{ 
+				SelectedProduct = ProductsListViewModel.Instance.ProductList.FirstOrDefault();
+				tabCreated = true;
+			}
 
 			if (SelectedProduct.PLU != ProductsViewModel.SelectedProduct.PLU)
 			{
@@ -102,12 +123,15 @@ namespace DistributionTool.ViewModels
 				ParameterRow.Cover = currentParameter.Cover;
 			}
 
-			Product methodProduct = MainWindowViewModel.Context.Products.Where(p => p.PLU == SelectedProduct.PLU).FirstOrDefault();
-			methodProduct.MethodOfDistribution = SelectedProduct.MethodOfDistribution;
+			MainWindowViewModel.Context.Products.FirstOrDefault(o => o.PLU == SelectedProduct.PLU).MethodOfDistribution
+				= SelectedProduct.MethodOfDistribution;			
 
 			MainWindowViewModel.SaveContext();
+
+			ProductsListViewModel.Instance.Refresh();
 			ProductParameterListViewModel.Instance.Refresh();
-			ReloadParameters(new object());
+
+			ReloadParameters(null);
 		} // SaveParameters()
 
 		/// <summary>

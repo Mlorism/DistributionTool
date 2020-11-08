@@ -106,7 +106,7 @@
         <!--#region Notification bar-->
         <TextBlock Grid.Row="2"
                    Background="LightGray"
-                   Text="{Binding NotificationText}"                   
+                   Text="{Binding NotificationText, UpdateSourceTrigger=PropertyChanged}"                   
                    TextAlignment="Center"
                    FontWeight="Bold"
                    Foreground="Red"/>

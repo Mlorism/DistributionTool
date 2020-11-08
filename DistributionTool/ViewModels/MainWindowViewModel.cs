@@ -71,7 +71,6 @@ namespace DistributionTool.ViewModels
 			set
 			{
 				notificationText = value;
-
 				RaiseStaticPropertyChanged("NotificationText");
 			}
 		}
@@ -195,13 +194,14 @@ namespace DistributionTool.ViewModels
 
 		#region Tasks
 		private static Task ShowNotification(string text)
-		{
+		{	
 			return Task.Factory.StartNew(() =>
 			{
 				NotificationText = text;
 				Thread.Sleep(6000);
 				NotificationText = "";
 			});
+			
 		} // ShowNotification()
 		#endregion
 	}

@@ -151,6 +151,7 @@ namespace DistributionTool.ViewModels
 		public void TodayDistribution(object x)
 		{
 			DateTime today = DateTime.Now;			
+
 			foreach (var line in ProductsFilteredList)
 			{
 				if (line.MondayDistribution == true && today.DayOfWeek == DayOfWeek.Monday) DistributionCalculator.CalculateDistribution(line.PLU);
@@ -162,6 +163,8 @@ namespace DistributionTool.ViewModels
 			}
 
 			Refresh(null);
+
+			MainWindowViewModel.NotifyUser("Today distribution finished.");
 		} // TodayDistribution() creates distribution foreach product with selected current day of the week (if weekend then for friday)
 		public void StoresBelowMinimumCalculator()
 		{

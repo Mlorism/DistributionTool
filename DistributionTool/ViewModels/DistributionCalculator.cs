@@ -66,18 +66,22 @@ namespace DistributionTool.ViewModels
 			{
 				case DistributionMethodEnum.KeepMinimum:
 					KeepMinimumDistibution(SelectedProductDistributionList, distributedProduct);
+					MainWindowViewModel.NotifyUser("KeepMinimum");
 					break;
 
 				case DistributionMethodEnum.WeeksOfSales:
 					WeeksOfSalesDistibution(SelectedProductDistributionList, distributedProduct);
+					MainWindowViewModel.NotifyUser("WeeksOfSales");
 					break;
 
 				case DistributionMethodEnum.GroupTrend:
 					GroupTrendDistibution(SelectedProductDistributionList, distributedProduct);
+					MainWindowViewModel.NotifyUser("GroupTrend");
 					break;
 
 				case DistributionMethodEnum.FinalDistribution:
 					FinalDistributionDistibution(SelectedProductDistributionList, distributedProduct);
+					MainWindowViewModel.NotifyUser("FinalDistribution");
 					break;
 			}
 
