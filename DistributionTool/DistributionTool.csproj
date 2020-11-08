@@ -144,6 +144,7 @@
     <Compile Include="Converters\DistributionMethodToStringConverter.cs" />
     <Compile Include="Converters\MultipleValuesConverter.cs" />
     <Compile Include="Converters\PLUToAvailableReservedPackConverter.cs" />
+    <Compile Include="Converters\PLUToDistributionCoverConverter.cs" />
     <Compile Include="Converters\ProductGroupToStringConverter.cs" />
     <Compile Include="Converters\ProductSubGroupToStringConverter.cs" />
     <Compile Include="Converters\QuantityToPacksConverter.cs" />
@@ -238,6 +239,7 @@
     </Compile>
     <Compile Include="Models\DistributedPLUPacks.cs" />
     <Compile Include="Models\Distribution.cs" />
+    <Compile Include="Models\DistributionCover.cs" />
     <Compile Include="Models\GroupCurve.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductDistribution.cs" />
@@ -252,7 +254,8 @@
     <Compile Include="ViewModels\DataSets\TableToDbExtraction.cs" />
     <Compile Include="ViewModels\DistributionCalculator.cs" />
     <Compile Include="ViewModels\DistributionViewModel.cs" />
-    <Compile Include="ViewModels\Lists\DistributedPLUPacksViewModel.cs" />
+    <Compile Include="ViewModels\Lists\DistributedPLUPacksListViewModel.cs" />
+    <Compile Include="ViewModels\Lists\DistributionCoverListViewModel.cs" />
     <Compile Include="ViewModels\Lists\DistributionListViewModel.cs" />
     <Compile Include="ViewModels\Lists\ProductParameterListViewModel.cs" />
     <Compile Include="ViewModels\Lists\ProductsListViewModel.cs" />

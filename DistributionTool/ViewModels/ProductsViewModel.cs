@@ -124,7 +124,7 @@ namespace DistributionTool.ViewModels
 		public void Refresh(object x)
 		{
 			ProductsListViewModel.Instance.Refresh();
-			DistributedPLUPacksViewModel.Instance.Refresh();
+			DistributedPLUPacksListViewModel.Instance.Refresh();
 
 			StoresBelowMinimumCalculator();
 			ProductsDistributionCoverCalculator();
@@ -155,7 +155,6 @@ namespace DistributionTool.ViewModels
 
 			Refresh(null);
 		} // TodayDistribution() creates distribution foreach product with selected current day of the week (if weekend then for friday)
-
 		public void StoresBelowMinimumCalculator()
 		{
 			foreach(Product line in ProductsFilteredList)
@@ -168,10 +167,9 @@ namespace DistributionTool.ViewModels
 				if (line.StockAfterDistribution < line.Min) productsFilteredList.FirstOrDefault(x => x.PLU == line.PLU).StoresBelowMinimum++;
 			}
 		} // StoresBelowMinimumCalculator() calculate how many stores does not meet minimum qty requirement
-
 		public void ProductsDistributionCoverCalculator()
 		{
-
+			DistributionCoverListViewModel.Instance.Refresh();
 		} // StoresDistributionCoverCalculator() calculate product distribution covers
 
 		#endregion

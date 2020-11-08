@@ -11,7 +11,7 @@ namespace DistributionTool.ViewModels.Lists
 	/// <summary>
 	/// ObservableCollection model containing packs that are distributed from total amount in distribution center
 	/// </summary>
-	public class DistributedPLUPacksViewModel
+	public class DistributedPLUPacksListViewModel
 	{
 		#region Properties
 		private readonly ObservableCollection<DistributedPLUPacks> distributedPacksList = new ObservableCollection<DistributedPLUPacks>();
@@ -19,10 +19,10 @@ namespace DistributionTool.ViewModels.Lists
 		#endregion
 
 		#region Constructor
-		private static DistributedPLUPacksViewModel instance = new DistributedPLUPacksViewModel();
-		public static DistributedPLUPacksViewModel Instance => instance;
+		private static DistributedPLUPacksListViewModel instance = new DistributedPLUPacksListViewModel();
+		public static DistributedPLUPacksListViewModel Instance => instance;
 
-		static DistributedPLUPacksViewModel() => Instance.Refresh();	   
+		static DistributedPLUPacksListViewModel() => Instance.Refresh();	   
 		#endregion
 
 		#region Methods

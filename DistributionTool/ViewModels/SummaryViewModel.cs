@@ -98,7 +98,7 @@ namespace DistributionTool.ViewModels
 			}
 
 			MainWindowViewModel.SaveContext();
-			DistributedPLUPacksViewModel.Instance.Refresh();
+			DistributedPLUPacksListViewModel.Instance.Refresh();
 			DistributionListViewModel.Instance.Refresh();
 
 		} // ClearDistribution() clearing distribution from database

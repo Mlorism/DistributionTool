@@ -11,21 +11,18 @@ using DistributionTool.ViewModels.Lists;
 
 namespace DistributionTool.Converters
 {
-	class PLUToAvailableReservedPackConverter : IValueConverter
+	public class PLUToDistributionCoverConverter : IValueConverter
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			if (value is int PLU)
+			if (value is int)
 			{
-				int distributed = DistributedPLUPacksListViewModel.Instance.DistributedPacksList.FirstOrDefault(x => x.PLU == PLU).DistributedPc;
-				Product product = ProductsListViewModel.Instance.ProductList.FirstOrDefault(x => x.PLU == PLU);
-				int AvailableInDC = product.WarehouseFreeQty / product.PackSize;
-
-				return $"{distributed} / {AvailableInDC}";
+				return DistributionCoverListViewModel.Instance.DistributionCoverList.FirstOrDefault(x => x.PLU == (int)value).DisCover;
 			}
+			
+			else return 0;
 
-			else return "";
-		} //Convert()
+		} // Convert()
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{

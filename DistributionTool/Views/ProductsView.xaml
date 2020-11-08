@@ -26,6 +26,7 @@
         <conv:ProductGroupToStringConverter x:Key="ProductGroupToStringConverter" />
         <conv:ProductSubGroupToStringConverter x:Key="ProductSubGroupToStringConverter" />
         <conv:PLUToAvailableReservedPackConverter x:Key="PLUToAvailableReservedPackConverter" />
+        <conv:PLUToDistributionCoverConverter x:Key="PLUToDistributionCoverConverter" />
 
     </UserControl.Resources>
     <!--#endregion-->
@@ -137,7 +138,9 @@
                                         Binding="{Binding StoresEffectiveCover, StringFormat=N1}"
                                         IsReadOnly="True" />
                     <DataGridTextColumn Header="STR dis cv"
-                                        Binding="{Binding StoresCover}"
+                                        Binding="{Binding PLU, 
+                                                          StringFormat=N1,
+                                                          Converter={StaticResource PLUToDistributionCoverConverter}}"
                                         IsReadOnly="True" />                    
                     <DataGridCheckBoxColumn Header="Mon"
                                             Binding="{Binding MondayDistribution}" />

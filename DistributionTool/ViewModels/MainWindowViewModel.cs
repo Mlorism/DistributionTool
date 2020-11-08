@@ -91,7 +91,7 @@ namespace DistributionTool.ViewModels
 
 			ProductsListViewModel.Instance.Refresh();
 			DistributionListViewModel.Instance.Refresh();
-			DistributedPLUPacksViewModel.Instance.Refresh();
+			DistributedPLUPacksListViewModel.Instance.Refresh();
 		}
 		#endregion
 
