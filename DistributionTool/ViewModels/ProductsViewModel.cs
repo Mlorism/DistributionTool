@@ -142,16 +142,15 @@ namespace DistributionTool.ViewModels
 		} // ProductDistribution()		
 		public void TodayDistribution(object x)
 		{
-			DateTime today = DateTime.Now;
-			
+			DateTime today = DateTime.Now;			
 			foreach (var line in ProductsFilteredList)
 			{
-				if (line.MondayDistribution == true && today.Day == 2) DistributionCalculator.CalculateDistribution(line.PLU);
-				else if (line.TuesdayDistribution == true && today.Day == 3) DistributionCalculator.CalculateDistribution(line.PLU);
-				else if (line.WednesdayDistribution == true && today.Day == 4) DistributionCalculator.CalculateDistribution(line.PLU);
-				else if (line.ThursdayDistribution == true && today.Day == 5) DistributionCalculator.CalculateDistribution(line.PLU);
-				else if (line.FridayDistribution == true && today.Day == 6) DistributionCalculator.CalculateDistribution(line.PLU);
-				else if ((today.Day == 1 || today.Day == 7) && line.FridayDistribution == true) DistributionCalculator.CalculateDistribution(line.PLU);	
+				if (line.MondayDistribution == true && today.DayOfWeek == DayOfWeek.Monday) DistributionCalculator.CalculateDistribution(line.PLU);
+				else if (line.TuesdayDistribution == true && today.DayOfWeek == DayOfWeek.Tuesday) DistributionCalculator.CalculateDistribution(line.PLU);
+				else if (line.WednesdayDistribution == true && today.DayOfWeek == DayOfWeek.Wednesday) DistributionCalculator.CalculateDistribution(line.PLU);
+				else if (line.ThursdayDistribution == true && today.DayOfWeek == DayOfWeek.Thursday) DistributionCalculator.CalculateDistribution(line.PLU);
+				else if (line.FridayDistribution == true && today.DayOfWeek == DayOfWeek.Friday) DistributionCalculator.CalculateDistribution(line.PLU);
+				else if ((today.DayOfWeek == DayOfWeek.Saturday || today.DayOfWeek == DayOfWeek.Sunday) && line.FridayDistribution == true) DistributionCalculator.CalculateDistribution(line.PLU);	
 			}
 
 			Refresh(null);
@@ -159,7 +158,15 @@ namespace DistributionTool.ViewModels
 
 		public void StoresBelowMinimumCalculator()
 		{
+			foreach(Product line in ProductsFilteredList)
+			{
+				line.StoresBelowMinimum = 0;
+			}
 
+			foreach (var line in DistributionListViewModel.Instance.DistributionList)
+			{
+				if (line.StockAfterDistribution < line.Min) productsFilteredList.FirstOrDefault(x => x.PLU == line.PLU).StoresBelowMinimum++;
+			}
 		} // StoresBelowMinimumCalculator() calculate how many stores does not meet minimum qty requirement
 
 		public void ProductsDistributionCoverCalculator()
