@@ -29,7 +29,7 @@ namespace DistributionTool.ViewModels
 
 		static bool tabCreated = false;
 
-		public static Product selectedProduct;
+		private static Product selectedProduct;
 		public static Product SelectedProduct 
 		{
 			get
@@ -44,9 +44,21 @@ namespace DistributionTool.ViewModels
 		}
 		public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
 		public int DistributedPcs { get; set; }
-		public int TotalPcs { get; set; } 
-		
-		public static ObservableCollection<ProductParameters> SelectedProductParameters { get; set; } = new ObservableCollection<ProductParameters>();
+		public int TotalPcs { get; set; }
+
+		private static ObservableCollection<ProductParameters> selectedProductParameters;
+		public static ObservableCollection<ProductParameters> SelectedProductParameters 
+		{
+			get 
+			{ 
+				return selectedProductParameters; 
+			}
+			set
+			{
+				selectedProductParameters = value;
+				RaiseStaticPropertyChanged("SelectedProductParameters");
+			}
+		} 
 
 		/// <summary>
 		/// DistributionListViewModel only for selected product.
@@ -63,6 +75,7 @@ namespace DistributionTool.ViewModels
 			if (tabCreated == false)
 			{ 
 				SelectedProduct = ProductsListViewModel.Instance.ProductList.FirstOrDefault();
+				SelectedProductParameters = new ObservableCollection<ProductParameters>();
 				tabCreated = true;
 			}
 
