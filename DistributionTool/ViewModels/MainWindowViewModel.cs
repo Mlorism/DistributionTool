@@ -29,18 +29,18 @@ namespace DistributionTool.ViewModels
 		public RelayCommand LoadSalesCurvesCommand { get; set; }
 		public RelayCommand SaveDistributionCommand { get; set; }
 		public RelayCommand AboutCommand { get; set; }
-		
+
 		#endregion
 
 		#region Properties
 		/// <summary>
 		/// Tabs containing ViewModels to be loaded according to user's permissions
 		/// </summary>
-		public static IList<ITab> Tabs { get; set; }		
+		public static IList<ITab> Tabs { get; set; }
 
 		private static ApplicationDbContext context = new ApplicationDbContext();
-		
-		public static ApplicationDbContext Context 
+
+		public static ApplicationDbContext Context
 		{
 			get
 			{
@@ -52,34 +52,34 @@ namespace DistributionTool.ViewModels
 		}
 
 		public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
-		
+
 		private static User loggedInUser;
 		public static User LoggedInUser
 		{
 			get { return loggedInUser; }
-			set 
-			{ 				
+			set
+			{
 				loggedInUser = value;
-				RaiseStaticPropertyChanged("LoggedInUser");				
+				RaiseStaticPropertyChanged("LoggedInUser");
 			}
-		}				
+		}
 
 		private static string notificationText;
 		public static string NotificationText
 		{
 			get { return notificationText; }
-			set 
-			{ 
+			set
+			{
 				notificationText = value;
 
 				RaiseStaticPropertyChanged("NotificationText");
 			}
-		}		
+		}
 		#endregion
 
 		#region Constructor
 		public MainWindowViewModel()
-		{			
+		{
 			LoadLoginPage();
 
 			LogOutCommand = new RelayCommand(LogOut, null);
@@ -91,7 +91,7 @@ namespace DistributionTool.ViewModels
 
 			ProductsListViewModel.Instance.Refresh();
 			DistributionListViewModel.Instance.Refresh();
-			DistributedPLUPacksListViewModel.Instance.Refresh();			
+			DistributedPLUPacksListViewModel.Instance.Refresh();
 		}
 		#endregion
 
@@ -106,9 +106,9 @@ namespace DistributionTool.ViewModels
 			if (Tabs.Count > 0)
 			{
 				Tabs.Clear();
-			}		
+			}
 
-			Tabs.Add(new LoginViewModel());			
+			Tabs.Add(new LoginViewModel());
 
 			RaiseStaticPropertyChanged("Tabs");
 		} // LoadTabs() create and load login page to the tab collection
@@ -124,10 +124,15 @@ namespace DistributionTool.ViewModels
 				Tabs.Clear();
 			}
 
-			Tabs.Add(new AdminViewModel());
-			Tabs.Add(new ProductsViewModel());			
+			if (LoggedInUser.Type == UserTypeEnum.Admin)
+				Tabs.Add(new AdminViewModel());
+
+			Tabs.Add(new ProductsViewModel());
 			Tabs.Add(new DistributionViewModel());
+
+			if (LoggedInUser.Type == UserTypeEnum.AllocationManager || LoggedInUser.Type == UserTypeEnum.Admin)
 			Tabs.Add(new SummaryViewModel());
+
 			Tabs.Add(new SettingsViewModel());
 
 			RaiseStaticPropertyChanged("Tabs");			
@@ -139,8 +144,7 @@ namespace DistributionTool.ViewModels
 		public static void LogIn(object x)
 		{
 			LoggedInUser = (User)x;
-			LoadTabs();
-			//ClearData();
+			LoadTabs();			
 		} // LogIn()
 		public static void LogOut(object x)
 		{
@@ -168,28 +172,24 @@ namespace DistributionTool.ViewModels
 			DataSet data = ExcelConnection.ImportFile("DataBaseData.xlsx");			
 			TableToDbExtraction.ExportToDatabase(data);
 		} // LoadDataToDatabase
-
 		public static void LoadSalesCurves(object x)
 		{
 			DataSet data = ExcelConnection.ImportFile("salesCurves.xlsx");
 			NotifyUser("Sales Curves and Weeks data loaded to temporary memory.");
 			TableToDbExtraction.LoadCurvesAndWeeks(data);
 		} // LoadSalesCurves()
-
 		public static void ReloadContext()
 		{
 			context = new ApplicationDbContext();
 		} // ReloadContext()
-
 		public static void SaveDistribution(object x)
 		{
 			SummaryViewModel.SaveDistribution(null);
 		} // SaveDistribution() save dristribution from application to database
-
 		public static void About(object x)
 		{
 			MessageBox.Show("© 2020 Marcin Kupiński. All right reserved. Mail: Mlorism@gmail.com");
-		}
+		} // About()
 
 		#endregion
 

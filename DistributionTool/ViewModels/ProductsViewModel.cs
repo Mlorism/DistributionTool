@@ -206,10 +206,6 @@ namespace DistributionTool.ViewModels
 			MainWindowViewModel.SaveContext();
 		} // ProductEffectiveCoverCalculator() calculate products effective covers
 
-		#endregion
-
-		#region Validators
-
-		#endregion
+		#endregion		
 	}
 }
