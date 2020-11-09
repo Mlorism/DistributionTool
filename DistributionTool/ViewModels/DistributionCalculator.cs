@@ -256,13 +256,17 @@ namespace DistributionTool.ViewModels
 							|| (store.StockAfterDistribution >= store.Max))
 						{
 							statuses.Where(x => x.storeNo == store.StoreNumber).FirstOrDefault().status = true;
-							storeStatus.summary++;
-							store.DistributionCover = store.StockAfterDistribution / store.AverageSales;
+							storeStatus.summary++;							
 						}
 					}
 				} // foreach loop for every store				
 
 				if (freePc == 0) break;
+			}
+
+			foreach (var store in distributionList)
+			{
+				store.DistributionCover = store.StockAfterDistribution / store.AverageSales;
 			}
 		} // GroupTrendDistibution() calculate distribution according to Group Trend method
 		
